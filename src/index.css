@@ -1,0 +1,9 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html, body, #root { height: 100%; }
+
+/* Soft shadows and rounded aesthetics */
+.rounded-2xl { border-radius: 1rem; }
+.shadow-soft { box-shadow: 0 10px 30px rgba(0,0,0,0.05); }

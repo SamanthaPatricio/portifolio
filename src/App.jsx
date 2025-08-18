@@ -535,3 +535,53 @@ function useTheme() {
   const toggle = () => setTheme((t) => (t === "dark" ? "light" : "dark"));
   return { theme, toggle };
 }
+function Nav({ theme, toggleTheme }) {
+  const links = [
+    { id: "sobre", label: "Sobre" },
+    { id: "projetos", label: "Projetos" },
+    { id: "livros", label: "Livros" },
+    { id: "skills", label: "Skills" },
+    { id: "trajetoria", label: "Trajetória" },
+    { id: "formacao", label: "Formação" },
+    { id: "contato", label: "Contato" },
+  ];
+  return (
+    <nav className="fixed inset-x-0 top-4 z-50 mx-auto w-fit rounded-full border bg-white/70 dark:bg-neutral-900/50 dark:border-neutral-800 backdrop-blur px-3 md:px-4 py-2 shadow-soft">
+      <ul className="flex items-center gap-3">
+        <li className="hidden md:block">
+          <a href="#sobre" className="flex items-center gap-2 pr-2">
+            {ME.logo && <img src={ME.logo} alt="logo" className="h-6 w-6 object-contain" />}
+            <span className="text-sm font-medium">{ME.nome.split(" ")[0]}</span>
+          </a>
+        </li>
+        {links.map((l) => (
+          <li key={l.id}>
+            <a href={`#${l.id}`} className="text-sm hover:opacity-70">
+              {l.label}
+            </a>
+          </li>
+        ))}
+
+        {/* botão tema */}
+        <li className="pl-1">
+          <button
+            onClick={toggleTheme}
+            className="rounded-full border px-2 py-1 text-xs hover:opacity-80 dark:border-neutral-700"
+            title="Alternar tema"
+          >
+            {theme === "dark" ? <Sun className="h-4 w-4" /> : <Moon className="h-4 w-4" />}
+          </button>
+        </li>
+      </ul>
+    </nav>
+  );
+}
+export default function App() {
+  const { theme, toggle } = useTheme();
+
+  return (
+    <div className="relative min-h-screen bg-white dark:bg-[#0c0c0c] text-gray-900 dark:text-gray-100 antialiased">
+      <Nav theme={theme} toggleTheme={toggle} />
+      {/* ... resto igual */}
+      <section id="skills" className="bg-gray-100 dark:bg-neutral-900/40 py-12">
+        <div className="absolute left-4 top-0 bottom-0 w-px bg-gray-200 dark:bg-neutral-800" />

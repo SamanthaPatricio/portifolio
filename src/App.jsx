@@ -60,16 +60,15 @@ const LIVROS = [
     titulo: "Como Implementar um Setor de RH Estratégico",
     sub: "Guia prático",
     link: "https://www.amazon.com.br/Como-Implementar-Setor-RH-Estrat%C3%A9gico-ebook/dp/B0FBY5S5YW",
-    capa: "/capas/rh-estrategico.jpg?v=2",
+    capa: "https://m.media-amazon.com/images/I/61f8jkvibKL._SY466_.jpg",
   },
   {
     titulo: "METODOLOGIA C.I.R.C.U.L.O",
     sub: "Samantha Patrício",
     link: "https://www.amazon.com.br/METODOLOGIA-C-I-R-C-U-L-SAMANTHA-PATR%C3%8DCIO-ebook/dp/B0FDJN7TSQ",
-    capa: "/capas/metodologia-circulo.jpg?v=2",
+    capa: "https://m.media-amazon.com/images/I/31X7RaCqo9L._SY445_.jpg",
   },
 ];
-
 
 /* ===================== PLANILHAS & KITS ===================== */
 const PLANILHAS = [

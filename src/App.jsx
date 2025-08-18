@@ -16,11 +16,12 @@ import {
 import { Button } from "./components/ui/button";
 import { Card, CardHeader, CardTitle, CardContent } from "./components/ui/card";
 
-/* ===================== CONFIG BÁSICA ===================== */
+/* ===================== CONFIG BÁSICA (ATUALIZADA) ===================== */
 const ME = {
   nome: "Samantha Patrício",
   titulo: "RH • Estratégia • Cultura • Design de Experiências",
-  bio: "Integro Pessoas, Processos e Espaços. Crio experiências vivas para marcas e times.",
+  bio:
+    "Meu nome é Samantha Patrício, 26 anos. Atuo como RH Generalista há 7 anos e já liderei a implementação do RH do zero, estruturando subsistemas e rotinas. Com atuação estratégica e visão de futuro, alinho práticas de RH à cultura e aos objetivos do negócio. Estou em busca de novos desafios e aberta a oportunidades na área de Recursos Humanos.",
   email: "samantha.patricio56@outlook.com",
   github: "https://github.com/SamanthaPatricio",
   linkedin: "https://www.linkedin.com/in/samanthapatricio/",
@@ -32,37 +33,61 @@ const ME = {
 const PROJETOS = [
   {
     titulo: "Playbook de Onboarding com Cultura Viva",
-    descricao: "Onboarding interativo (microlearning, rituais e métricas de adaptação).",
+    descricao:
+      "Onboarding interativo (microlearning, rituais e métricas de adaptação).",
     tags: ["RH Estratégico", "Onboarding", "Métricas"],
     link: "#",
   },
   {
     titulo: "Arquitetura de Cultura & Espaço",
-    descricao: "Diretrizes para layout, ergonomia, psicologia das cores e rituais de equipe.",
+    descricao:
+      "Diretrizes para layout, ergonomia, psicologia das cores e rituais de equipe.",
     tags: ["Arquitetura Corporativa", "Ergonomia", "Branding"],
     link: "#",
   },
   {
     titulo: "Livro: Por que os RHs adoecem",
-    descricao: "Obra autoral com análise antropológica, psicológica e socioeconômica.",
+    descricao:
+      "Obra autoral com análise antropológica, psicológica e socioeconômica.",
     tags: ["Livro", "Pesquisa", "Ensaios"],
     link: "#",
   },
 ];
 
-/* ===================== LIVROS ===================== */
+/* ===================== LIVROS — use /public/capas/ ===================== */
 const LIVROS = [
   {
     titulo: "Como Implementar um Setor de RH Estratégico",
     sub: "Guia prático",
-    link: "https://www.amazon.com.br/Como-Implementar-Setor-RH-Estrat%C3%A9gico-ebook/dp/B0FBY5S5YW",
-    capa: "/capas/rh-estrategico.jpg", // public/capas/...
+    link:
+      "https://www.amazon.com.br/Como-Implementar-Setor-RH-Estrat%C3%A9gico-ebook/dp/B0FBY5S5YW",
+    capa: "/capas/rh-estrategico.jpg", // salve a capa aqui
   },
   {
     titulo: "METODOLOGIA C.I.R.C.U.L.O",
     sub: "Samantha Patrício",
-    link: "https://www.amazon.com.br/METODOLOGIA-C-I-R-C-U-L-SAMANTHA-PATR%C3%8DCIO-ebook/dp/B0FDJN7TSQ",
-    capa: "/capas/metodologia-circulo.jpg",
+    link:
+      "https://www.amazon.com.br/METODOLOGIA-C-I-R-C-U-L-SAMANTHA-PATR%C3%8DCIO-ebook/dp/B0FDJN7TSQ",
+    capa: "/capas/metodologia-circulo.jpg", // salve a capa aqui
+  },
+];
+
+/* ===================== PLANILHAS & KITS ===================== */
+const PLANILHAS = [
+  {
+    titulo: "Análise SWOT (Planilha)",
+    sub: "Ferramenta prática para diagnóstico estratégico",
+    link: "https://lnkd.in/e6fGsFac",
+  },
+  {
+    titulo: "Cargos & Salários (Planilha)",
+    sub: "Estruture trilhas e faixas salariais",
+    link: "https://go.hotmart.com/P98376571U",
+  },
+  {
+    titulo: "Kit Planilhas de Marketing",
+    sub: "Conjunto de planilhas para gestão e growth",
+    link: "https://go.hotmart.com/I98391084X",
   },
 ];
 
@@ -79,41 +104,45 @@ const SKILLS = [
   "Power BI / Excel",
 ];
 
-/* ===================== TIMELINE ===================== */
+/* ===================== TIMELINE (ATUALIZADA) ===================== */
 const TIMELINE = [
   {
     ano: "2025",
     titulo: "Autora & Consultora",
-    texto: "Lançamento de obras em RH e projetos de cultura organizacional hands-on.",
+    texto:
+      "Lançamento de obras em RH e projetos de cultura organizacional hands-on.",
   },
   {
     ano: "2024",
-    titulo: "Estruturação de RH — projeto confidencial",
-    texto: "Implantei processos para 4 unidades, ritos de gestão e indicadores.",
+    titulo: "Estruturação de RH",
+    texto:
+      "Implementei RH do zero e estruturei processos e subsistemas, com fortalecimento de gestão e indicadores.",
   },
   {
     ano: "2019–2023",
-    titulo: "Formações & Pesquisa",
+    titulo: "Base acadêmica & método científico",
     texto:
-      "Pesquisas em neuropsicologia, psicologia do trabalho, bioética; estudos em astronomia/astrofísica; práticas de laboratório (biotecnologia, radiobiologia, bioterismo, modelagem molecular).",
+      "Formação multidisciplinar (neuropsicologia, psicologia do trabalho e bioética) com prática de laboratório (biotecnologia, radiobiologia, bioterismo e modelagem molecular).",
   },
 ];
 
 /* ===================== FORMAÇÕES & CURSOS ===================== */
 const GRADUACOES = [
   { periodo: "2024–2026", titulo: "Tecnólogo em Recursos Humanos — em andamento" },
-  { periodo: "2024–2028", titulo: "Arquitetura e Urbanismo — Unicesumar (PROUNI)" },
+  {
+    periodo: "2024–2028",
+    titulo: "Arquitetura e Urbanismo — Unicesumar (PROUNI — Bolsa 100%)",
+  },
 ];
 
 const OUTRAS_FORMACOES = [
   "Biomedicina (4 anos) — Uniasselvi",
   "Auxiliar de Biotecnologia — UFV",
-  "Astrofísica e Cosmologia — UFSC (Prof. Alexandre Miers Zabot)",
-  "Fonoaudiologia (1 ano) — Univali",
-  "Publicidade e Propaganda (1 ano) — Univali",
-  "USP/ICB: Biotecnologia; Bioética; Bioterismo; Modelagem Molecular (GBI Hands On); Radiobiologia; Bioimpressão 3D; Ciências de animais de laboratório",
-  "Bioética — Harvard (edX)",
+  "UFSC — Astrofísica e Cosmologia; Neuroanatomia e Neurofisiologia",
+  "Univali — 1 ano de Fonoaudiologia; 1 ano de Publicidade e Propaganda; Simpósio de Ética em Pesquisas",
+  "USP/ICB — Biotecnologia; Bioética; Bioterismo (Ciência de animais de laboratório); Modelagem Molecular (GBI Hands On); Radiobiologia; Bioimpressão 3D; Orientação no Lab. de Controle Sanitário e Genético (ICB II); Minicurso de Perícia Criminal",
   "Solloagro — USP",
+  "Bioética — Harvard (edX)",
 ];
 
 const RH_CURSOS = [
@@ -251,7 +280,7 @@ function Hero() {
             transition={{ duration: 0.6 }}
             src={ME.logo}
             alt="Logotipo"
-            className="mx-auto mb-4 h-16 w-16 object-contain"
+            className="mx-auto mb-4 h-24 w-24 md:h-28 md:w-28 object-contain"
           />
         )}
         <motion.h1
@@ -325,7 +354,9 @@ function Projetos() {
   return (
     <section id="projetos" className="mx-auto max-w-6xl px-6 py-16">
       <div className="mb-8 flex items-end justify-between">
-        <h2 className="text-2xl md:text-3xl font-semibold text-brand-700">Projetos em Destaque</h2>
+        <h2 className="text-2xl md:text-3xl font-semibold text-brand-700 dark:text-white">
+          Projetos em Destaque
+        </h2>
         <div className="text-sm opacity-70">clique para saber mais</div>
       </div>
       <motion.div
@@ -419,12 +450,38 @@ function Book({ capa, titulo, link }) {
 function BooksSection() {
   return (
     <section id="livros" className="py-12 mx-auto max-w-6xl px-6">
-      <h2 className="text-2xl font-semibold mb-6 text-brand-700">Livros</h2>
+      <h2 className="text-2xl font-semibold mb-6 text-brand-700 dark:text-white">Livros</h2>
       <div className="flex flex-wrap gap-10">
         {LIVROS.map((b) => (
           <Book key={b.titulo} {...b} />
         ))}
       </div>
+    </section>
+  );
+}
+
+/* ===================== PLANILHAS & KITS ===================== */
+function PlanilhasSection() {
+  return (
+    <section id="planilhas" className="py-12 mx-auto max-w-6xl px-6">
+      <h2 className="text-2xl font-semibold mb-6 text-brand-700 dark:text-white">
+        Planilhas & Kits
+      </h2>
+      <ul className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+        {PLANILHAS.map((p) => (
+          <li key={p.titulo}>
+            <a
+              href={p.link}
+              target="_blank"
+              rel="noreferrer"
+              className="block rounded-2xl border p-4 hover:bg-gray-50 dark:hover:bg-neutral-800 transition"
+            >
+              <div className="font-medium">{p.titulo}</div>
+              <div className="text-xs opacity-70">{p.sub}</div>
+            </a>
+          </li>
+        ))}
+      </ul>
     </section>
   );
 }
@@ -479,9 +536,12 @@ function Timeline() {
 function FormacaoCursos() {
   return (
     <section id="formacao" className="mx-auto max-w-6xl px-6 py-16">
-      <h3 className="mb-6 text-xl font-semibold text-brand-700">Formação & Cursos</h3>
+      <h3 className="mb-6 text-xl font-semibold text-brand-700 dark:text-white">
+        Formação & Cursos
+      </h3>
 
       <div className="grid gap-6 md:grid-cols-2">
+        {/* Graduações */}
         <div className="rounded-2xl border p-5">
           <h4 className="font-medium mb-3">Graduações</h4>
           <ul className="space-y-2 text-sm">
@@ -493,8 +553,19 @@ function FormacaoCursos() {
           </ul>
         </div>
 
+        {/* Outras formações (resumo) */}
         <div className="rounded-2xl border p-5">
-          <h4 className="font-medium mb-3">Outras Formações</h4>
+          <div className="flex items-center justify-between mb-3">
+            <h4 className="font-medium">Outras Formações</h4>
+            <a
+              className="text-xs underline hover:opacity-80"
+              href="/curriculo.html"
+              target="_blank"
+              rel="noreferrer"
+            >
+              Currículo completo →
+            </a>
+          </div>
           <ul className="list-disc pl-5 text-sm space-y-1">
             {OUTRAS_FORMACOES.map((f, i) => (
               <li key={i}>{f}</li>
@@ -503,6 +574,7 @@ function FormacaoCursos() {
         </div>
       </div>
 
+      {/* Cursos de RH */}
       <div className="rounded-2xl border p-5 mt-6">
         <h4 className="font-medium mb-3">Cursos em RH (seleção)</h4>
         <div className="flex flex-wrap gap-2">
@@ -552,6 +624,7 @@ export default function App() {
       <Hero />
       <Projetos />
       <BooksSection />
+      <PlanilhasSection />
       <SkillsMarquee />
       <Timeline />
       <FormacaoCursos />

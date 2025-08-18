@@ -22,5 +22,6 @@ body {
 /* rolagem suave */
 html { scroll-behavior: smooth; }
 
-/* seleção na cor da marca */
+/* seleção */
 ::selection { background: rgba(157,124,43,.25); }
+

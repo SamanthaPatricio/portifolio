@@ -1,8 +1,6 @@
-import React, { useEffect, useRef, useState } from 'react'
-import { motion, useScroll, useTransform } from 'framer-motion'
-import { ArrowRight, Github, Linkedin, Mail, MousePointerClick, Rocket } from 'lucide-react'
-import { Button } from './components/ui/button.jsx'
-import { Card, CardContent, CardHeader, CardTitle } from './components/ui/card.jsx'
+import React, { useState } from "react";
+import { motion } from "framer-motion";
+
 
 // ====== CONFIG ======
 const ME = {

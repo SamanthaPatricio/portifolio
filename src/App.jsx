@@ -1,8 +1,18 @@
+// src/App.jsx
 import React, { useState, useRef, useEffect } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
 
-// ícones e componentes (mantém os mesmos caminhos do seu projeto)
-import { ArrowRight, Mail, Github, Linkedin, MousePointerClick, Rocket } from "lucide-react";
+import {
+  ArrowRight,
+  Mail,
+  Github,
+  Linkedin,
+  MousePointerClick,
+  Rocket,
+  Sun,
+  Moon,
+} from "lucide-react";
+
 import { Button } from "./components/ui/button";
 import { Card, CardHeader, CardTitle, CardContent } from "./components/ui/card";
 
@@ -15,7 +25,7 @@ const ME = {
   github: "https://github.com/SamanthaPatricio",
   linkedin: "https://www.linkedin.com/in/samanthapatricio/",
   cidades: ["Curitiba", "Santa Catarina", "Brasil"],
-  logo: "/logo.png",
+  logo: "/logo.png", // coloque em public/logo.png
 };
 
 /* ===================== PROJETOS ===================== */
@@ -46,7 +56,7 @@ const LIVROS = [
     titulo: "Como Implementar um Setor de RH Estratégico",
     sub: "Guia prático",
     link: "https://www.amazon.com.br/Como-Implementar-Setor-RH-Estrat%C3%A9gico-ebook/dp/B0FBY5S5YW",
-    capa: "/capas/rh-estrategico.jpg",
+    capa: "/capas/rh-estrategico.jpg", // public/capas/...
   },
   {
     titulo: "METODOLOGIA C.I.R.C.U.L.O",
@@ -103,7 +113,7 @@ const OUTRAS_FORMACOES = [
   "Publicidade e Propaganda (1 ano) — Univali",
   "USP/ICB: Biotecnologia; Bioética; Bioterismo; Modelagem Molecular (GBI Hands On); Radiobiologia; Bioimpressão 3D; Ciências de animais de laboratório",
   "Bioética — Harvard (edX)",
-  "Solloagro USP",
+  "Solloagro — USP",
 ];
 
 const RH_CURSOS = [
@@ -111,7 +121,7 @@ const RH_CURSOS = [
   "Microsoft Power BI para RH",
   "Diploma Course in Human Resource Management (HRM)",
   "Especialista em Departamento Pessoal",
-  "Analista comportamental: Profiler, DISC",
+  "Analista comportamental: Profiler & DISC",
   "People Analytics, OKR, BP, Cultura Organizacional, R&S, E-social, Folha, Indicadores, Endomarketing",
   "NR1/5/18/33/35 — Segurança & Ergonomia",
   "ESG e créditos de carbono",
@@ -155,8 +165,32 @@ function Badge({ children }) {
   );
 }
 
+/* ===================== TEMA (claro/escuro) ===================== */
+function useTheme() {
+  const getInitial = () => {
+    try {
+      const saved = localStorage.getItem("theme");
+      if (saved) return saved;
+    } catch {}
+    return window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+  };
+  const [theme, setTheme] = useState(getInitial);
+
+  useEffect(() => {
+    const root = document.documentElement;
+    if (theme === "dark") root.classList.add("dark");
+    else root.classList.remove("dark");
+    try {
+      localStorage.setItem("theme", theme);
+    } catch {}
+  }, [theme]);
+
+  const toggle = () => setTheme((t) => (t === "dark" ? "light" : "dark"));
+  return { theme, toggle };
+}
+
 /* ===================== NAV ===================== */
-function Nav() {
+function Nav({ theme, toggleTheme }) {
   const links = [
     { id: "sobre", label: "Sobre" },
     { id: "projetos", label: "Projetos" },
@@ -167,7 +201,7 @@ function Nav() {
     { id: "contato", label: "Contato" },
   ];
   return (
-    <nav className="fixed inset-x-0 top-4 z-50 mx-auto w-fit rounded-full border bg-white/70 backdrop-blur px-3 md:px-4 py-2 shadow-soft">
+    <nav className="fixed inset-x-0 top-4 z-50 mx-auto w-fit rounded-full border bg-white/70 dark:bg-neutral-900/60 dark:border-neutral-800 backdrop-blur px-3 md:px-4 py-2 shadow-soft">
       <ul className="flex items-center gap-3">
         <li className="hidden md:block">
           <a href="#sobre" className="flex items-center gap-2 pr-2">
@@ -182,6 +216,15 @@ function Nav() {
             </a>
           </li>
         ))}
+        <li className="pl-1">
+          <button
+            onClick={toggleTheme}
+            className="rounded-full border px-2 py-1 text-xs hover:opacity-80 dark:border-neutral-700"
+            title="Alternar tema"
+          >
+            {theme === "dark" ? <Sun className="h-4 w-4" /> : <Moon className="h-4 w-4" />}
+          </button>
+        </li>
       </ul>
     </nav>
   );
@@ -198,7 +241,7 @@ function Hero() {
     <section
       id="sobre"
       ref={ref}
-      className="relative flex min-h-screen items-center justify-center overflow-hidden bg-gradient-to-br from-brand-50 to-white"
+      className="relative flex min-h-screen items-center justify-center overflow-hidden bg-gradient-to-br from-brand-50 to-white dark:from-[#0f0f0f] dark:to-[#0b0b0b]"
     >
       <motion.div style={{ y, scale }} className="relative z-10 max-w-3xl text-center px-6">
         {ME.logo && (
@@ -316,7 +359,7 @@ function Projetos() {
   );
 }
 
-/* ===================== LIVROS (capa pra fora, sem inverter) ===================== */
+/* ===================== LIVROS (capa pra fora) ===================== */
 function Book({ capa, titulo, link }) {
   const [open, setOpen] = useState(false);
   return (
@@ -333,29 +376,31 @@ function Book({ capa, titulo, link }) {
           animate={{ rotateY: open ? -180 : 0 }}
           transition={{ type: "spring", stiffness: 120, damping: 16 }}
         >
-          <div className="w-full h-full rounded-2xl bg-white/95 grid place-items-center p-4">
+          <div className="w-full h-full rounded-2xl bg-white/95 dark:bg-neutral-900 grid place-items-center p-4">
             {capa ? (
               <img src={capa} alt={titulo} className="max-h-[75%] object-contain" />
             ) : (
               <img src="/logo.png" alt="logo" className="h-20 opacity-80" />
             )}
-            <p className="mt-3 text-sm font-medium text-gray-700 text-center px-2">{titulo}</p>
+            <p className="mt-3 text-sm font-medium text-gray-700 dark:text-gray-200 text-center px-2">
+              {titulo}
+            </p>
           </div>
         </motion.div>
 
-        {/* verso da capa (lado de dentro) */}
+        {/* verso da capa (dentro) */}
         <motion.div
           className="absolute inset-0 origin-left rounded-2xl shadow-inner"
           style={{ transform: "rotateY(180deg)", backfaceVisibility: "hidden" }}
           animate={{ rotateY: open ? 0 : 180 }}
           transition={{ type: "spring", stiffness: 120, damping: 16 }}
         >
-          <div className="w-full h-full rounded-2xl bg-gradient-to-br from-white to-gray-100 p-4 flex flex-col items-center justify-center">
+          <div className="w-full h-full rounded-2xl bg-gradient-to-br from-white to-gray-100 dark:from-neutral-900 dark:to-neutral-800 p-4 flex flex-col items-center justify-center">
             <a
               href={link}
               target="_blank"
               rel="noreferrer"
-              className="inline-flex items-center gap-2 rounded-2xl border px-4 py-2 text-sm hover:bg-black hover:text-white border-black"
+              className="inline-flex items-center gap-2 rounded-2xl border px-4 py-2 text-sm hover:bg-black hover:text-white border-black dark:border-white"
             >
               Ver na Amazon
             </a>
@@ -363,8 +408,8 @@ function Book({ capa, titulo, link }) {
         </motion.div>
 
         {/* página da direita */}
-        <div className="absolute left-[240px] top-0 w-[240px] h-[320px] rounded-2xl shadow-lg bg-white/90 grid place-items-center">
-          <span className="text-gray-500 text-sm">Passe o mouse na capa →</span>
+        <div className="absolute left-[240px] top-0 w-[240px] h-[320px] rounded-2xl shadow-lg bg-white/90 dark:bg-neutral-800 grid place-items-center">
+          <span className="text-gray-500 dark:text-gray-300 text-sm">Passe o mouse na capa →</span>
         </div>
       </div>
     </div>
@@ -387,7 +432,7 @@ function BooksSection() {
 /* ===================== SKILLS ===================== */
 function SkillsMarquee() {
   return (
-    <section id="skills" className="bg-gray-100 py-12">
+    <section id="skills" className="bg-gray-100 dark:bg-neutral-900/40 py-12">
       <div className="mx-auto max-w-6xl px-6">
         <h3 className="mb-6 text-xl font-semibold">Stack & Competências</h3>
         <div className="relative overflow-hidden">
@@ -414,11 +459,11 @@ function Timeline() {
     <section id="trajetoria" className="mx-auto max-w-5xl px-6 py-16">
       <h3 className="mb-8 text-xl font-semibold">Trajetória</h3>
       <div className="relative">
-        <div className="absolute left-4 top-0 bottom-0 w-px bg-gray-200" />
+        <div className="absolute left-4 top-0 bottom-0 w-px bg-gray-200 dark:bg-neutral-800" />
         <ul className="space-y-8">
           {TIMELINE.map((t, i) => (
             <li key={i} className="relative pl-10">
-              <span className="absolute left-2 top-1.5 block h-4 w-4 rounded-full border bg-white" />
+              <span className="absolute left-2 top-1.5 block h-4 w-4 rounded-full border bg-white dark:bg-neutral-900" />
               <div className="text-sm opacity-60">{t.ano}</div>
               <div className="text-base font-medium">{t.titulo}</div>
               <p className="text-sm opacity-80">{t.texto}</p>
@@ -437,7 +482,6 @@ function FormacaoCursos() {
       <h3 className="mb-6 text-xl font-semibold text-brand-700">Formação & Cursos</h3>
 
       <div className="grid gap-6 md:grid-cols-2">
-        {/* Graduações */}
         <div className="rounded-2xl border p-5">
           <h4 className="font-medium mb-3">Graduações</h4>
           <ul className="space-y-2 text-sm">
@@ -449,7 +493,6 @@ function FormacaoCursos() {
           </ul>
         </div>
 
-        {/* Outras formações */}
         <div className="rounded-2xl border p-5">
           <h4 className="font-medium mb-3">Outras Formações</h4>
           <ul className="list-disc pl-5 text-sm space-y-1">
@@ -460,12 +503,13 @@ function FormacaoCursos() {
         </div>
       </div>
 
-      {/* Cursos de RH */}
       <div className="rounded-2xl border p-5 mt-6">
         <h4 className="font-medium mb-3">Cursos em RH (seleção)</h4>
         <div className="flex flex-wrap gap-2">
           {RH_CURSOS.map((c) => (
-            <span key={c} className="rounded-full border px-3 py-1 text-xs">{c}</span>
+            <span key={c} className="rounded-full border px-3 py-1 text-xs">
+              {c}
+            </span>
           ))}
         </div>
       </div>
@@ -500,9 +544,11 @@ function Contato() {
 
 /* ===================== APP ===================== */
 export default function App() {
+  const { theme, toggle } = useTheme();
+
   return (
-    <div className="relative min-h-screen bg-white text-gray-900 antialiased">
-      <Nav />
+    <div className="relative min-h-screen bg-white dark:bg-[#0c0c0c] text-gray-900 dark:text-gray-100 antialiased">
+      <Nav theme={theme} toggleTheme={toggle} />
       <Hero />
       <Projetos />
       <BooksSection />
@@ -516,72 +562,3 @@ export default function App() {
     </div>
   );
 }
-import { Sun, Moon } from "lucide-react";
-function useTheme() {
-  const getInitial = () => {
-    const saved = localStorage.getItem("theme");
-    if (saved) return saved;
-    return window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
-  };
-  const [theme, setTheme] = useState(getInitial);
-
-  useEffect(() => {
-    const root = document.documentElement;
-    if (theme === "dark") root.classList.add("dark");
-    else root.classList.remove("dark");
-    localStorage.setItem("theme", theme);
-  }, [theme]);
-
-  const toggle = () => setTheme((t) => (t === "dark" ? "light" : "dark"));
-  return { theme, toggle };
-}
-function Nav({ theme, toggleTheme }) {
-  const links = [
-    { id: "sobre", label: "Sobre" },
-    { id: "projetos", label: "Projetos" },
-    { id: "livros", label: "Livros" },
-    { id: "skills", label: "Skills" },
-    { id: "trajetoria", label: "Trajetória" },
-    { id: "formacao", label: "Formação" },
-    { id: "contato", label: "Contato" },
-  ];
-  return (
-    <nav className="fixed inset-x-0 top-4 z-50 mx-auto w-fit rounded-full border bg-white/70 dark:bg-neutral-900/50 dark:border-neutral-800 backdrop-blur px-3 md:px-4 py-2 shadow-soft">
-      <ul className="flex items-center gap-3">
-        <li className="hidden md:block">
-          <a href="#sobre" className="flex items-center gap-2 pr-2">
-            {ME.logo && <img src={ME.logo} alt="logo" className="h-6 w-6 object-contain" />}
-            <span className="text-sm font-medium">{ME.nome.split(" ")[0]}</span>
-          </a>
-        </li>
-        {links.map((l) => (
-          <li key={l.id}>
-            <a href={`#${l.id}`} className="text-sm hover:opacity-70">
-              {l.label}
-            </a>
-          </li>
-        ))}
-
-        {/* botão tema */}
-        <li className="pl-1">
-          <button
-            onClick={toggleTheme}
-            className="rounded-full border px-2 py-1 text-xs hover:opacity-80 dark:border-neutral-700"
-            title="Alternar tema"
-          >
-            {theme === "dark" ? <Sun className="h-4 w-4" /> : <Moon className="h-4 w-4" />}
-          </button>
-        </li>
-      </ul>
-    </nav>
-  );
-}
-export default function App() {
-  const { theme, toggle } = useTheme();
-
-  return (
-    <div className="relative min-h-screen bg-white dark:bg-[#0c0c0c] text-gray-900 dark:text-gray-100 antialiased">
-      <Nav theme={theme} toggleTheme={toggle} />
-      {/* ... resto igual */}
-      <section id="skills" className="bg-gray-100 dark:bg-neutral-900/40 py-12">
-        <div className="absolute left-4 top-0 bottom-0 w-px bg-gray-200 dark:bg-neutral-800" />

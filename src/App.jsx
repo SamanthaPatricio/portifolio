@@ -66,7 +66,7 @@ const LIVROS = [
     titulo: "METODOLOGIA C.I.R.C.U.L.O",
     sub: "Samantha Patrício",
     link: "https://www.amazon.com.br/METODOLOGIA-C-I-R-C-U-L-SAMANTHA-PATR%C3%8DCIO-ebook/dp/B0FDJN7TSQ",
-    capa: "https://m.media-amazon.com/images/I/31X7RaCqo9L._SY445_.jpg",
+    capa: "https://m.media-amazon.com/images/I/31X7RaCqo9L._SY445_SX342_ControlCacheEqualizer_.jpg",
   },
 ];
 

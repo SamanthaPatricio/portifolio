@@ -7,7 +7,7 @@ const ME = {
   nome: 'Samantha Patrício',
   titulo: 'RH • Estratégia • Cultura • Design de Experiências',
   bio: 'Integro Pessoas, Processos e Espaços. Crio experiências vivas para marcas e times.',
-  email: 'seuemail@exemplo.com',
+  email: 'samantha.patricio56@outlook.com',
   github: 'https://github.com/',
   linkedin: 'https://www.linkedin.com/in/',
   cidades: ['Curitiba', 'Santa Catarina', 'Brasil'],

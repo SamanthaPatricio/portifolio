@@ -54,7 +54,7 @@ const PROJETOS = [
   },
 ];
 
-/* ===================== LIVROS — use /public/capas/ ===================== */
+/* ===================== LIVROS — usando imagens da Amazon ===================== */
 const LIVROS = [
   {
     titulo: "Como Implementar um Setor de RH Estratégico",
@@ -226,6 +226,7 @@ function Nav({ theme, toggleTheme }) {
     { id: "sobre", label: "Sobre" },
     { id: "projetos", label: "Projetos" },
     { id: "livros", label: "Livros" },
+    { id: "planilhas", label: "Planilhas" },
     { id: "skills", label: "Skills" },
     { id: "trajetoria", label: "Trajetória" },
     { id: "formacao", label: "Formação" },
@@ -370,14 +371,14 @@ function Projetos() {
       >
         {PROJETOS.map((p, i) => (
           <motion.a key={i} variants={item} href={p.link} className="group">
-            <Card className="h-full transition-transform duration-300 group-hover:-translate-y-1">
+            <Card className="h-full bg-white dark:bg-neutral-900 border border-gray-200 dark:border-neutral-800 transition-transform duration-300 group-hover:-translate-y-1">
               <CardHeader>
                 <CardTitle className="flex items-center gap-2">
-                  <Rocket className="h-5 w-5 text-brand-700" /> {p.titulo}
+                  <Rocket className="h-5 w-5 text-brand-700 dark:text-brand-300" /> {p.titulo}
                 </CardTitle>
               </CardHeader>
               <CardContent>
-                <p className="text-sm opacity-80">{p.descricao}</p>
+                <p className="text-sm text-gray-700 dark:text-gray-200">{p.descricao}</p>
                 <div className="mt-4 flex flex-wrap gap-2">
                   {p.tags.map((t, j) => (
                     <Badge key={j}>{t}</Badge>
@@ -411,7 +412,13 @@ function Book({ capa, titulo, link }) {
         >
           <div className="w-full h-full rounded-2xl bg-white/95 dark:bg-neutral-900 grid place-items-center p-4">
             {capa ? (
-              <img src={capa} alt={titulo} className="max-h-[75%] object-contain" />
+              <img
+                src={capa}
+                alt={titulo}
+                loading="lazy"
+                referrerPolicy="no-referrer"
+                className="max-h-[75%] object-contain"
+              />
             ) : (
               <img src="/logo.png" alt="logo" className="h-20 opacity-80" />
             )}

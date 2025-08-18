@@ -4,3 +4,19 @@
 body {
   background: radial-gradient(900px 500px at 80% -10%, rgba(157,124,43,.06), transparent 60%);
 }
+/* util do livro */
+.perspective-1000 { perspective: 1000px; }
+
+/* fundo suave no claro */
+body {
+  background: radial-gradient(900px 500px at 80% -10%, rgba(157,124,43,.06), transparent 60%);
+}
+
+/* tema escuro */
+:root { color-scheme: light dark; }
+.dark body {
+  background:
+    radial-gradient(900px 500px at 20% -10%, rgba(157,124,43,.10), transparent 60%),
+    #0b0b0b;
+  color: #e5e7eb;
+}

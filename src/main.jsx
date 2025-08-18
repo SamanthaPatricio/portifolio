@@ -1,7 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
 import App from "./App.jsx";
-import "./index.css";           // <- ESTE NOME PRECISA EXISTIR EM src/index.css
+import "./index.css"; // <- ESTE ARQUIVO PRECISA EXISTIR EM src/index.css
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>

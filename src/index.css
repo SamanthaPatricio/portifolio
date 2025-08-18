@@ -2,7 +2,7 @@
 @tailwind components;
 @tailwind utilities;
 
-/* util do livro */
+/* util */
 .perspective-1000 { perspective: 1000px; }
 
 /* fundo tema claro */
@@ -10,7 +10,7 @@ body {
   background: radial-gradient(900px 500px at 80% -10%, rgba(157,124,43,.06), transparent 60%);
 }
 
-/* tema escuro */
+/* dark mode */
 :root { color-scheme: light dark; }
 .dark body {
   background:

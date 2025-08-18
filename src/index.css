@@ -1,13 +1,11 @@
-/* ajuda pro efeito 3D do livro */
-.perspective-1000 { perspective: 1000px; }
-/* leve glow no fundo usando o dourado */
-body {
-  background: radial-gradient(900px 500px at 80% -10%, rgba(157,124,43,.06), transparent 60%);
-}
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 /* util do livro */
 .perspective-1000 { perspective: 1000px; }
 
-/* fundo suave no claro */
+/* fundo tema claro */
 body {
   background: radial-gradient(900px 500px at 80% -10%, rgba(157,124,43,.06), transparent 60%);
 }

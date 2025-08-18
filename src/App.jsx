@@ -186,7 +186,11 @@ function useMouseParallax(multiplier = 0.03) {
 
 function Badge({ children }) {
   return (
-    <span className="inline-flex items-center rounded-full border px-3 py-1 text-xs opacity-90">
+    <span
+      className="inline-flex items-center rounded-full px-3 py-1 text-xs
+                 border border-gray-300 dark:border-neutral-700
+                 text-gray-700 dark:text-gray-300"
+    >
       {children}
     </span>
   );

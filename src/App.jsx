@@ -22,27 +22,15 @@ const ME = {
 
 /* =============== PROJETOS =============== */
 const PROJETOS = [
-  {
-    titulo: "Playbook de Onboarding com Cultura Viva",
-    descricao:
-      "Onboarding interativo (microlearning, trilhas, rituais e métricas de adaptação).",
-    tags: ["RH Estratégico", "Onboarding", "Métricas"],
-    link: "#",
-  },
-  {
-    titulo: "Arquitetura de Cultura & Espaço",
-    descricao:
-      "Diretrizes para layout, ergonomia, psicologia das cores e rituais de equipe.",
-    tags: ["Arquitetura Corporativa", "Ergonomia", "Branding"],
-    link: "#",
-  },
-  {
-    titulo: "Livro: Por que os RHs adoecem",
-    descricao:
-      "Obra autoral com análise antropológica, psicológica e socioeconômica.",
-    tags: ["Livro", "Pesquisa", "Ensaios"],
-    link: "#",
-  },
+  { titulo: "Playbook de Onboarding com Cultura Viva",
+    descricao: "Onboarding interativo (microlearning, trilhas, rituais e métricas de adaptação).",
+    tags: ["RH Estratégico", "Onboarding", "Métricas"], link: "#" },
+  { titulo: "Arquitetura de Cultura & Espaço",
+    descricao: "Diretrizes para layout, ergonomia, psicologia das cores e rituais de equipe.",
+    tags: ["Arquitetura Corporativa", "Ergonomia", "Branding"], link: "#" },
+  { titulo: "Livro: Por que os RHs adoecem",
+    descricao: "Obra autoral com análise antropológica, psicológica e socioeconômica.",
+    tags: ["Livro", "Pesquisa", "Ensaios"], link: "#" },
 ];
 
 /* =============== LIVROS (Amazon + fallback) =============== */
@@ -56,14 +44,12 @@ const LIVROS = [
   {
     titulo: "METODOLOGIA C.I.R.C.U.L.O",
     sub: "Samantha Patrício",
-    link:
-      "https://www.amazon.com.br/METODOLOGIA-C-I-R-C-U-L-SAMANTHA-PATR%C3%8DCIO-ebook/dp/B0FDJN7TSQ",
-    capa:
-      "https://m.media-amazon.com/images/I/31X7RaCqo9L._SY445_SX342_ControlCacheEqualizer_.jpg",
+    link: "https://www.amazon.com.br/METODOLOGIA-C-I-R-C-U-L-SAMANTHA-PATR%C3%8DCIO-ebook/dp/B0FDJN7TSQ",
+    capa: "https://m.media-amazon.com/images/I/31X7RaCqo9L._SY445_SX342_ControlCacheEqualizer_.jpg",
   },
 ];
 
-/* =============== PLANILHAS & KITS =============== */
+/* =============== PLANILHAS =============== */
 const PLANILHAS = [
   { titulo: "Análise SWOT (Planilha)", sub: "Ferramenta prática para diagnóstico estratégico", link: "https://lnkd.in/e6fGsFac" },
   { titulo: "Cargos & Salários (Planilha)", sub: "Estruture trilhas e faixas salariais", link: "https://go.hotmart.com/P98376571U" },
@@ -93,14 +79,11 @@ function useMouseParallax(multiplier = 0.03) {
   useEffect(() => {
     const el = ref.current;
     if (!el) return;
-    const onMove = (e) => {
-      const r = el.getBoundingClientRect();
-      const x = (e.clientX - r.left - r.width / 2) * multiplier;
-      const y = (e.clientY - r.top - r.height / 2) * multiplier;
-      setOffset({ x, y });
-    };
-    el.addEventListener("mousemove", onMove);
-    return () => el.removeEventListener("mousemove", onMove);
+    const r = el.getBoundingClientRect();
+    const x = (e.clientX - r.left - r.width / 2) * multiplier;
+    const y = (e.clientY - r.top - r.height / 2) * multiplier;
+    setOffset({ x, y });
+    // eslint-disable-next-line
   }, [multiplier]);
   return { ref, offset };
 }
@@ -263,7 +246,6 @@ function BooksSection() {
   );
 }
 
-/* =============== PLANILHAS & KITS =============== */
 function PlanilhasSection() {
   return (
     <section id="planilhas" className="py-12 mx-auto max-w-6xl px-6">
@@ -282,7 +264,6 @@ function PlanilhasSection() {
   );
 }
 
-/* =============== SKILLS =============== */
 function SkillsMarquee() {
   return (
     <section id="skills" className="bg-gray-100 dark:bg-neutral-900/40 py-12">
@@ -300,7 +281,6 @@ function SkillsMarquee() {
   );
 }
 
-/* =============== TIMELINE =============== */
 function Timeline() {
   return (
     <section id="trajetoria" className="mx-auto max-w-5xl px-6 py-16">
@@ -322,7 +302,6 @@ function Timeline() {
   );
 }
 
-/* =============== FORMAÇÃO =============== */
 function FormacaoCursos() {
   return (
     <section id="formacao" className="mx-auto max-w-6xl px-6 py-16">
@@ -376,7 +355,6 @@ function FormacaoCursos() {
   );
 }
 
-/* =============== CONTATO =============== */
 function Contato() {
   return (
     <section id="contato" className="mx-auto max-w-3xl px-6 py-16">
@@ -394,7 +372,6 @@ function Contato() {
   );
 }
 
-/* =============== APP =============== */
 export default function App() {
   const { theme, toggle } = useTheme();
   return (

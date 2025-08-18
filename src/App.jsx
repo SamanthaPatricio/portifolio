@@ -1,18 +1,10 @@
 import React, { useState, useRef, useEffect } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
 import {
-  ArrowRight,
-  Mail,
-  Github,
-  Linkedin,
-  MousePointerClick,
-  Rocket,
-  Sun,
-  Moon,
+  ArrowRight, Mail, Github, Linkedin, MousePointerClick, Rocket, Sun, Moon,
 } from "lucide-react";
 
 import { Button } from "./components/ui/button";
-// você pode manter o Card do shadcn, mas forço as cores no className
 import { Card, CardHeader, CardTitle, CardContent } from "./components/ui/card";
 
 /* =============== CONFIG =============== */
@@ -25,8 +17,7 @@ const ME = {
   github: "https://github.com/SamanthaPatricio",
   linkedin: "https://www.linkedin.com/in/samanthapatricio/",
   cidades: ["Curitiba", "Santa Catarina", "Brasil"],
-  logo: "/logo.png", // public/logo.png
-  mostrarNomeNoHero: false, // <<< deixa SÓ a logo visível
+  logo: "/logo.png",
 };
 
 /* =============== PROJETOS =============== */
@@ -54,14 +45,13 @@ const PROJETOS = [
   },
 ];
 
-/* =============== LIVROS (capas da Amazon) =============== */
+/* =============== LIVROS (Amazon + fallback) =============== */
 const LIVROS = [
   {
     titulo: "Como Implementar um Setor de RH Estratégico",
     sub: "Guia prático",
     link: "https://www.amazon.com.br/Como-Implementar-Setor-RH-Estrat%C3%A9gico-ebook/dp/B0FBY5S5YW",
-    capa:
-      "https://m.media-amazon.com/images/I/61f8jkvibKL._SY466_.jpg",
+    capa: "https://m.media-amazon.com/images/I/61f8jkvibKL._SY466_.jpg",
   },
   {
     titulo: "METODOLOGIA C.I.R.C.U.L.O",
@@ -75,67 +65,27 @@ const LIVROS = [
 
 /* =============== PLANILHAS & KITS =============== */
 const PLANILHAS = [
-  {
-    titulo: "Análise SWOT (Planilha)",
-    sub: "Ferramenta prática para diagnóstico estratégico",
-    link: "https://lnkd.in/e6fGsFac",
-  },
-  {
-    titulo: "Cargos & Salários (Planilha)",
-    sub: "Estruture trilhas e faixas salariais",
-    link: "https://go.hotmart.com/P98376571U",
-  },
-  {
-    titulo: "Kit Planilhas de Marketing",
-    sub: "Conjunto de planilhas para gestão e growth",
-    link: "https://go.hotmart.com/I98391084X",
-  },
+  { titulo: "Análise SWOT (Planilha)", sub: "Ferramenta prática para diagnóstico estratégico", link: "https://lnkd.in/e6fGsFac" },
+  { titulo: "Cargos & Salários (Planilha)", sub: "Estruture trilhas e faixas salariais", link: "https://go.hotmart.com/P98376571U" },
+  { titulo: "Kit Planilhas de Marketing", sub: "Conjunto de planilhas para gestão e growth", link: "https://go.hotmart.com/I98391084X" },
 ];
 
 /* =============== SKILLS =============== */
 const SKILLS = [
-  "People Analytics",
-  "Recrutamento & Seleção",
-  "Cultura & Clima",
-  "Arquitetura Corporativa",
-  "Comunicação Não-Violenta",
-  "Liderança 1ª posição",
-  "Design de Aprendizagem",
-  "OKRs & KPIs",
-  "Power BI / Excel",
+  "People Analytics","Recrutamento & Seleção","Cultura & Clima","Arquitetura Corporativa",
+  "Comunicação Não-Violenta","Liderança 1ª posição","Design de Aprendizagem","OKRs & KPIs","Power BI / Excel",
 ];
 
 /* =============== TIMELINE =============== */
 const TIMELINE = [
-  {
-    ano: "2025",
-    titulo: "Autora & Consultora",
-    texto:
-      "Lançamento de obras em RH e projetos de cultura organizacional hands-on.",
-  },
-  {
-    ano: "2024",
-    titulo: "Estruturação de RH",
-    texto:
-      "Implementei RH do zero e estruturei processos e subsistemas, com fortalecimento de gestão e indicadores.",
-  },
-  {
-    ano: "2019–2023",
-    titulo: "Base acadêmica & método científico",
-    texto:
-      "Formação multidisciplinar (neuropsicologia, psicologia do trabalho, bioética) e prática de laboratório (biotecnologia, radiobiologia, bioterismo e modelagem molecular).",
-  },
+  { ano: "2025", titulo: "Autora & Consultora", texto: "Lançamento de obras em RH e projetos de cultura organizacional hands-on." },
+  { ano: "2024", titulo: "Estruturação de RH", texto: "Implementei RH do zero e estruturei processos e subsistemas, com fortalecimento de gestão e indicadores." },
+  { ano: "2019–2023", titulo: "Base acadêmica & método científico", texto: "Formação multidisciplinar (neuropsicologia, psicologia do trabalho, bioética) e prática de laboratório (biotecnologia, radiobiologia, bioterismo e modelagem molecular)." },
 ];
 
 /* =============== HELPERS =============== */
-const container = {
-  hidden: { opacity: 0 },
-  show: { opacity: 1, transition: { staggerChildren: 0.12 } },
-};
-const item = {
-  hidden: { opacity: 0, y: 12 },
-  show: { opacity: 1, y: 0, transition: { type: "spring", stiffness: 80 } },
-};
+const container = { hidden: { opacity: 0 }, show: { opacity: 1, transition: { staggerChildren: 0.12 } } };
+const item = { hidden: { opacity: 0, y: 12 }, show: { opacity: 1, y: 0, transition: { type: "spring", stiffness: 80 } } };
 
 function useMouseParallax(multiplier = 0.03) {
   const ref = useRef(null);
@@ -144,9 +94,9 @@ function useMouseParallax(multiplier = 0.03) {
     const el = ref.current;
     if (!el) return;
     const onMove = (e) => {
-      const rect = el.getBoundingClientRect();
-      const x = (e.clientX - rect.left - rect.width / 2) * multiplier;
-      const y = (e.clientY - rect.top - rect.height / 2) * multiplier;
+      const r = el.getBoundingClientRect();
+      const x = (e.clientX - r.left - r.width / 2) * multiplier;
+      const y = (e.clientY - r.top - r.height / 2) * multiplier;
       setOffset({ x, y });
     };
     el.addEventListener("mousemove", onMove);
@@ -163,28 +113,18 @@ function Badge({ children }) {
   );
 }
 
-/* =============== Tema claro/escuro =============== */
+/* =============== Tema =============== */
 function useTheme() {
   const getInitial = () => {
-    try {
-      const saved = localStorage.getItem("theme");
-      if (saved) return saved;
-    } catch {}
-    return window.matchMedia("(prefers-color-scheme: dark)").matches
-      ? "dark"
-      : "light";
+    try { const saved = localStorage.getItem("theme"); if (saved) return saved; } catch {}
+    return window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
   };
   const [theme, setTheme] = useState(getInitial);
-
   useEffect(() => {
     const root = document.documentElement;
-    if (theme === "dark") root.classList.add("dark");
-    else root.classList.remove("dark");
-    try {
-      localStorage.setItem("theme", theme);
-    } catch {}
+    if (theme === "dark") root.classList.add("dark"); else root.classList.remove("dark");
+    try { localStorage.setItem("theme", theme); } catch {}
   }, [theme]);
-
   const toggle = () => setTheme((t) => (t === "dark" ? "light" : "dark"));
   return { theme, toggle };
 }
@@ -192,39 +132,22 @@ function useTheme() {
 /* =============== NAV =============== */
 function Nav({ theme, toggleTheme }) {
   const links = [
-    { id: "sobre", label: "Sobre" },
-    { id: "projetos", label: "Projetos" },
-    { id: "livros", label: "Livros" },
-    { id: "skills", label: "Skills" },
-    { id: "trajetoria", label: "Trajetória" },
-    { id: "formacao", label: "Formação" },
-    { id: "contato", label: "Contato" },
+    { id: "sobre", label: "Sobre" },{ id: "projetos", label: "Projetos" },{ id: "livros", label: "Livros" },
+    { id: "skills", label: "Skills" },{ id: "trajetoria", label: "Trajetória" },{ id: "formacao", label: "Formação" },{ id: "contato", label: "Contato" },
   ];
-
   return (
     <nav className="fixed inset-x-0 top-4 z-50 mx-auto w-fit rounded-full border bg-white/70 dark:bg-neutral-900/60 dark:border-neutral-800 backdrop-blur px-3 md:px-4 py-2 shadow-soft">
       <ul className="flex items-center gap-3">
         <li className="hidden md:block">
           <a href="#sobre" className="flex items-center gap-2 pr-2">
-            {ME.logo && (
-              <img src={ME.logo} alt="logo" className="h-6 w-6 object-contain" />
-            )}
-            {/* não mostrar nome aqui pra ficar clean */}
+            {ME.logo && <img src={ME.logo} alt="logo" className="h-6 w-6 object-contain" />}
           </a>
         </li>
         {links.map((l) => (
-          <li key={l.id}>
-            <a href={`#${l.id}`} className="text-sm hover:opacity-70">
-              {l.label}
-            </a>
-          </li>
+          <li key={l.id}><a href={`#${l.id}`} className="text-sm hover:opacity-70">{l.label}</a></li>
         ))}
         <li className="pl-1">
-          <button
-            onClick={toggleTheme}
-            className="rounded-full border px-2 py-1 text-xs hover:opacity-80 dark:border-neutral-700"
-            title="Alternar tema"
-          >
+          <button onClick={toggleTheme} className="rounded-full border px-2 py-1 text-xs hover:opacity-80 dark:border-neutral-700" title="Alternar tema">
             {theme === "dark" ? <Sun className="h-4 w-4" /> : <Moon className="h-4 w-4" />}
           </button>
         </li>
@@ -233,7 +156,7 @@ function Nav({ theme, toggleTheme }) {
   );
 }
 
-/* =============== HERO =============== */
+/* =============== HERO (logo grande, nome escondido) =============== */
 function Hero() {
   const { scrollY } = useScroll();
   const y = useTransform(scrollY, [0, 400], [0, 80]);
@@ -241,127 +164,59 @@ function Hero() {
   const { ref, offset } = useMouseParallax(0.04);
 
   return (
-    <section
-      id="sobre"
-      ref={ref}
-      className="relative flex min-h-screen items-center justify-center overflow-hidden bg-gradient-to-br from-brand-50 to-white dark:from-[#0f0f0f] dark:to-[#0b0b0b]"
-    >
+    <section id="sobre" ref={ref} className="relative flex min-h-screen items-center justify-center overflow-hidden bg-gradient-to-br from-brand-50 to-white dark:from-[#0f0f0f] dark:to-[#0b0b0b]">
       <motion.div style={{ y, scale }} className="relative z-10 max-w-3xl text-center px-6">
         {ME.logo && (
           <motion.img
-            initial={{ opacity: 0, scale: 0.9 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.6 }}
-            src={ME.logo}
-            alt="Logotipo Samantha Patrício"
-            className="mx-auto mb-6 h-28 w-28 md:h-36 md:w-36 object-contain"
+            initial={{ opacity: 0, scale: 0.9 }} animate={{ opacity: 1, scale: 1 }} transition={{ duration: 0.6 }}
+            src={ME.logo} alt="Logotipo Samantha Patrício" className="mx-auto mb-6 h-28 w-28 md:h-36 md:w-36 object-contain"
           />
         )}
-
-        {/* Nome fica invisível (SEO), só a logo aparece */}
         <h1 className="sr-only">{ME.nome}</h1>
-
         <p className="mt-2 text-lg md:text-xl opacity-80">{ME.titulo}</p>
         <p className="mt-4 text-sm md:text-base opacity-70">{ME.bio}</p>
-
         <div className="mt-6 flex flex-wrap items-center justify-center gap-2">
           <Badge>{ME.cidades.join(" • ")}</Badge>
           <Badge>Disponível para projetos</Badge>
         </div>
-
         <div className="mt-8 flex flex-wrap justify-center gap-3">
           <Button className="bg-brand border-brand text-white hover:opacity-90" asChild>
-            <a href="#projetos">
-              Ver projetos <ArrowRight className="ml-2 h-4 w-4" />
-            </a>
+            <a href="#projetos">Ver projetos <ArrowRight className="ml-2 h-4 w-4" /></a>
           </Button>
-          <Button variant="outline" asChild>
-            <a href={`mailto:${ME.email}`}>
-              Fale comigo <Mail className="ml-2 h-4 w-4" />
-            </a>
-          </Button>
-          <Button variant="outline" asChild>
-            <a href={ME.linkedin} target="_blank" rel="noreferrer">
-              LinkedIn <Linkedin className="ml-2 h-4 w-4" />
-            </a>
-          </Button>
-          <Button variant="outline" asChild>
-            <a href={ME.github} target="_blank" rel="noreferrer">
-              GitHub <Github className="ml-2 h-4 w-4" />
-            </a>
-          </Button>
+          <Button variant="outline" asChild><a href={`mailto:${ME.email}`}>Fale comigo <Mail className="ml-2 h-4 w-4" /></a></Button>
+          <Button variant="outline" asChild><a href={ME.linkedin} target="_blank" rel="noreferrer">LinkedIn <Linkedin className="ml-2 h-4 w-4" /></a></Button>
+          <Button variant="outline" asChild><a href={ME.github} target="_blank" rel="noreferrer">GitHub <Github className="ml-2 h-4 w-4" /></a></Button>
         </div>
       </motion.div>
 
-      {/* bolhas de fundo */}
-      <motion.div
-        className="pointer-events-none absolute -top-32 -left-24 h-96 w-96 rounded-full blur-3xl"
-        style={{
-          x: offset.x,
-          y: offset.y,
-          background:
-            "radial-gradient(600px circle at 50% 50%, rgba(157,124,43,.20), transparent 60%)",
-        }}
-      />
-      <motion.div
-        className="pointer-events-none absolute -bottom-24 -right-24 h-[28rem] w-[28rem] rounded-full blur-3xl"
-        animate={{ rotate: [0, 360] }}
-        transition={{ duration: 30, repeat: Infinity, ease: "linear" }}
-        style={{
-          background:
-            "radial-gradient(600px circle at 50% 50%, rgba(157,124,43,.12), transparent 60%)",
-        }}
-      />
-
+      <motion.div className="pointer-events-none absolute -top-32 -left-24 h-96 w-96 rounded-full blur-3xl"
+        style={{ x: offset.x, y: offset.y, background: "radial-gradient(600px circle at 50% 50%, rgba(157,124,43,.20), transparent 60%)" }} />
+      <motion.div className="pointer-events-none absolute -bottom-24 -right-24 h-[28rem] w-[28rem] rounded-full blur-3xl"
+        animate={{ rotate: [0, 360] }} transition={{ duration: 30, repeat: Infinity, ease: "linear" }}
+        style={{ background: "radial-gradient(600px circle at 50% 50%, rgba(157,124,43,.12), transparent 60%)" }} />
       <div className="absolute bottom-10 flex items-center gap-2 opacity-60">
-        <MousePointerClick className="h-4 w-4" />
-        <span className="text-xs">Passe o mouse, role, clique</span>
+        <MousePointerClick className="h-4 w-4" /><span className="text-xs">Passe o mouse, role, clique</span>
       </div>
     </section>
   );
 }
 
-/* =============== PROJETOS (contraste corrigido no dark) =============== */
+/* =============== PROJETOS (dark fix) =============== */
 function Projetos() {
   return (
     <section id="projetos" className="mx-auto max-w-6xl px-6 py-16">
       <div className="mb-8 flex items-end justify-between">
-        <h2 className="text-2xl md:text-3xl font-semibold text-brand-700 dark:text-white">
-          Projetos em Destaque
-        </h2>
+        <h2 className="text-2xl md:text-3xl font-semibold text-brand-700 dark:text-white">Projetos em Destaque</h2>
         <div className="text-sm opacity-70">clique para saber mais</div>
       </div>
-
-      <motion.div
-        variants={container}
-        initial="hidden"
-        whileInView="show"
-        viewport={{ once: true, margin: "-80px" }}
-        className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3"
-      >
+      <motion.div variants={container} initial="hidden" whileInView="show" viewport={{ once: true, margin: "-80px" }} className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
         {PROJETOS.map((p, i) => (
           <motion.a key={i} variants={item} href={p.link} className="group">
-            <Card
-              className="
-                h-full transition-transform duration-300 group-hover:-translate-y-1
-                bg-white dark:bg-neutral-900
-                text-gray-900 dark:text-gray-100
-                border border-gray-200 dark:border-neutral-800
-                shadow-sm
-              "
-            >
-              <CardHeader>
-                <CardTitle className="flex items-center gap-2">
-                  <Rocket className="h-5 w-5 text-brand-700" /> {p.titulo}
-                </CardTitle>
-              </CardHeader>
+            <Card className="h-full transition-transform duration-300 group-hover:-translate-y-1 bg-white dark:bg-neutral-900 text-gray-900 dark:text-gray-100 border border-gray-200 dark:border-neutral-800 shadow-sm">
+              <CardHeader><CardTitle className="flex items-center gap-2"><Rocket className="h-5 w-5 text-brand-700" /> {p.titulo}</CardTitle></CardHeader>
               <CardContent>
                 <p className="text-sm opacity-90">{p.descricao}</p>
-                <div className="mt-4 flex flex-wrap gap-2">
-                  {p.tags.map((t, j) => (
-                    <Badge key={j}>{t}</Badge>
-                  ))}
-                </div>
+                <div className="mt-4 flex flex-wrap gap-2">{p.tags.map((t, j) => (<Badge key={j}>{t}</Badge>))}</div>
               </CardContent>
             </Card>
           </motion.a>
@@ -371,61 +226,26 @@ function Projetos() {
   );
 }
 
-/* =============== LIVROS (flip + hotlink seguro) =============== */
+/* =============== LIVROS (flip + no-referrer) =============== */
 function Book({ capa, titulo, link }) {
   const [open, setOpen] = useState(false);
   const [src, setSrc] = useState(capa || "/logo.png");
-
   return (
     <div className="relative flex items-start gap-6">
-      <div
-        className="relative w-[240px] h-[320px] perspective-1000"
-        onMouseEnter={() => setOpen(true)}
-        onMouseLeave={() => setOpen(false)}
-      >
-        {/* CAPA (fora) */}
-        <motion.div
-          className="absolute inset-0 origin-left rounded-2xl shadow-lg"
-          style={{ backfaceVisibility: "hidden" }}
-          animate={{ rotateY: open ? -180 : 0 }}
-          transition={{ type: "spring", stiffness: 120, damping: 16 }}
-        >
+      <div className="relative w-[240px] h-[320px] perspective-1000" onMouseEnter={() => setOpen(true)} onMouseLeave={() => setOpen(false)}>
+        <motion.div className="absolute inset-0 origin-left rounded-2xl shadow-lg" style={{ backfaceVisibility: "hidden" }} animate={{ rotateY: open ? -180 : 0 }} transition={{ type: "spring", stiffness: 120, damping: 16 }}>
           <div className="w-full h-full rounded-2xl bg-white/95 dark:bg-neutral-900 grid place-items-center p-4">
-            <img
-              src={src}
-              alt={titulo}
-              referrerPolicy="no-referrer"
-              crossOrigin="anonymous"
-              loading="lazy"
-              onError={() => setSrc("/logo.png")}
-              className="max-h-[75%] object-contain"
-            />
-            <p className="mt-3 text-sm font-medium text-gray-700 dark:text-gray-200 text-center px-2">
-              {titulo}
-            </p>
+            <img src={src} alt={titulo} referrerPolicy="no-referrer" crossOrigin="anonymous" loading="lazy" onError={() => setSrc("/logo.png")} className="max-h-[75%] object-contain" />
+            <p className="mt-3 text-sm font-medium text-gray-700 dark:text-gray-200 text-center px-2">{titulo}</p>
           </div>
         </motion.div>
-
-        {/* VERSO (dentro) */}
-        <motion.div
-          className="absolute inset-0 origin-left rounded-2xl shadow-inner"
-          style={{ transform: "rotateY(180deg)", backfaceVisibility: "hidden" }}
-          animate={{ rotateY: open ? 0 : 180 }}
-          transition={{ type: "spring", stiffness: 120, damping: 16 }}
-        >
+        <motion.div className="absolute inset-0 origin-left rounded-2xl shadow-inner" style={{ transform: "rotateY(180deg)", backfaceVisibility: "hidden" }} animate={{ rotateY: open ? 0 : 180 }} transition={{ type: "spring", stiffness: 120, damping: 16 }}>
           <div className="w-full h-full rounded-2xl bg-gradient-to-br from-white to-gray-100 dark:from-neutral-900 dark:to-neutral-800 p-4 flex flex-col items-center justify-center">
-            <a
-              href={link}
-              target="_blank"
-              rel="noreferrer"
-              className="inline-flex items-center gap-2 rounded-2xl border px-4 py-2 text-sm hover:bg-black hover:text-white border-black dark:border-white"
-            >
+            <a href={link} target="_blank" rel="noreferrer" className="inline-flex items-center gap-2 rounded-2xl border px-4 py-2 text-sm hover:bg-black hover:text-white border-black dark:border-white">
               Ver na Amazon
             </a>
           </div>
         </motion.div>
-
-        {/* PÁGINA DIREITA */}
         <div className="absolute left-[240px] top-0 w-[240px] h-[320px] rounded-2xl shadow-lg bg-white/90 dark:bg-neutral-800 grid place-items-center">
           <span className="text-gray-500 dark:text-gray-300 text-sm">Passe o mouse na capa →</span>
         </div>
@@ -438,11 +258,7 @@ function BooksSection() {
   return (
     <section id="livros" className="py-12 mx-auto max-w-6xl px-6">
       <h2 className="text-2xl font-semibold mb-6 text-brand-700 dark:text-white">Livros</h2>
-      <div className="flex flex-wrap gap-10">
-        {LIVROS.map((b) => (
-          <Book key={b.titulo} {...b} />
-        ))}
-      </div>
+      <div className="flex flex-wrap gap-10">{LIVROS.map((b) => (<Book key={b.titulo} {...b} />))}</div>
     </section>
   );
 }
@@ -451,19 +267,11 @@ function BooksSection() {
 function PlanilhasSection() {
   return (
     <section id="planilhas" className="py-12 mx-auto max-w-6xl px-6">
-      <h2 className="text-2xl font-semibold mb-6 text-brand-700 dark:text-white">
-        Planilhas & Kits
-      </h2>
+      <h2 className="text-2xl font-semibold mb-6 text-brand-700 dark:text-white">Planilhas & Kits</h2>
       <ul className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
         {PLANILHAS.map((p) => (
           <li key={p.titulo}>
-            <a
-              href={p.link}
-              target="_blank"
-              rel="noreferrer"
-              className="block rounded-2xl border p-4 hover:bg-gray-50 dark:hover:bg-neutral-800 transition
-                         border-gray-200 dark:border-neutral-800 text-gray-900 dark:text-gray-100"
-            >
+            <a href={p.link} target="_blank" rel="noreferrer" className="block rounded-2xl border p-4 hover:bg-gray-50 dark:hover:bg-neutral-800 transition border-gray-200 dark:border-neutral-800 text-gray-900 dark:text-gray-100">
               <div className="font-medium">{p.titulo}</div>
               <div className="text-xs opacity-70">{p.sub}</div>
             </a>
@@ -481,15 +289,9 @@ function SkillsMarquee() {
       <div className="mx-auto max-w-6xl px-6">
         <h3 className="mb-6 text-xl font-semibold">Stack & Competências</h3>
         <div className="relative overflow-hidden">
-          <motion.div
-            className="flex gap-6 whitespace-nowrap"
-            animate={{ x: [0, -800] }}
-            transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
-          >
+          <motion.div className="flex gap-6 whitespace-nowrap" animate={{ x: [0, -800] }} transition={{ duration: 20, repeat: Infinity, ease: "linear" }}>
             {SKILLS.concat(SKILLS).map((s, i) => (
-              <span key={i} className="rounded-full border px-4 py-2 text-sm opacity-80">
-                {s}
-              </span>
+              <span key={i} className="rounded-full border px-4 py-2 text-sm opacity-80">{s}</span>
             ))}
           </motion.div>
         </div>
@@ -524,35 +326,24 @@ function Timeline() {
 function FormacaoCursos() {
   return (
     <section id="formacao" className="mx-auto max-w-6xl px-6 py-16">
-      <h3 className="mb-6 text-xl font-semibold text-brand-700 dark:text-white">
-        Formação & Cursos
-      </h3>
-
+      <h3 className="mb-6 text-xl font-semibold text-brand-700 dark:text-white">Formação & Cursos</h3>
       <div className="grid gap-6 md:grid-cols-2">
-        {/* Graduações */}
         <div className="rounded-2xl border p-5 border-gray-200 dark:border-neutral-800">
           <h4 className="font-medium mb-3">Graduações</h4>
           <ul className="space-y-2 text-sm">
-            {GRADUACOES.map((g) => (
-              <li key={g.titulo}>
-                <span className="opacity-60 mr-2">{g.periodo}</span> {g.titulo}
-              </li>
+            {[
+              { periodo: "2024–2026", titulo: "Tecnólogo em Recursos Humanos — em andamento" },
+              { periodo: "2024–2028", titulo: "Arquitetura e Urbanismo — Unicesumar (PROUNI — Bolsa 100%)" },
+            ].map((g) => (
+              <li key={g.titulo}><span className="opacity-60 mr-2">{g.periodo}</span> {g.titulo}</li>
             ))}
           </ul>
         </div>
 
-        {/* Outras Formações (resumo + link currículo completo) */}
         <div className="rounded-2xl border p-5 border-gray-200 dark:border-neutral-800">
           <div className="flex items-center justify-between mb-3">
             <h4 className="font-medium">Outras Formações</h4>
-            <a
-              className="text-xs underline hover:opacity-80"
-              href="/curriculo.html"
-              target="_blank"
-              rel="noreferrer"
-            >
-              Currículo completo →
-            </a>
+            <a className="text-xs underline hover:opacity-80" href="/curriculo.html" target="_blank" rel="noreferrer">Currículo completo →</a>
           </div>
           <ul className="list-disc pl-5 text-sm space-y-1">
             {[
@@ -563,34 +354,41 @@ function FormacaoCursos() {
               "USP/ICB — Biotecnologia; Bioética; Bioterismo; Modelagem Molecular (GBI Hands On); Radiobiologia; Bioimpressão 3D; Orientação no Lab. de Controle Sanitário e Genético (ICB II); Minicurso de Perícia Criminal",
               "Solloagro — USP",
               "Bioética — Harvard (edX)",
-            ].map((f, i) => (
-              <li key={i}>{f}</li>
-            ))}
+            ].map((f, i) => (<li key={i}>{f}</li>))}
           </ul>
         </div>
       </div>
 
-      {/* Cursos em RH */}
       <div className="rounded-2xl border p-5 mt-6 border-gray-200 dark:border-neutral-800">
         <h4 className="font-medium mb-3">Cursos em RH (seleção)</h4>
         <div className="flex flex-wrap gap-2">
           {[
-            "Analista de RH | Estratégia, teoria e prática",
-            "Microsoft Power BI para RH",
-            "Diploma Course in Human Resource Management (HRM)",
-            "Especialista em Departamento Pessoal",
-            "Analista comportamental: Profiler & DISC",
-            "People Analytics, OKR, BP, Cultura Organizacional, R&S, E-social, Folha, Indicadores, Endomarketing",
-            "NR1/5/18/33/35 — Segurança & Ergonomia",
-            "ESG e créditos de carbono",
+            "Analista de RH | Estratégia, teoria e prática","Microsoft Power BI para RH","Diploma Course in HRM",
+            "Especialista em Departamento Pessoal","Analista comportamental: Profiler & DISC",
+            "People Analytics, OKR, BP, Cultura, R&S, E-social, Folha, Indicadores, Endomarketing",
+            "NR1/5/18/33/35 — Segurança & Ergonomia","ESG e créditos de carbono",
             "Eventos: CONCARH 2024/2025, Open Mind 2025, RH Experience 2025, Logistique 2025, Casacor 2024/2025",
             "Inglês Avançado (Fisk)",
-          ].map((c) => (
-            <span key={c} className="rounded-full border px-3 py-1 text-xs">
-              {c}
-            </span>
-          ))}
+          ].map((c) => (<span key={c} className="rounded-full border px-3 py-1 text-xs">{c}</span>))}
         </div>
+      </div>
+    </section>
+  );
+}
+
+/* =============== CONTATO =============== */
+function Contato() {
+  return (
+    <section id="contato" className="mx-auto max-w-3xl px-6 py-16">
+      <h3 className="mb-4 text-xl font-semibold">Contato</h3>
+      <p className="opacity-80 text-sm">Curtiu o estilo deste portfólio? Me escreva com o assunto "Projeto" e conte seu desafio em 4–6 linhas.</p>
+      <div className="mt-6 flex flex-wrap gap-3">
+        <Button className="bg-brand border-brand text-white hover:opacity-90" asChild>
+          <a href={`mailto:${ME.email}`}>Mandar e-mail <Mail className="ml-2 h-4 w-4" /></a>
+        </Button>
+        <Button variant="outline" asChild>
+          <a href={ME.linkedin} target="_blank" rel="noreferrer">Conectar no LinkedIn <Linkedin className="ml-2 h-4 w-4" /></a>
+        </Button>
       </div>
     </section>
   );
@@ -599,7 +397,6 @@ function FormacaoCursos() {
 /* =============== APP =============== */
 export default function App() {
   const { theme, toggle } = useTheme();
-
   return (
     <div className="relative min-h-screen bg-white dark:bg-[#0c0c0c] text-gray-900 dark:text-gray-100 antialiased">
       <Nav theme={theme} toggleTheme={toggle} />
@@ -615,30 +412,5 @@ export default function App() {
         © {new Date().getFullYear()} {ME.nome}. Feito com React + Framer Motion + Tailwind.
       </footer>
     </div>
-  );
-}
-
-/* =============== CONTATO =============== */
-function Contato() {
-  return (
-    <section id="contato" className="mx-auto max-w-3xl px-6 py-16">
-      <h3 className="mb-4 text-xl font-semibold">Contato</h3>
-      <p className="opacity-80 text-sm">
-        Curtiu o estilo deste portfólio? Me escreva com o assunto "Projeto" e conte seu desafio em
-        4–6 linhas.
-      </p>
-      <div className="mt-6 flex flex-wrap gap-3">
-        <Button className="bg-brand border-brand text-white hover:opacity-90" asChild>
-          <a href="mailto:samantha.patricio56@outlook.com">
-            Mandar e-mail <Mail className="ml-2 h-4 w-4" />
-          </a>
-        </Button>
-        <Button variant="outline" asChild>
-          <a href="https://www.linkedin.com/in/samanthapatricio/" target="_blank" rel="noreferrer">
-            Conectar no LinkedIn <Linkedin className="ml-2 h-4 w-4" />
-          </a>
-        </Button>
-      </div>
-    </section>
   );
 }

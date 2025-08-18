@@ -1,9 +1,6 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
-
-html, body, #root { height: 100%; }
-
-/* Soft shadows and rounded aesthetics */
-.rounded-2xl { border-radius: 1rem; }
-.shadow-soft { box-shadow: 0 10px 30px rgba(0,0,0,0.05); }
+/* ajuda pro efeito 3D do livro */
+.perspective-1000 { perspective: 1000px; }
+/* leve glow no fundo usando o dourado */
+body {
+  background: radial-gradient(900px 500px at 80% -10%, rgba(157,124,43,.06), transparent 60%);
+}

@@ -1,7 +1,5 @@
-// src/App.jsx
-import React, { useState, useRef, useEffect } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
-
 import {
   ArrowRight,
   Mail,
@@ -14,10 +12,50 @@ import {
   ClipboardList,
 } from "lucide-react";
 
-import { Button } from "./components/ui/button";
-import { Card, CardHeader, CardTitle, CardContent } from "./components/ui/card";
+/* ====== mini UI (autônoma) ====== */
+const Button = ({ href, variant = "solid", className = "", children }) => {
+  const base =
+    "inline-flex items-center gap-2 rounded-2xl px-4 py-2 text-sm transition";
+  const style =
+    variant === "outline"
+      ? "border border-gray-300 dark:border-neutral-700 bg-transparent"
+      : "bg-brand text-white border border-brand hover:opacity-90";
+  if (href) {
+    const ext = /^https?:\/\//.test(href);
+    return (
+      <a
+        href={href}
+        className={`${base} ${style} ${className}`}
+        target={ext ? "_blank" : undefined}
+        rel={ext ? "noreferrer" : undefined}
+      >
+        {children}
+      </a>
+    );
+  }
+  return <button className={`${base} ${style} ${className}`}>{children}</button>;
+};
 
-/* ===================== CONFIG BÁSICA ===================== */
+const Card = ({ className = "", children }) => (
+  <div
+    className={`rounded-2xl border border-gray-200 dark:border-neutral-800 bg-white dark:bg-neutral-900 ${className}`}
+  >
+    {children}
+  </div>
+);
+const CardHeader = ({ children }) => <div className="p-4">{children}</div>;
+const CardTitle = ({ children, className = "" }) => (
+  <div className={`font-semibold ${className}`}>{children}</div>
+);
+const CardContent = ({ children }) => <div className="p-4 pt-0">{children}</div>;
+
+const Badge = ({ children }) => (
+  <span className="inline-flex items-center rounded-full border border-gray-300 dark:border-neutral-700 text-gray-700 dark:text-gray-300 px-3 py-1 text-xs">
+    {children}
+  </span>
+);
+
+/* ===================== CONFIG ===================== */
 const ME = {
   nome: "Samantha Patrício",
   titulo: "RH • Estratégia • Cultura • Design de Experiências",
@@ -27,73 +65,67 @@ const ME = {
   github: "https://github.com/SamanthaPatricio",
   linkedin: "https://www.linkedin.com/in/samanthapatricio/",
   cidades: ["Curitiba", "Santa Catarina", "Brasil"],
-  logo: "/logo.png", // public/logo.png
+  logo: "/logo.png"
 };
 
-/* ===================== PROJETOS ===================== */
 const PROJETOS = [
   {
     titulo: "Playbook de Onboarding com Cultura Viva",
     descricao:
       "Onboarding interativo (microlearning, rituais e métricas de adaptação).",
     tags: ["RH Estratégico", "Onboarding", "Métricas"],
-    link: "#",
+    link: "#"
   },
   {
     titulo: "Arquitetura de Cultura & Espaço",
     descricao:
       "Diretrizes para layout, ergonomia, psicologia das cores e rituais de equipe.",
     tags: ["Arquitetura Corporativa", "Ergonomia", "Branding"],
-    link: "#",
+    link: "#"
   },
   {
     titulo: "Livro: Por que os RHs adoecem",
     descricao:
       "Obra autoral com análise antropológica, psicológica e socioeconômica.",
     tags: ["Livro", "Pesquisa", "Ensaios"],
-    link: "#",
-  },
+    link: "#"
+  }
 ];
 
-/* ===================== LIVROS (cobertura / link direto) ===================== */
 const LIVROS = [
   {
     titulo: "Como Implementar um Setor de RH Estratégico",
-    sub: "Guia prático",
     link:
       "https://www.amazon.com.br/Como-Implementar-Setor-RH-Estrat%C3%A9gico-ebook/dp/B0FBY5S5YW",
-    capa: "https://m.media-amazon.com/images/I/61f8jkvibKL._SY466_.jpg",
+    capa: "https://m.media-amazon.com/images/I/61f8jkvibKL._SY466_.jpg"
   },
   {
     titulo: "METODOLOGIA C.I.R.C.U.L.O",
-    sub: "Samantha Patrício",
     link:
       "https://www.amazon.com.br/METODOLOGIA-C-I-R-C-U-L-SAMANTHA-PATR%C3%8DCIO-ebook/dp/B0FDJN7TSQ",
     capa:
-      "https://m.media-amazon.com/images/I/31X7RaCqo9L._SY445_SX342_ControlCacheEqualizer_.jpg",
-  },
+      "https://m.media-amazon.com/images/I/31X7RaCqo9L._SY445_SX342_ControlCacheEqualizer_.jpg"
+  }
 ];
 
-/* ===================== PRODUTOS ===================== */
 const PLANILHAS = [
   {
     titulo: "Análise SWOT (Planilha)",
-    sub: "Ferramenta prática para diagnóstico estratégico",
-    link: "https://lnkd.in/e6fGsFac",
+    sub: "Diagnóstico estratégico",
+    link: "https://lnkd.in/e6fGsFac"
   },
   {
     titulo: "Planilha de Cargos & Salários",
-    sub: "Estruture trilhas e faixas salariais",
-    link: "https://go.hotmart.com/P98376571U",
+    sub: "Trilhas e faixas salariais",
+    link: "https://go.hotmart.com/P98376571U"
   },
   {
     titulo: "Kit – Planilhas de Marketing",
-    sub: "Conjunto de planilhas para gestão e growth",
-    link: "https://go.hotmart.com/I98391084X",
-  },
+    sub: "Gestão e growth",
+    link: "https://go.hotmart.com/I98391084X"
+  }
 ];
 
-/* ===================== CURSOS RH (destaque) ===================== */
 const RH_CURSOS_DESTAQUE = [
   "Consultora Sólides – Profiler (Analista Comportamental)",
   "Analista DISC e Empreendimento",
@@ -107,19 +139,34 @@ const RH_CURSOS_DESTAQUE = [
   "NR1 | Saúde mental e gestão SST",
   "NR5, NR18, NR33, NR35 — Segurança & Ergonomia",
   "Endomarketing e Marketing Digital",
-  "Gestão Financeira e Logística",
+  "Gestão Financeira e Logística"
 ];
 
-/* ===================== HELPERS ===================== */
-const container = {
-  hidden: { opacity: 0 },
-  show: { opacity: 1, transition: { staggerChildren: 0.12 } },
-};
-const item = {
-  hidden: { opacity: 0, y: 12 },
-  show: { opacity: 1, y: 0, transition: { type: "spring", stiffness: 80 } },
-};
+/* ===================== tema ===================== */
+function useTheme() {
+  const getInitial = () => {
+    try {
+      const saved = localStorage.getItem("theme");
+      if (saved) return saved;
+    } catch {}
+    return window.matchMedia("(prefers-color-scheme: dark)").matches
+      ? "dark"
+      : "light";
+  };
+  const [theme, setTheme] = useState(getInitial);
+  useEffect(() => {
+    const root = document.documentElement;
+    if (theme === "dark") root.classList.add("dark");
+    else root.classList.remove("dark");
+    try {
+      localStorage.setItem("theme", theme);
+    } catch {}
+  }, [theme]);
+  const toggle = () => setTheme((t) => (t === "dark" ? "light" : "dark"));
+  return { theme, toggle };
+}
 
+/* ===================== hero helpers ===================== */
 function useMouseParallax(multiplier = 0.03) {
   const ref = useRef(null);
   const [offset, setOffset] = useState({ x: 0, y: 0 });
@@ -138,43 +185,14 @@ function useMouseParallax(multiplier = 0.03) {
   return { ref, offset };
 }
 
-function Badge({ children }) {
-  return (
-    <span
-      className="inline-flex items-center rounded-full px-3 py-1 text-xs
-                 border border-gray-300 dark:border-neutral-700
-                 text-gray-700 dark:text-gray-300"
-    >
-      {children}
-    </span>
-  );
-}
-
-/* ===================== TEMA (claro/escuro) ===================== */
-function useTheme() {
-  const getInitial = () => {
-    try {
-      const saved = localStorage.getItem("theme");
-      if (saved) return saved;
-    } catch {}
-    return window.matchMedia("(prefers-color-scheme: dark)").matches
-      ? "dark"
-      : "light";
-  };
-  const [theme, setTheme] = useState(getInitial);
-
-  useEffect(() => {
-    const root = document.documentElement;
-    if (theme === "dark") root.classList.add("dark");
-    else root.classList.remove("dark");
-    try {
-      localStorage.setItem("theme", theme);
-    } catch {}
-  }, [theme]);
-
-  const toggle = () => setTheme((t) => (t === "dark" ? "light" : "dark"));
-  return { theme, toggle };
-}
+const container = {
+  hidden: { opacity: 0 },
+  show: { opacity: 1, transition: { staggerChildren: 0.12 } }
+};
+const item = {
+  hidden: { opacity: 0, y: 12 },
+  show: { opacity: 1, y: 0, transition: { type: "spring", stiffness: 80 } }
+};
 
 /* ===================== NAV ===================== */
 function Nav({ theme, toggleTheme }) {
@@ -184,15 +202,15 @@ function Nav({ theme, toggleTheme }) {
     { id: "livros", label: "Livros" },
     { id: "solides", label: "Sólides" },
     { id: "cursosrh", label: "Cursos RH" },
+    { id: "produtos", label: "Produtos" },
     { id: "formacao", label: "Formação" },
-    { id: "contato", label: "Contato" },
+    { id: "contato", label: "Contato" }
   ];
   return (
     <nav className="fixed inset-x-0 top-4 z-50 mx-auto w-fit rounded-full border bg-white/70 dark:bg-neutral-900/60 dark:border-neutral-800 backdrop-blur px-3 md:px-4 py-2 shadow-soft">
       <ul className="flex items-center gap-3">
         <li className="block">
           <a href="#sobre" className="flex items-center gap-2 pr-1">
-            {/* LOGO MAIOR */}
             {ME.logo && (
               <img
                 src={ME.logo}
@@ -223,7 +241,7 @@ function Nav({ theme, toggleTheme }) {
   );
 }
 
-/* ===================== HERO ===================== */
+/* ===================== SEÇÕES ===================== */
 function Hero() {
   const { scrollY } = useScroll();
   const y = useTransform(scrollY, [0, 400], [0, 80]);
@@ -247,51 +265,35 @@ function Hero() {
             className="mx-auto mb-2 h-40 w-40 md:h-44 md:w-44 object-contain"
           />
         )}
-        {/* NOME OCULTO (se quiser mostrar, remova hidden) */}
-        <motion.h1
-          className="hidden text-4xl md:text-6xl font-bold tracking-tight"
-        >
-          {ME.nome}
-        </motion.h1>
-
-        <motion.p className="mt-1 text-lg md:text-xl opacity-80">{ME.titulo}</motion.p>
-        <motion.p className="mt-4 text-sm md:text-base opacity-70">{ME.bio}</motion.p>
+        <p className="mt-1 text-lg md:text-xl opacity-80">{ME.titulo}</p>
+        <p className="mt-4 text-sm md:text-base opacity-70">{ME.bio}</p>
         <div className="mt-6 flex flex-wrap items-center justify-center gap-2">
           <Badge>{ME.cidades.join(" • ")}</Badge>
           <Badge>Disponível para projetos</Badge>
         </div>
         <div className="mt-8 flex flex-wrap justify-center gap-3">
-          <Button className="bg-brand border-brand text-white hover:opacity-90" asChild>
-            <a href="#projetos">
-              Ver projetos <ArrowRight className="ml-2 h-4 w-4" />
-            </a>
+          <Button href="#projetos">
+            Ver projetos <ArrowRight className="ml-2 h-4 w-4" />
           </Button>
-          <Button variant="outline" asChild>
-            <a href={`mailto:${ME.email}`}>
-              Fale comigo <Mail className="ml-2 h-4 w-4" />
-            </a>
+          <Button href={`mailto:${ME.email}`} variant="outline">
+            Fale comigo <Mail className="ml-2 h-4 w-4" />
           </Button>
-          <Button variant="outline" asChild>
-            <a href={ME.linkedin} target="_blank" rel="noreferrer">
-              LinkedIn <Linkedin className="ml-2 h-4 w-4" />
-            </a>
+          <Button href={ME.linkedin} variant="outline">
+            LinkedIn <Linkedin className="ml-2 h-4 w-4" />
           </Button>
-          <Button variant="outline" asChild>
-            <a href={ME.github} target="_blank" rel="noreferrer">
-              GitHub <Github className="ml-2 h-4 w-4" />
-            </a>
+          <Button href={ME.github} variant="outline">
+            GitHub <Github className="ml-2 h-4 w-4" />
           </Button>
         </div>
       </motion.div>
 
-      {/* bolhas de fundo */}
       <motion.div
         className="pointer-events-none absolute -top-32 -left-24 h-96 w-96 rounded-full blur-3xl"
         style={{
           x: offset.x,
           y: offset.y,
           background:
-            "radial-gradient(600px circle at 50% 50%, rgba(157,124,43,.20), transparent 60%)",
+            "radial-gradient(600px circle at 50% 50%, rgba(157,124,43,.20), transparent 60%)"
         }}
       />
       <motion.div
@@ -300,7 +302,7 @@ function Hero() {
         transition={{ duration: 30, repeat: Infinity, ease: "linear" }}
         style={{
           background:
-            "radial-gradient(600px circle at 50% 50%, rgba(157,124,43,.12), transparent 60%)",
+            "radial-gradient(600px circle at 50% 50%, rgba(157,124,43,.12), transparent 60%)"
         }}
       />
 
@@ -312,7 +314,6 @@ function Hero() {
   );
 }
 
-/* ===================== PROJETOS ===================== */
 function Projetos() {
   return (
     <section id="projetos" className="mx-auto max-w-6xl px-6 py-16">
@@ -331,7 +332,7 @@ function Projetos() {
       >
         {PROJETOS.map((p, i) => (
           <motion.a key={i} variants={item} href={p.link} className="group">
-            <Card className="h-full transition-transform duration-300 group-hover:-translate-y-1 bg-white dark:bg-neutral-900 border border-gray-200 dark:border-neutral-800">
+            <Card className="h-full transition-transform duration-300 group-hover:-translate-y-1">
               <CardHeader>
                 <CardTitle className="flex items-center gap-2">
                   <Rocket className="h-5 w-5 text-brand-700" /> {p.titulo}
@@ -353,30 +354,27 @@ function Projetos() {
   );
 }
 
-/* ===================== LIVROS (card simples, clickable) ===================== */
-function BookCard({ capa, titulo, link }) {
-  return (
-    <a
-      href={link}
-      target="_blank"
-      rel="noreferrer"
-      className="group block rounded-2xl border bg-white dark:bg-neutral-900 border-gray-200 dark:border-neutral-800 p-4 hover:-translate-y-1 transition"
-    >
-      <div className="mx-auto w-[220px] h-[320px] overflow-hidden rounded-xl bg-white dark:bg-neutral-800 grid place-items-center">
-        <img
-          src={capa}
-          alt={titulo}
-          className="max-h-[96%] max-w-[96%] object-contain"
-          loading="lazy"
-        />
-      </div>
-      <div className="mt-3 text-center text-sm font-medium">{titulo}</div>
-      <div className="mt-1 text-center text-xs opacity-70 group-hover:underline">
-        Ver na Amazon
-      </div>
-    </a>
-  );
-}
+const BookCard = ({ capa, titulo, link }) => (
+  <a
+    href={link}
+    target="_blank"
+    rel="noreferrer"
+    className="group block rounded-2xl border bg-white dark:bg-neutral-900 border-gray-200 dark:border-neutral-800 p-4 hover:-translate-y-1 transition"
+  >
+    <div className="mx-auto w-[220px] h-[320px] overflow-hidden rounded-xl bg-white dark:bg-neutral-800 grid place-items-center">
+      <img
+        src={capa}
+        alt={titulo}
+        className="max-h-[96%] max-w-[96%] object-contain"
+        loading="lazy"
+      />
+    </div>
+    <div className="mt-3 text-center text-sm font-medium">{titulo}</div>
+    <div className="mt-1 text-center text-xs opacity-70 group-hover:underline">
+      Ver na Amazon
+    </div>
+  </a>
+);
 
 function BooksSection() {
   return (
@@ -393,7 +391,6 @@ function BooksSection() {
   );
 }
 
-/* ===================== SÓLIDES • PROFILER ===================== */
 function SolidesSection() {
   const assunto = encodeURIComponent("Orçamento Profiler Sólides");
   const corpo = encodeURIComponent(
@@ -409,28 +406,22 @@ function SolidesSection() {
             Sólides • Profiler (Analista Comportamental)
           </h2>
           <p className="mt-3 opacity-80 text-sm">
-            Aplicação do Profiler, devolutiva executiva e recomendações
-            práticas para seleção, onboarding, desenvolvimento e desenho de
-            cultura/rituais. Entrego leitura clara de perfis, forças, riscos,
-            trilhas e ajustes de processo.
+            Aplicação do Profiler, devolutiva executiva e recomendações práticas
+            para seleção, onboarding, desenvolvimento e desenho de cultura/rituais.
           </p>
           <ul className="mt-4 space-y-2 text-sm">
-            <li>• Avaliação individual e de time (mapa de complementariedade)</li>
+            <li>• Avaliação individual e de time</li>
             <li>• Perfis, motivadores, comunicação, performance e riscos</li>
             <li>• Plano de ação para liderança e RH</li>
           </ul>
           <div className="mt-6 flex gap-3">
-            <Button className="bg-brand border-brand text-white hover:opacity-90" asChild>
-              <a href={link}>Pedir orçamento</a>
-            </Button>
-            <Button variant="outline" asChild>
-              <a href={ME.linkedin} target="_blank" rel="noreferrer">
-                Ver cases no LinkedIn
-              </a>
+            <Button href={link}>Pedir orçamento</Button>
+            <Button href={ME.linkedin} variant="outline">
+              Ver cases no LinkedIn
             </Button>
           </div>
         </div>
-        <Card className="border-gray-200 dark:border-neutral-800 bg-white dark:bg-neutral-900">
+        <Card>
           <CardHeader>
             <CardTitle className="flex items-center gap-2">
               <ClipboardList className="h-5 w-5" />
@@ -438,7 +429,7 @@ function SolidesSection() {
             </CardTitle>
           </CardHeader>
           <CardContent className="text-sm opacity-90 space-y-2">
-            <p>• Relatório Profiler (por pessoa) + leitura executiva</p>
+            <p>• Relatório Profiler + leitura executiva</p>
             <p>• Mapa de Time + riscos e combinações</p>
             <p>• Roteiro de comunicação e ritos de gestão</p>
             <p>• Sugestões de trilha (T&D/experiência)</p>
@@ -449,7 +440,6 @@ function SolidesSection() {
   );
 }
 
-/* ===================== CURSOS RH (chips) ===================== */
 function CursosRHSection() {
   return (
     <section id="cursosrh" className="bg-gray-100 dark:bg-neutral-900/40 py-12">
@@ -457,7 +447,10 @@ function CursosRHSection() {
         <h3 className="mb-6 text-xl font-semibold">Cursos de RH (destaque)</h3>
         <div className="flex flex-wrap gap-2">
           {RH_CURSOS_DESTAQUE.map((c) => (
-            <span key={c} className="rounded-full border px-3 py-1 text-xs bg-white dark:bg-neutral-900 border-gray-200 dark:border-neutral-800">
+            <span
+              key={c}
+              className="rounded-full border px-3 py-1 text-xs bg-white dark:bg-neutral-900 border-gray-200 dark:border-neutral-800"
+            >
               {c}
             </span>
           ))}
@@ -467,7 +460,6 @@ function CursosRHSection() {
   );
 }
 
-/* ===================== PRODUTOS (planilhas) ===================== */
 function ProdutosSection() {
   return (
     <section id="produtos" className="py-12 mx-auto max-w-6xl px-6">
@@ -493,21 +485,17 @@ function ProdutosSection() {
   );
 }
 
-/* ===================== FORMAÇÃO (igual a antes) ===================== */
 const GRADUACOES = [
   { periodo: "2024–2026", titulo: "Tecnólogo em Recursos Humanos — em andamento" },
-  {
-    periodo: "2024–2028",
-    titulo: "Arquitetura e Urbanismo — Unicesumar (PROUNI — Bolsa 100%)",
-  },
+  { periodo: "2024–2028", titulo: "Arquitetura e Urbanismo — Unicesumar (PROUNI — Bolsa 100%)" }
 ];
 const OUTRAS_FORMACOES = [
   "Biomedicina (4 anos)",
-  "USP/ICB — Biotecnologia; Bioética; Bioterismo (Ciência de animais de laboratório); Modelagem Molecular (GBI Hands On); Radiobiologia; Bioimpressão 3D; Orientação no Lab. de Controle Sanitário e Genético (ICB II)",
+  "USP/ICB — Biotecnologia; Bioética; Bioterismo; Modelagem Molecular (GBI Hands On); Radiobiologia; Bioimpressão 3D; Orientação no Lab. de Controle Sanitário e Genético (ICB II)",
   "UFV — Auxiliar de Biotecnologia",
   "Harvard (edX) — Bioética para pesquisa em ciências da vida",
   "UFSC — Neuroanatomia e Neurofisiologia",
-  "Univali — 1 ano de Fonoaudiologia; 1 ano de Publicidade e Propaganda; Simpósio de Ética em Pesquisa",
+  "Univali — 1 ano de Fonoaudiologia; 1 ano de Publicidade e Propaganda; Simpósio de Ética em Pesquisa"
 ];
 
 function FormacaoCursos() {
@@ -516,43 +504,48 @@ function FormacaoCursos() {
       <h3 className="mb-6 text-xl font-semibold text-brand-700 dark:text-white">
         Formação & Cursos
       </h3>
-
       <div className="grid gap-6 md:grid-cols-2">
-        <div className="rounded-2xl border p-5 bg-white dark:bg-neutral-900 border-gray-200 dark:border-neutral-800">
-          <h4 className="font-medium mb-3">Graduações</h4>
-          <ul className="space-y-2 text-sm">
-            {GRADUACOES.map((g) => (
-              <li key={g.titulo}>
-                <span className="opacity-60 mr-2">{g.periodo}</span> {g.titulo}
-              </li>
-            ))}
-          </ul>
-        </div>
-
-        <div className="rounded-2xl border p-5 bg-white dark:bg-neutral-900 border-gray-200 dark:border-neutral-800">
-          <div className="flex items-center justify-between mb-3">
-            <h4 className="font-medium">Outras Formações</h4>
-            <a
-              className="text-xs underline hover:opacity-80"
-              href="/curriculo.html"
-              target="_blank"
-              rel="noreferrer"
-            >
-              Currículo completo →
-            </a>
-          </div>
-          <ul className="list-disc pl-5 text-sm space-y-1">
-            {OUTRAS_FORMACOES.map((f, i) => (
-              <li key={i}>{f}</li>
-            ))}
-          </ul>
-        </div>
+        <Card>
+          <CardHeader>
+            <CardTitle>Graduações</CardTitle>
+          </CardHeader>
+          <CardContent>
+            <ul className="space-y-2 text-sm">
+              {GRADUACOES.map((g) => (
+                <li key={g.titulo}>
+                  <span className="opacity-60 mr-2">{g.periodo}</span> {g.titulo}
+                </li>
+              ))}
+            </ul>
+          </CardContent>
+        </Card>
+        <Card>
+          <CardHeader>
+            <div className="flex items-center justify-between">
+              <CardTitle>Outras Formações</CardTitle>
+              <a
+                className="text-xs underline hover:opacity-80"
+                href="/curriculo.html"
+                target="_blank"
+                rel="noreferrer"
+              >
+                Currículo completo →
+              </a>
+            </div>
+          </CardHeader>
+          <CardContent>
+            <ul className="list-disc pl-5 text-sm space-y-1">
+              {OUTRAS_FORMACOES.map((f, i) => (
+                <li key={i}>{f}</li>
+              ))}
+            </ul>
+          </CardContent>
+        </Card>
       </div>
     </section>
   );
 }
 
-/* ===================== CONTATO ===================== */
 function Contato() {
   return (
     <section id="contato" className="mx-auto max-w-3xl px-6 py-16">
@@ -562,25 +555,15 @@ function Contato() {
         4–6 linhas.
       </p>
       <div className="mt-6 flex flex-wrap gap-3">
-        <Button className="bg-brand border-brand text-white hover:opacity-90" asChild>
-          <a href={`mailto:${ME.email}`}>
-            Mandar e-mail <Mail className="ml-2 h-4 w-4" />
-          </a>
-        </Button>
-        <Button variant="outline" asChild>
-          <a href={ME.linkedin} target="_blank" rel="noreferrer">
-            Conectar no LinkedIn <Linkedin className="ml-2 h-4 w-4" />
-          </a>
-        </Button>
+        <Button href={`mailto:${ME.email}`}>Mandar e-mail <Mail className="ml-2 h-4 w-4" /></Button>
+        <Button href={ME.linkedin} variant="outline">Conectar no LinkedIn <Linkedin className="ml-2 h-4 w-4" /></Button>
       </div>
     </section>
   );
 }
 
-/* ===================== APP ===================== */
 export default function App() {
   const { theme, toggle } = useTheme();
-
   return (
     <div className="relative min-h-screen bg-white dark:bg-[#0c0c0c] text-gray-900 dark:text-gray-100 antialiased">
       <Nav theme={theme} toggleTheme={toggle} />

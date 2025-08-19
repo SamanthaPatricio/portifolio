@@ -5,29 +5,16 @@
 /* util */
 .perspective-1000 { perspective: 1000px; }
 
-/* tema e fundos */
-:root { color-scheme: light dark; }
-
 /* fundo claro */
 body {
-  background: radial-gradient(
-      900px 500px at 80% -10%,
-      rgba(157,124,43,.06),
-      transparent 60%
-    );
+  background: radial-gradient(900px 500px at 80% -10%, rgba(157,124,43,.06), transparent 60%);
 }
 
 /* fundo escuro */
 .dark body {
-  background: radial-gradient(
-      900px 500px at 20% -10%,
-      rgba(157,124,43,.10),
-      transparent 60%
-    );
+  background: radial-gradient(900px 500px at 20% -10%, rgba(157,124,43,.10), transparent 60%);
   color: #e5e7eb;
 }
 
 html { scroll-behavior: smooth; }
 ::selection { background: rgba(157,124,43,.25); }
-
-.shadow-soft { box-shadow: 0 8px 30px rgba(0,0,0,.06); }

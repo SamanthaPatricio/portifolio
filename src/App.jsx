@@ -214,7 +214,7 @@ function Nav({ theme, toggleTheme }) {
         <li>
           <a href="#sobre" className="flex items-center gap-2 pr-2">
             {ME.logo && (
-              <img src={ME.logo} alt="logo" className="h-6 w-6 object-contain" />
+<img src={ME.logo} alt="logo" className="h-10 w-10 md:h-12 md:w-12 object-contain" />
             )}
             {/* tira o nome visível no nav */}
           </a>
@@ -254,16 +254,16 @@ function Hero() {
       className="relative flex min-h-screen items-center justify-center overflow-hidden bg-gradient-to-br from-brand-50 to-white dark:from-[#0f0f0f] dark:to-[#0b0b0b]"
     >
       <motion.div style={{ y, scale }} className="relative z-10 max-w-3xl text-center px-6">
-        {ME.logo && (
-          <motion.img
-            initial={{ opacity: 0, scale: 0.9 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.6 }}
-            src={ME.logo}
-            alt="Logotipo Samantha Patrício"
-            className="mx-auto mb-6 h-32 w-32 md:h-40 md:w-40 object-contain"
-          />
-        )}
+       {ME.logo && (
+  <motion.img
+    initial={{ opacity: 0, scale: 0.9 }}
+    animate={{ opacity: 1, scale: 1 }}
+    transition={{ duration: 0.6 }}
+    src={ME.logo}
+    alt="Logotipo Samantha Patrício"
+    className="mx-auto mb-8 h-[120px] w-[120px] md:h-[180px] md:w-[180px] lg:h-[220px] lg:w-[220px] object-contain"
+  />
+)}
         {/* Nome escondido só para SEO/acessibilidade */}
         <h1 className="sr-only">{ME.nome}</h1>
 

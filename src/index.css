@@ -5,7 +5,7 @@
 /* util */
 .perspective-1000 { perspective: 1000px; }
 
-/* tema claro */
+/* claro */
 body {
   background: radial-gradient(900px 500px at 80% -10%, rgba(157,124,43,.06), transparent 60%);
 }
@@ -21,8 +21,3 @@ body {
 
 html { scroll-behavior: smooth; }
 ::selection { background: rgba(157,124,43,.25); }
-
-/* LOGO no hero ainda maior em telas muito grandes (opcional) */
-@media (min-width: 1280px) {
-  .hero-logo-xl { height: 12rem; width: 12rem; }
-}

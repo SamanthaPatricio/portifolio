@@ -1,4 +1,3 @@
- // src/App.jsx
 import React, { useEffect, useRef, useState } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
 import {
@@ -22,7 +21,7 @@ const ME = {
   github: "https://github.com/SamanthaPatricio",
   linkedin: "https://www.linkedin.com/in/samanthapatricio/",
   cidades: ["Curitiba", "Santa Catarina", "Brasil"],
-  logo: "/logo.png", // coloque o arquivo em public/logo.png
+  logo: "/logo.png", // public/logo.png
 };
 
 const PROJETOS = [
@@ -95,6 +94,7 @@ const SKILLS = [
   "Power BI / Excel",
 ];
 
+/* ======= Cursos RH — destaques (chips) ======= */
 const CURSOS_RH_DESTAQUE = [
   "Consultora Sólides — Profiler (Analista Comportamental)",
   "Analista DISC e Empreendimento",
@@ -120,6 +120,72 @@ const CURSOS_RH_DESTAQUE = [
   "Libras — Básico",
 ];
 
+/* ======= Currículo — conforme combinado ======= */
+const GRADUACOES = [
+  { periodo: "2024–2026", titulo: "Tecnólogo em Recursos Humanos — em andamento" },
+  {
+    periodo: "2024–2028",
+    titulo: "Arquitetura e Urbanismo — Unicesumar (PROUNI — Bolsa 100%)",
+  },
+];
+
+const OUTRAS_FORMACOES_PRINCIPAIS = [
+  "Biomedicina (4 anos).",
+  "USP/ICB: Biotecnologia; Bioética; Bioterismo; Modelagem Molecular (GBI Hands On); Radiobiologia; Bioimpressão 3D; Orientação no Lab. de Controle Sanitário e Genético (ICB II).",
+  "UFV: Auxiliar de Biotecnologia.",
+  "Harvard (edX): Bioética para pesquisa em ciências da vida.",
+  "UFSC: Neuroanatomia e Neurofisiologia.",
+  "Univali: 1 ano de Fonoaudiologia; 1 ano de Publicidade e Propaganda; Simpósio “Revisão ética em pesquisas com seres humanos”.",
+];
+
+const EVENTOS = [
+  "CONCARH — 2024 e 2025",
+  "RH Experience 2025 — Mentoria Renato Moreira",
+  "Open Mind 2025",
+  "Logistique 2025",
+  "Casacor — 2024 e 2025",
+  "Participação no Radiosimpósio II",
+  "Práticas de Aceleração de IA para RH — ABRH-SC (Vanessa Mosca)",
+  "Silvana (Sil Fiora) Fioravanti — Felicidade, Liderança e Atendimento Disney (participei em 2024)",
+];
+
+const ASSOCIACOES = ["Associada ABRH – Itajaí/SC"];
+
+const HOBBIES = [
+  "Arquitetura (feng shui e paisagismo)",
+  "Botânica e Herbologia",
+  "Astrofísica e Cosmologia (UFSC — Prof. Alexandre Miers Zabot)",
+  "Solloagro — USP (hobby/conhecimento paralelo)",
+];
+
+const TEC_CONHECIMENTOS = [
+  "Sistemas: TOTVS Protheus, SGP, Chronos, Secullum, SOC, Escalasoft, RSYS, Sólides.",
+  "Linguagens & dados: Python; noções de Java e HTML; Power BI (dashboards/relatórios).",
+  "Marketing aplicado a RH: comunicação interna, endomarketing e employer branding.",
+  "Office avançado (Excel, Word, PowerPoint).",
+  "Inglês Avançado (Fisk).",
+];
+
+/* Rotinas e entregas — consolidadas (sem repetição) */
+const ROTINAS_ENTREGAS = [
+  "Estruturação completa do RH do zero para matriz e 3 filiais (duas no PR e uma no RS).",
+  "Gestão de Benefícios (políticas, fornecedores, elegibilidade, comunicação e indicadores de uso).",
+  "Relação PJ/terceiros (contratos, compliance, integração a fluxos e controles).",
+  "KPIs/KPOs de RH (recrutamento, turnover, absenteísmo, T&D, clima, tempo de contratação, custo de pessoal etc.), dashboards e rotinas de análise.",
+  "Indicadores de controle (SLA, aderência a processos, prazos legais) e pesquisa de clima com planos de ação.",
+  "Cargos & Salários, trilhas e cenários de carreira.",
+  "Abertura de filial no RS: compra de empresa, contratação, sindicato, alvará, CNPJ.",
+  "Admissão, integração (manual, LGPD, uniformes, conta-salário), desligamento, folha, ponto, advertências, afastamentos, psicossocial.",
+  "Implantação de processos de RH fim-a-fim; apoio à liderança em políticas, fluxos e cultura.",
+  "T&D: NRs, CIPA, DDS, LNT, acompanhamento de PCMSO, LTCAT, PGR e planos de ação; brigada (treinamentos e atas).",
+  "Ponto: SGP, Chronos, Secullum (filiais Recife-PE, Gravataí-RS, Itajaí e Navegantes) e cadastro no Escalasoft.",
+  "Folha (importações/lançamentos), variáveis, benefícios, diárias de motoristas, férias, ASO, PCMSO.",
+  "Vistorias (bombeiros), PPRA/ergonomia.",
+  "Lançamento de documentos/guias, IRRF, INSS para o financeiro.",
+  "Códigos de conduta e ética, pesquisa de clima, feedback de experiência.",
+  "E-Social (consultas/envios); TOTVS/Protheus (admissão, contratos, carteira); SOC (exames).",
+];
+
 /* ===================== HELPERS ===================== */
 const container = {
   hidden: { opacity: 0 },
@@ -130,7 +196,7 @@ const item = {
   show: { opacity: 1, y: 0, transition: { type: "spring", stiffness: 80 } },
 };
 
-function useMouseParallax(multiplier = 0.04) {
+function useMouseParallax(multiplier = 0.05) {
   const ref = useRef(null);
   const [offset, setOffset] = useState({ x: 0, y: 0 });
   useEffect(() => {
@@ -187,12 +253,12 @@ function Nav({ theme, toggleTheme }) {
     { id: "projetos", label: "Projetos" },
     { id: "livros", label: "Livros" },
     { id: "produtos", label: "Produtos" },
-    { id: "cursos", label: "Cursos" },
-    { id: "formacao", label: "Formação" },
+    { id: "solides", label: "Sólides" },
+    { id: "formacao", label: "Currículo" },
     { id: "contato", label: "Contato" },
   ];
   return (
-    <nav className="fixed inset-x-0 top-4 z-50 mx-auto w-fit rounded-full border bg-white/70 dark:bg-neutral-900/60 dark:border-neutral-800 backdrop-blur px-3 md:px-4 py-2 shadow">
+    <nav className="fixed inset-x-0 top-4 z-50 mx-auto w-fit rounded-full border bg-white/70 dark:bg-neutral-900/60 dark:border-neutral-800 backdrop-blur px-3 md:px-4 py-2 shadow-soft">
       <ul className="flex items-center gap-3">
         <li className="hidden md:block">
           <a href="#sobre" className="flex items-center gap-2 pr-2">
@@ -233,7 +299,7 @@ function Hero() {
     <section
       id="sobre"
       ref={ref}
-      className="relative flex min-h-screen items-center justify-center overflow-hidden bg-gradient-to-br from-brand-50 to-white dark:from-[#0f0f0f] dark:to-[#0b0b0b]"
+      className="relative flex min-h-screen items-center justify-center overflow-hidden"
     >
       <motion.div style={{ y, scale }} className="relative z-10 max-w-4xl text-center px-6">
         {ME.logo && (
@@ -243,7 +309,7 @@ function Hero() {
             transition={{ duration: 0.6 }}
             src={ME.logo}
             alt="Logotipo"
-            className="mx-auto mb-4 h-28 w-auto md:h-36 object-contain" /* LOGO MAIOR */
+            className="mx-auto mb-4 h-28 w-auto md:h-36 object-contain"
           />
         )}
         <motion.h1
@@ -263,7 +329,7 @@ function Hero() {
         <div className="mt-8 flex flex-wrap justify-center gap-3">
           <a
             href="#projetos"
-            className="inline-flex items-center gap-2 rounded-full border bg-amber-700/90 text-white px-4 py-2 text-sm hover:opacity-90"
+            className="inline-flex items-center gap-2 rounded-full border bg-brand-700 text-white px-4 py-2 text-sm hover:opacity-90"
           >
             Ver projetos <ArrowRight className="h-4 w-4" />
           </a>
@@ -292,7 +358,7 @@ function Hero() {
         </div>
       </motion.div>
 
-      {/* bolhas de fundo */}
+      {/* bolhas */}
       <motion.div
         className="pointer-events-none absolute -top-32 -left-24 h-96 w-96 rounded-full blur-3xl"
         style={{
@@ -345,7 +411,7 @@ function Projetos() {
             className="group h-full rounded-2xl border transition-transform duration-300 group-hover:-translate-y-1 p-4"
           >
             <div className="flex items-center gap-2 text-base font-medium">
-              <Rocket className="h-5 w-5 text-amber-700" /> {p.titulo}
+              <Rocket className="h-5 w-5 text-brand-700" /> {p.titulo}
             </div>
             <p className="mt-2 text-sm opacity-80">{p.descricao}</p>
             <div className="mt-4 flex flex-wrap gap-2">
@@ -360,7 +426,7 @@ function Projetos() {
   );
 }
 
-/* ===================== BOOK 3D (capa abre) ===================== */
+/* ===================== Book 3D ===================== */
 function Book3D({ capa, titulo, link }) {
   const [open, setOpen] = useState(false);
   const openCover = { rotateY: -160 };
@@ -377,15 +443,9 @@ function Book3D({ capa, titulo, link }) {
       className="group relative w-[220px] sm:w-[240px] h-[300px] sm:h-[320px] perspective-1000"
       onMouseEnter={() => setOpen(true)}
       onMouseLeave={() => setOpen(false)}
-      onClick={() => setOpen((s) => !s)} // mobile
+      onClick={() => setOpen((s) => !s)}
     >
-      {/* miolo */}
-      <div className="absolute inset-0 rounded-xl bg-white dark:bg-neutral-900 shadow">
-        <div className="absolute top-3 bottom-3 right-2 w-[6px] rounded bg-gradient-to-b from-gray-200 to-gray-300 dark:from-neutral-700 dark:to-neutral-600" />
-        <div className="absolute inset-y-0 left-0 w-2 bg-gradient-to-r from-black/10 to-transparent rounded-l-xl" />
-      </div>
-
-      {/* 1ª página */}
+      <div className="absolute inset-0 rounded-xl bg-white dark:bg-neutral-900 shadow" />
       <motion.div
         className="absolute inset-0 origin-left rounded-xl bg-white dark:bg-neutral-900 shadow"
         style={{ backfaceVisibility: "hidden" }}
@@ -396,10 +456,7 @@ function Book3D({ capa, titulo, link }) {
         <div className="w-full h-full rounded-xl grid place-items-center p-4">
           <span className="text-xs opacity-70 text-center px-2">{titulo}</span>
         </div>
-        <div className="absolute inset-0 rounded-xl bg-gradient-to-r from-black/10 to-transparent pointer-events-none" />
       </motion.div>
-
-      {/* capa */}
       <motion.div
         className="absolute inset-0 origin-left rounded-xl bg-white dark:bg-neutral-900 shadow-xl"
         style={{ backfaceVisibility: "hidden" }}
@@ -484,7 +541,7 @@ function SkillsMarquee() {
 /* ===================== SÓLIDES / PROFILER ===================== */
 function SolidesProfiler() {
   return (
-    <section id="cursos" className="mx-auto max-w-6xl px-6 py-16">
+    <section id="solides" className="mx-auto max-w-6xl px-6 py-16">
       <h3 className="mb-6 text-xl font-semibold">Sólides • Profiler (Analista Comportamental)</h3>
       <p className="opacity-80 text-sm">
         Consultoria para mapeamento comportamental, cultura e performance. Aplicação do Profiler
@@ -501,7 +558,7 @@ function SolidesProfiler() {
       <div className="mt-6 flex flex-wrap gap-3">
         <a
           href={`mailto:${ME.email}?subject=Orçamento%20Sólides%20Profiler&body=Conte%20um%20pouco%20sobre%20o%20escopo,%20prazos%20e%20tamanho%20do%20time.`}
-          className="inline-flex items-center gap-2 rounded-full border bg-amber-700/90 text-white px-4 py-2 text-sm hover:opacity-90"
+          className="inline-flex items-center gap-2 rounded-full border bg-brand-700 text-white px-4 py-2 text-sm hover:opacity-90"
         >
           Pedir orçamento <ArrowRight className="h-4 w-4" />
         </a>
@@ -518,14 +575,14 @@ function SolidesProfiler() {
   );
 }
 
-/* ===================== FORMAÇÃO & CURRÍCULO ===================== */
-function FormacaoCursos() {
+/* ===================== CURRÍCULO COMPLETO (RESUMIDO AQUI) ===================== */
+function Curriculo() {
   return (
     <section id="formacao" className="mx-auto max-w-6xl px-6 py-16">
-      <h3 className="mb-6 text-xl font-semibold text-brand-700 dark:text-white">
-        Formação & Currículo
-      </h3>
-      <div className="rounded-2xl border p-5">
+      <h3 className="mb-6 text-xl font-semibold">Currículo — Formação & Experiência</h3>
+
+      {/* Graduações */}
+      <div className="rounded-2xl border p-5 mb-6">
         <div className="flex items-center justify-between mb-3">
           <h4 className="font-medium">Graduações</h4>
           <a
@@ -538,23 +595,83 @@ function FormacaoCursos() {
           </a>
         </div>
         <ul className="space-y-2 text-sm">
-          <li>
-            <span className="opacity-60 mr-2">2024–2026</span> Tecnólogo em Recursos Humanos — em
-            andamento
-          </li>
-          <li>
-            <span className="opacity-60 mr-2">2024–2028</span> Arquitetura e Urbanismo — Unicesumar
-            (PROUNI — Bolsa 100%)
-          </li>
+          {GRADUACOES.map((g) => (
+            <li key={g.titulo}>
+              <span className="opacity-60 mr-2">{g.periodo}</span> {g.titulo}
+            </li>
+          ))}
         </ul>
       </div>
 
-      <div className="rounded-2xl border p-5 mt-6">
-        <h4 className="font-medium mb-3">Cursos em RH (destaques)</h4>
+      {/* Outras Formações */}
+      <div className="rounded-2xl border p-5 mb-6">
+        <h4 className="font-medium mb-3">Outras formações — principais</h4>
+        <ul className="list-disc pl-5 text-sm space-y-1">
+          {OUTRAS_FORMACOES_PRINCIPAIS.map((f, i) => (
+            <li key={i}>{f}</li>
+          ))}
+        </ul>
+      </div>
+
+      {/* Cursos RH */}
+      <div className="rounded-2xl border p-5 mb-6">
+        <h4 className="font-medium mb-3">Cursos de RH (seleção)</h4>
         <div className="flex flex-wrap gap-2">
           {CURSOS_RH_DESTAQUE.map((c) => (
             <span key={c} className="rounded-full border px-3 py-1 text-xs">
               {c}
+            </span>
+          ))}
+        </div>
+      </div>
+
+      {/* Conhecimentos Técnicos */}
+      <div className="rounded-2xl border p-5 mb-6">
+        <h4 className="font-medium mb-3">Conhecimentos técnicos</h4>
+        <ul className="list-disc pl-5 text-sm space-y-1">
+          {TEC_CONHECIMENTOS.map((t, i) => (
+            <li key={i}>{t}</li>
+          ))}
+        </ul>
+      </div>
+
+      {/* Rotinas e Entregas */}
+      <div className="rounded-2xl border p-5 mb-6">
+        <h4 className="font-medium mb-3">Rotinas e entregas (experiência prática consolidada)</h4>
+        <ul className="list-disc pl-5 text-sm space-y-1">
+          {ROTINAS_ENTREGAS.map((r, i) => (
+            <li key={i}>{r}</li>
+          ))}
+        </ul>
+      </div>
+
+      {/* Eventos & participações */}
+      <div className="rounded-2xl border p-5 mb-6">
+        <h4 className="font-medium mb-3">Eventos & Participações</h4>
+        <ul className="list-disc pl-5 text-sm space-y-1">
+          {EVENTOS.map((e) => (
+            <li key={e}>{e}</li>
+          ))}
+        </ul>
+      </div>
+
+      {/* Associações */}
+      <div className="rounded-2xl border p-5 mb-6">
+        <h4 className="font-medium mb-3">Associações profissionais</h4>
+        <ul className="list-disc pl-5 text-sm space-y-1">
+          {ASSOCIACOES.map((a) => (
+            <li key={a}>{a}</li>
+          ))}
+        </ul>
+      </div>
+
+      {/* Hobbies */}
+      <div className="rounded-2xl border p-5">
+        <h4 className="font-medium mb-3">Hobbies & conhecimentos paralelos</h4>
+        <div className="flex flex-wrap gap-2">
+          {HOBBIES.map((h) => (
+            <span key={h} className="rounded-full border px-3 py-1 text-xs">
+              {h}
             </span>
           ))}
         </div>
@@ -575,7 +692,7 @@ function Contato() {
       <div className="mt-6 flex flex-wrap gap-3">
         <a
           href={`mailto:${ME.email}`}
-          className="inline-flex items-center gap-2 rounded-full border bg-amber-700/90 text-white px-4 py-2 text-sm hover:opacity-90"
+          className="inline-flex items-center gap-2 rounded-full border bg-brand-700 text-white px-4 py-2 text-sm hover:opacity-90"
         >
           Mandar e-mail <Mail className="h-4 w-4" />
         </a>
@@ -605,7 +722,7 @@ export default function App() {
       <Produtos />
       <SkillsMarquee />
       <SolidesProfiler />
-      <FormacaoCursos />
+      <Curriculo />
       <Contato />
       <footer className="mx-auto max-w-6xl px-6 py-10 text-xs opacity-60">
         © {new Date().getFullYear()} {ME.nome}. Feito com React + Framer Motion + Tailwind.

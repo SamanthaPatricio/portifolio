@@ -1,53 +1,15 @@
 <!doctype html>
-<html lang="pt-br" class="scroll-smooth">
+<html lang="pt-br">
   <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-
-    <title>Samantha Patrício — Portfólio</title>
-    <meta name="description" content="RH • Estratégia • Cultura • Design de Experiências" />
-    <meta name="color-scheme" content="light dark" />
-    <meta name="theme-color" content="#9d7c2b" media="(prefers-color-scheme: light)" />
-    <meta name="theme-color" content="#0b0b0b" media="(prefers-color-scheme: dark)" />
-
-    <!-- Open Graph (compartilhamento) -->
-    <meta property="og:title" content="Samantha Patrício — Portfólio" />
-    <meta property="og:description" content="RH • Estratégia • Cultura • Design de Experiências" />
-    <meta property="og:type" content="website" />
-    <meta property="og:image" content="/logo.png" />
-
-    <!-- Favicon / logo -->
-    <link rel="icon" href="/logo.png" type="image/png" />
-
-    <!-- Fonte (opcional, igual ao que usamos no app) -->
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
-      rel="stylesheet"
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, viewport-fit=cover"
     />
-    <style>
-      html { font-family: Inter, system-ui, Segoe UI, Roboto, Helvetica, Arial, sans-serif; }
-    </style>
-
-    <!-- Evita flash de tema errado: aplica "dark" antes do React carregar -->
-    <script>
-      (() => {
-        try {
-          const saved = localStorage.getItem("theme");
-          if (saved) {
-            document.documentElement.classList.toggle("dark", saved === "dark");
-          } else if (window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches) {
-            document.documentElement.classList.add("dark");
-          }
-        } catch {}
-      })();
-    </script>
+    <title>Portfólio — Samantha Patrício</title>
   </head>
-
-  <body class="min-h-screen bg-white text-gray-900 dark:bg-[#0c0c0c] dark:text-gray-100 antialiased">
+  <body class="min-h-screen bg-white dark:bg-[#0c0c0c]">
     <div id="root"></div>
-    <!-- Entrada do Vite/React -->
     <script type="module" src="/src/main.jsx"></script>
   </body>
 </html>

@@ -8,6 +8,15 @@
     />
     <title>Portfólio — Samantha Patrício</title>
   </head>
+<script>
+  // aplica o tema escuro imediatamente, evitando 'flash' e garantindo que o Tailwind veja a classe
+  (function () {
+    try {
+      var t = localStorage.getItem("theme");
+      if (t === "dark") document.documentElement.classList.add("dark");
+    } catch (e) {}
+  })();
+</script>
   <body class="min-h-screen bg-white dark:bg-[#0c0c0c]">
     <div id="root"></div>
     <script type="module" src="/src/main.jsx"></script>

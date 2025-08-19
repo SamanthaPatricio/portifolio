@@ -3,7 +3,6 @@ import react from "@vitejs/plugin-react";
 
 export default defineConfig({
   plugins: [react()],
-  base: "/",
-  build: { outDir: "dist", assetsDir: "assets", sourcemap: false },
-  server: { host: true, port: 5173 }
+  base: "/",                 // importante para Vercel
+  build: { outDir: "dist" }  // Vercel vai servir /dist
 });

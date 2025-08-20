@@ -6,117 +6,114 @@
     <title>Samantha Patrício — Portfólio</title>
     <meta name="description" content="Samantha Patrício — RH • Estratégia • Cultura • Design de Experiências" />
 
-    <!-- Aplica o tema salvo ANTES de pintar a página (evita flash) -->
+    <!-- Aplica tema salvo ANTES de pintar (evita flash) -->
     <script>
       (function () {
         try {
           const saved = localStorage.getItem("theme");
           const prefersDark = matchMedia("(prefers-color-scheme: dark)").matches;
-          const theme = (saved || (prefersDark ? "dark" : "light"));
-          if (theme === "dark") document.documentElement.classList.add("dark");
+          const mode = (saved || (prefersDark ? "dark" : "light"));
+          document.documentElement.classList.toggle("dark", mode === "dark");
         } catch (e) {}
       })();
     </script>
 
-    <!-- Tailwind (CDN) -->
+    <!-- Tailwind CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
       tailwind.config = {
         darkMode: "class",
         theme: {
           extend: {
-            colors: { brand: { 50: "#FFF8E6", 600: "#AF8C39", 700: "#9D7C2B" } },
+            colors: { brand: { 50:"#FFF8E6", 600:"#AF8C39", 700:"#9D7C2B" } },
             boxShadow: { soft: "0 10px 30px rgba(0,0,0,.10)" },
-            keyframes: {
-              marquee: { "0%": { transform: "translateX(0)" }, "100%": { transform: "translateX(-50%)" } }
-            },
+            keyframes: { marquee: { "0%":{transform:"translateX(0)"}, "100%":{transform:"translateX(-50%)"} } },
             animation: { marquee: "marquee 22s linear infinite" }
           }
         }
-      };
+      }
     </script>
 
-    <!-- Estilos pontuais -->
     <style>
-      /* fundo com leve vinheta (claro/escuro) */
-      body {
+      /* fundo */
+      body{
         background: radial-gradient(900px 500px at 80% -10%, rgba(157,124,43,.06), transparent 60%);
       }
-      .dark body {
+      .dark body{
         background:
           radial-gradient(900px 500px at 20% -10%, rgba(157,124,43,.10), transparent 60%) #0c0c0c;
         color:#e5e7eb;
       }
       ::selection{ background: rgba(157,124,43,.25); }
 
-      /* Livros com tamanho uniforme + tilt suave */
-      .book-tilt{
-        transform-style: preserve-3d;
-        transition: transform .55s cubic-bezier(.2,.7,.2,1), box-shadow .35s;
+      /* Livros 3D (tamanho fixo) */
+      .book{ position:relative; width:220px; height:300px; perspective:1000px; }
+      .book .layer{ position:absolute; inset:0; border-radius:14px; transform-style:preserve-3d; backface-visibility:hidden; }
+      .book .cover{
+        background:#fff; transform:rotateY(0deg);
+        transition:transform .6s cubic-bezier(.2,.7,.2,1); box-shadow:0 12px 35px rgba(0,0,0,.14);
       }
-      .group:hover .book-tilt{
-        transform: perspective(1000px) rotateY(-8deg) rotateX(2deg);
+      .dark .book .cover{ background:#111827; }
+      .book .page{
+        background:linear-gradient(to bottom right,#fff,#f3f4f6);
+        transform:rotateY(-180deg);
+        transition:transform .6s cubic-bezier(.2,.7,.2,1);
+        box-shadow:inset 0 0 0 1px rgba(0,0,0,.06);
       }
+      .dark .book .page{
+        background:linear-gradient(to bottom right,#0f172a,#0b1220);
+        box-shadow:inset 0 0 0 1px rgba(255,255,255,.08);
+      }
+      .book:hover .cover{ transform:rotateY(-160deg); }
+      .book:hover .page{ transform:rotateY(-18deg) translateX(2px); }
 
-      /* Marquee das competências */
+      /* Marquee */
       .marquee-track{ display:inline-flex; white-space:nowrap; gap:12px; animation:marquee 22s linear infinite; }
       @keyframes marquee{ 0%{transform:translateX(0)} 100%{transform:translateX(-50%)} }
     </style>
   </head>
 
   <body class="antialiased text-gray-900 dark:text-gray-100">
-
     <!-- NAV -->
     <nav class="fixed inset-x-0 top-4 z-50 mx-auto w-fit rounded-full border bg-white/80 backdrop-blur dark:bg-neutral-900/70 dark:border-neutral-800 px-3 md:px-4 py-2 shadow-soft">
       <ul class="flex items-center gap-3 text-sm">
         <li class="hidden md:block">
           <a href="#sobre" class="flex items-center gap-2 pr-2">
-            <img src="/logo.png" alt="logo" class="h-9 w-9 object-contain" />
+            <img src="/logo.png" alt="logo" class="h-8 w-8 object-contain" />
           </a>
         </li>
         <li><a href="#sobre" class="hover:opacity-70">Sobre</a></li>
-        <li><a href="#projetos" class="hover:opacity-70">Projetos</a></li>
-        <li><a href="#livros" class="hover:opacity-70">Livros</a></li>
         <li><a href="#solides" class="hover:opacity-70">Sólides</a></li>
         <li><a href="#cursos-rh" class="hover:opacity-70">Cursos RH</a></li>
         <li><a href="#produtos" class="hover:opacity-70">Produtos</a></li>
-        <li><a href="#formacao" class="hover:opacity-70">Formação</a></li>
+        <li><a href="#livros" class="hover:opacity-70">Livros</a></li>
+        <li><a href="#curriculo" class="hover:opacity-70">Currículo</a></li>
         <li><a href="#contato" class="hover:opacity-70">Contato</a></li>
         <li class="pl-1">
-          <button id="themeBtn"
-            class="rounded-full border px-2 py-1 text-xs hover:opacity-80 dark:border-neutral-700"
-            title="Alternar tema">
-          </button>
+          <button id="themeBtn" class="rounded-full border px-2 py-1 text-xs hover:opacity-80 dark:border-neutral-700" title="Alternar tema"></button>
         </li>
       </ul>
     </nav>
 
     <!-- HERO -->
-    <section id="sobre" class="relative flex min-h-screen items-center justify-center px-6">
+    <section id="sobre" class="relative flex min-h-[86vh] items-center justify-center px-6">
       <div class="relative z-10 max-w-4xl text-center">
-        <img src="/logo.png" alt="Samantha Patrício"
-             class="mx-auto mb-4 h-48 md:h-56 w-auto object-contain" />
+        <img src="/logo.png" alt="Samantha Patrício" class="mx-auto mb-4 h-36 md:h-44 w-auto object-contain" />
         <h1 class="text-4xl md:text-6xl font-bold tracking-tight">Samantha Patrício</h1>
         <p class="mt-2 text-lg md:text-xl opacity-80">RH • Estratégia • Cultura • Design de Experiências</p>
         <p class="mt-4 text-sm md:text-base opacity-70">
-          RH Generalista há 7 anos; implementei RH do zero estruturando subsistemas, rotinas e indicadores.
-          Atuação estratégica alinhada à cultura e aos objetivos do negócio, com foco em experiência do colaborador,
-          eficiência e leitura de dados. Aberta a novos desafios (RH generalista/estratégico, BP, cultura, desenvolvimento,
-          people analytics e organização de processos).
+          RH Generalista há 7 anos; implementei RH do zero (subsistemas, rotinas e indicadores).
+          Atuação estratégica alinhada à cultura e aos objetivos do negócio — com foco em experiência do colaborador,
+          eficiência e leitura de dados. Aberta a novos desafios (RH generalista/estratégico, BP, cultura,
+          desenvolvimento, people analytics e organização de processos).
         </p>
         <div class="mt-6 flex flex-wrap items-center justify-center gap-2">
-          <span class="inline-flex items-center rounded-full border px-3 py-1 text-xs border-gray-300 dark:border-neutral-700 text-gray-700 dark:text-gray-300">
-            Curitiba • Santa Catarina • Brasil
-          </span>
-          <span class="inline-flex items-center rounded-full border px-3 py-1 text-xs border-gray-300 dark:border-neutral-700 text-gray-700 dark:text-gray-300">
-            Disponível para projetos
-          </span>
-          <span class="inline-flex items-center rounded-full border px-3 py-1 text-xs border-brand-700 text-brand-700">
-            Associada ABRH – Itajaí/SC
-          </span>
+          <span class="inline-flex items-center rounded-full border px-3 py-1 text-xs border-gray-300 dark:border-neutral-700">Curitiba • Santa Catarina • Brasil</span>
+          <span class="inline-flex items-center rounded-full border px-3 py-1 text-xs border-gray-300 dark:border-neutral-700">Disponível para projetos</span>
+          <span class="inline-flex items-center rounded-full border px-3 py-1 text-xs border-brand-700 text-brand-700"><strong>Associada ABRH – Itajaí/SC</strong></span>
         </div>
         <div class="mt-8 flex flex-wrap justify-center gap-3">
-          <a href="#projetos" class="inline-flex items-center gap-2 rounded-full border bg-brand-700 text-white px-4 py-2 text-sm hover:opacity-90">Ver projetos →</a>
+          <a href="#solides" class="inline-flex items-center gap-2 rounded-full border bg-brand-700 text-white px-4 py-2 text-sm hover:opacity-90">Ver projetos →</a>
           <a href="mailto:samanthapatricio39@gmail.com" class="inline-flex items-center gap-2 rounded-full border px-4 py-2 text-sm hover:bg-black hover:text-white">Fale comigo</a>
           <a href="https://www.linkedin.com/in/samanthapatricio/" target="_blank" class="inline-flex items-center gap-2 rounded-full border px-4 py-2 text-sm hover:bg-black hover:text-white">LinkedIn</a>
           <a href="https://github.com/SamanthaPatricio" target="_blank" class="inline-flex items-center gap-2 rounded-full border px-4 py-2 text-sm hover:bg-black hover:text-white">GitHub</a>
@@ -124,51 +121,11 @@
       </div>
     </section>
 
-    <!-- PROJETOS -->
-    <section id="projetos" class="mx-auto max-w-6xl px-6 py-16">
-      <div class="mb-8 flex items-end justify-between">
-        <h2 class="text-2xl md:text-3xl font-semibold text-brand-700 dark:text-white">Projetos em Destaque</h2>
-        <div class="text-sm opacity-70">clique para saber mais</div>
-      </div>
-
-      <div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-        <a href="#" class="group h-full rounded-2xl border transition-transform duration-300 hover:-translate-y-1 p-4">
-          <div class="flex items-center gap-2 text-base font-medium">🚀 Playbook de Onboarding com Cultura Viva</div>
-          <p class="mt-2 text-sm opacity-80">Onboarding interativo (microlearning, rituais e métricas de adaptação).</p>
-          <div class="mt-4 flex flex-wrap gap-2 text-xs">
-            <span class="rounded-full border px-3 py-1">RH Estratégico</span>
-            <span class="rounded-full border px-3 py-1">Onboarding</span>
-            <span class="rounded-full border px-3 py-1">Métricas</span>
-          </div>
-        </a>
-
-        <a href="#" class="group h-full rounded-2xl border transition-transform duration-300 hover:-translate-y-1 p-4">
-          <div class="flex items-center gap-2 text-base font-medium">🚀 Arquitetura de Cultura & Espaço</div>
-          <p class="mt-2 text-sm opacity-80">Layout, ergonomia, psicologia das cores e rituais de equipe.</p>
-          <div class="mt-4 flex flex-wrap gap-2 text-xs">
-            <span class="rounded-full border px-3 py-1">Arquitetura</span>
-            <span class="rounded-full border px-3 py-1">Ergonomia</span>
-            <span class="rounded-full border px-3 py-1">Branding</span>
-          </div>
-        </a>
-
-        <a href="#" class="group h-full rounded-2xl border transition-transform duration-300 hover:-translate-y-1 p-4">
-          <div class="flex items-center gap-2 text-base font-medium">🚀 Livro: Por que os RHs adoecem</div>
-          <p class="mt-2 text-sm opacity-80">Obra autoral com análise antropológica, psicológica e socioeconômica.</p>
-          <div class="mt-4 flex flex-wrap gap-2 text-xs">
-            <span class="rounded-full border px-3 py-1">Livro</span>
-            <span class="rounded-full border px-3 py-1">Pesquisa</span>
-            <span class="rounded-full border px-3 py-1">Ensaios</span>
-          </div>
-        </a>
-      </div>
-    </section>
-
     <!-- SÓLIDES / PROFILER -->
     <section id="solides" class="mx-auto max-w-6xl px-6 py-16">
       <h3 class="mb-6 text-xl font-semibold">Sólides • Profiler (Analista Comportamental)</h3>
       <p class="opacity-80 text-sm">
-        Aplicação do Profiler, devolutiva executiva e recomendações para seleção, onboarding, desenvolvimento,
+        Aplicação do Profiler, devolutiva executiva e recomendações práticas para seleção, onboarding, desenvolvimento,
         cultura e ritos de gestão — alinhado a indicadores e performance.
       </p>
 
@@ -184,15 +141,14 @@
             <li>Relatório Profiler + leitura executiva</li>
             <li>Mapa de time (forças, riscos, aderência a cargo)</li>
             <li>Roteiro de comunicação & rituais de gestão</li>
-            <li>Sugestões de trilha (T&D/experiência)</li>
+            <li>Sugestões de trilha (T&D / experiência)</li>
           </ul>
         </div>
       </div>
 
       <div class="mt-6 flex flex-wrap gap-3">
-        <a
-          href="mailto:samanthapatricio39@gmail.com?subject=Or%C3%A7amento%20S%C3%B3lides%20Profiler&body=Conte%20o%20escopo,%20prazos%20e%20tamanho%20do%20time."
-          class="inline-flex items-center gap-2 rounded-full border bg-brand-700 text-white px-4 py-2 text-sm hover:opacity-90">Pedir orçamento →</a>
+        <a href="mailto:samanthapatricio39@gmail.com?subject=Or%C3%A7amento%20S%C3%B3lides%20Profiler&body=Conte%20o%20escopo,%20prazos%20e%20tamanho%20do%20time."
+           class="inline-flex items-center gap-2 rounded-full border bg-brand-700 text-white px-4 py-2 text-sm hover:opacity-90">Pedir orçamento →</a>
         <a href="https://www.linkedin.com/in/samanthapatricio/" target="_blank"
            class="inline-flex items-center gap-2 rounded-full border px-4 py-2 text-sm hover:bg-black hover:text-white">Ver cases no LinkedIn</a>
       </div>
@@ -225,7 +181,7 @@
           <span class="rounded-full border px-3 py-1">Strategic HR Management (StellenBoschX)</span>
           <span class="rounded-full border px-3 py-1">Liderança — Daniel Spinelli</span>
           <span class="rounded-full border px-3 py-1">Organizational Psychology (UCX)</span>
-          <span class="rounded-full border px-3 py-1">ESG & Créditos de Carbono</span>
+          <span class="rounded-full border px-3 py-1">ESG e Créditos de Carbono</span>
           <span class="rounded-full border px-3 py-1">Libras — Básico</span>
           <span class="rounded-full border px-3 py-1">Inglês Avançado (Fisk)</span>
         </div>
@@ -260,7 +216,7 @@
       </ul>
     </section>
 
-    <!-- COMPETÊNCIAS (marquee) -->
+    <!-- SKILLS MARQUEE -->
     <section class="bg-gray-100 dark:bg-neutral-900/40 py-12">
       <div class="mx-auto max-w-6xl px-6">
         <h3 class="mb-6 text-xl font-semibold">Stack & Competências</h3>
@@ -274,7 +230,6 @@
             <span class="rounded-full border px-4 py-2 text-sm opacity-80">Design de Aprendizagem</span>
             <span class="rounded-full border px-4 py-2 text-sm opacity-80">OKRs & KPIs</span>
             <span class="rounded-full border px-4 py-2 text-sm opacity-80">Power BI / Excel</span>
-            <!-- duplicado para loop contínuo -->
             <span class="rounded-full border px-4 py-2 text-sm opacity-80">People Analytics</span>
             <span class="rounded-full border px-4 py-2 text-sm opacity-80">BP de RH</span>
             <span class="rounded-full border px-4 py-2 text-sm opacity-80">Cultura & Clima</span>
@@ -292,120 +247,46 @@
     <section id="livros" class="py-12 mx-auto max-w-6xl px-6">
       <h2 class="text-2xl font-semibold mb-6 text-brand-700 dark:text-white">Livros</h2>
 
-      <div class="grid gap-10 sm:grid-cols-2 place-items-center">
+      <div class="flex flex-wrap gap-10">
         <!-- Livro 1 -->
-        <a href="https://www.amazon.com.br/Como-Implementar-Setor-RH-Estrat%C3%A9gico-ebook/dp/B0FBY5S5YW"
-           target="_blank" rel="noreferrer" class="group w-full max-w-[420px]">
-          <div class="mx-auto w-[240px] sm:w-[260px] lg:w-[280px] aspect-[3/4] overflow-hidden rounded-xl bg-white dark:bg-neutral-900 shadow-soft book-tilt">
-            <img src="https://m.media-amazon.com/images/I/61f8jkvibKL._SY466_.jpg" alt="Como Implementar um Setor de RH Estratégico"
-                 class="h-full w-full object-contain" />
+        <a class="book" target="_blank" rel="noreferrer" title="Ver na Amazon"
+           href="https://www.amazon.com.br/Como-Implementar-Setor-RH-Estrat%C3%A9gico-ebook/dp/B0FBY5S5YW">
+          <div class="layer page grid place-items-center p-4">
+            <span class="text-xs opacity-80 text-center px-2">Como Implementar um Setor de RH Estratégico</span>
           </div>
-          <div class="mt-3 text-center text-sm font-medium">Como Implementar um Setor de RH Estratégico</div>
-          <div class="text-xs text-center opacity-70">Ver na Amazon ↗</div>
+          <div class="layer cover grid place-items-center p-3">
+            <img class="max-h-[80%] object-contain"
+                 src="https://m.media-amazon.com/images/I/61f8jkvibKL._SY466_.jpg"
+                 alt="Como Implementar um Setor de RH Estratégico"/>
+            <p class="mt-2 text-[11px] text-center opacity-85 px-2">Como Implementar um Setor de RH Estratégico</p>
+          </div>
         </a>
 
         <!-- Livro 2 -->
-        <a href="https://www.amazon.com.br/METODOLOGIA-C-I-R-C-U-L-SAMANTHA-PATR%C3%8DCIO-ebook/dp/B0FDJN7TSQ"
-           target="_blank" rel="noreferrer" class="group w-full max-w-[420px]">
-          <div class="mx-auto w-[240px] sm:w-[260px] lg:w-[280px] aspect-[3/4] overflow-hidden rounded-xl bg-white dark:bg-neutral-900 shadow-soft book-tilt">
-            <img src="https://m.media-amazon.com/images/I/31X7RaCqo9L._SY445_SX342_ControlCacheEqualizer_.jpg" alt="METODOLOGIA C.I.R.C.U.L.O"
-                 class="h-full w-full object-contain" />
+        <a class="book" target="_blank" rel="noreferrer" title="Ver na Amazon"
+           href="https://www.amazon.com.br/METODOLOGIA-C-I-R-C-U-L-SAMANTHA-PATR%C3%8DCIO-ebook/dp/B0FDJN7TSQ">
+          <div class="layer page grid place-items-center p-4">
+            <span class="text-xs opacity-80 text-center px-2">METODOLOGIA C.I.R.C.U.L.O</span>
           </div>
-          <div class="mt-3 text-center text-sm font-medium">METODOLOGIA C.I.R.C.U.L.O</div>
-          <div class="text-xs text-center opacity-70">Ver na Amazon ↗</div>
+          <div class="layer cover grid place-items-center p-3">
+            <img class="max-h-[80%] object-contain"
+                 src="https://m.media-amazon.com/images/I/31X7RaCqo9L._SY445_SX342_ControlCacheEqualizer_.jpg"
+                 alt="METODOLOGIA C.I.R.C.U.L.O"/>
+            <p class="mt-2 text-[11px] text-center opacity-85 px-2">METODOLOGIA C.I.R.C.U.L.O</p>
+          </div>
         </a>
       </div>
     </section>
 
-    <!-- FORMAÇÃO -->
-    <section id="formacao" class="mx-auto max-w-6xl px-6 py-16">
-      <h3 class="mb-6 text-xl font-semibold">Formação</h3>
-
-      <div class="grid gap-6 md:grid-cols-2">
-        <!-- Graduações -->
-        <div class="rounded-2xl border p-5">
-          <h4 class="font-medium mb-3">Graduações</h4>
-          <ul class="space-y-2 text-sm">
-            <li><span class="opacity-60 mr-2">2024–2026</span> Tecnólogo em Recursos Humanos — em andamento</li>
-            <li><span class="opacity-60 mr-2">2024–2028</span> Arquitetura e Urbanismo — Unicesumar (PROUNI — Bolsa 100%)</li>
-          </ul>
+    <!-- CURRÍCULO (atalho) -->
+    <section id="curriculo" class="mx-auto max-w-6xl px-6 py-16">
+      <div class="rounded-2xl border p-6 flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+        <div>
+          <h3 class="text-xl font-semibold mb-1">Formação & Currículo</h3>
+          <p class="opacity-80 text-sm">Veja a formação completa, outras formações, idiomas, eventos e associações.</p>
         </div>
-
-        <!-- Outras Formações -->
-        <div class="rounded-2xl border p-5">
-          <div class="flex items-center justify-between mb-3">
-            <h4 class="font-medium">Outras Formações (seleção)</h4>
-            <a class="text-xs underline hover:opacity-80" href="/curriculo.html" target="_blank">Currículo completo →</a>
-          </div>
-          <ul class="list-disc pl-5 text-sm space-y-1">
-            <li>Biomedicina (4 anos) — Uniasselvi.</li>
-            <li>USP/ICB — Biotecnologia; Bioética; Bioterismo; Modelagem Molecular (GBI Hands On); Radiobiologia; Bioimpressão 3D; Orientação no Lab. de Controle Sanitário e Genético (ICB II).</li>
-            <li>UFV — Auxiliar de Biotecnologia.</li>
-            <li>Harvard (edX) — Bioética para pesquisa em ciências da vida.</li>
-            <li>UFSC — Neuroanatomia e Neurofisiologia.</li>
-            <li>Univali — 1 ano de Fonoaudiologia; 1 ano de Publicidade e Propaganda; Simpósio “Revisão ética em pesquisas com seres humanos”.</li>
-            <li>Radiosimpósio II — Participação.</li>
-          </ul>
-        </div>
-      </div>
-
-      <!-- Conhecimentos técnicos -->
-      <div class="rounded-2xl border p-5 mt-6">
-        <h4 class="font-medium mb-3">Conhecimentos técnicos</h4>
-        <ul class="list-disc pl-5 text-sm space-y-1">
-          <li>Sistemas: TOTVS Protheus, SGP, Chronos, Secullum, SOC, Escalasoft, RSYS, Sólides.</li>
-          <li>Linguagens & dados: Python; noções de Java e HTML; Power BI (dashboards/relatórios).</li>
-          <li>Marketing aplicado a RH: comunicação interna, endomarketing e employer branding.</li>
-          <li>Office avançado (Excel, Word, PowerPoint).</li>
-          <li>Inglês Avançado (Fisk) • Libras — Básico.</li>
-        </ul>
-      </div>
-
-      <!-- Rotinas/Entregas -->
-      <div class="rounded-2xl border p-5 mt-6">
-        <h4 class="font-medium mb-3">Rotinas e entregas (experiência prática consolidada)</h4>
-        <ul class="list-disc pl-5 text-sm space-y-1">
-          <li>Estruturação completa do RH do zero para matriz e 3 filiais (duas no PR e uma no RS).</li>
-          <li>Gestão de Benefícios; relação PJ/terceiros; KPIs/KPOs; pesquisa de clima com planos de ação.</li>
-          <li>Cargos & Salários, trilhas e cenários de carreira.</li>
-          <li>Abertura de filial no RS (compra, contratação, sindicato, alvará, CNPJ).</li>
-          <li>Admissão, integração (manual, LGPD, uniformes, conta-salário), desligamento, folha, ponto, advertências, afastamentos.</li>
-          <li>T&D: NRs, CIPA, DDS, LNT, PCMSO, LTCAT, PGR e planos de ação; brigada (treinamentos e atas).</li>
-          <li>Ponto (SGP, Chronos, Secullum) e cadastro no Escalasoft; folha, variáveis, benefícios, diárias, férias, ASO.</li>
-          <li>Vistorias (bombeiros), PPRA/ergonomia; lançamento de documentos/guias, IRRF, INSS.</li>
-          <li>Códigos de conduta e ética; pesquisa de clima; feedback de experiência.</li>
-          <li>E-Social; TOTVS/Protheus; SOC (exames). Atendimento a seis gestores.</li>
-        </ul>
-      </div>
-
-      <!-- Eventos / Associações / Hobbies -->
-      <div class="grid md:grid-cols-3 gap-6 mt-6">
-        <div class="rounded-2xl border p-5">
-          <h4 class="font-medium mb-3">Eventos & participações</h4>
-          <ul class="list-disc pl-5 text-sm space-y-1">
-            <li>CONCARH — 2024 e 2025</li>
-            <li>RH Experience 2025 — Mentoria Renato Moreira</li>
-            <li>Open Mind 2025 • Logistique 2025</li>
-            <li>Casacor — 2024 e 2025</li>
-            <li>Práticas de Aceleração de IA para RH — ABRH-SC (Vanessa Mosca)</li>
-            <li>Silvana (Sil Fiora) Fioravanti — Felicidade, Liderança e Atendimento Disney (2024)</li>
-          </ul>
-        </div>
-        <div class="rounded-2xl border p-5">
-          <h4 class="font-medium mb-3">Associações</h4>
-          <ul class="list-disc pl-5 text-sm space-y-1">
-            <li><strong>Associada ABRH – Itajaí/SC</strong></li>
-          </ul>
-        </div>
-        <div class="rounded-2xl border p-5">
-          <h4 class="font-medium mb-3">Hobbies & Interesses</h4>
-          <div class="flex flex-wrap gap-2 text-xs">
-            <span class="rounded-full border px-3 py-1">Arquitetura (feng shui & paisagismo)</span>
-            <span class="rounded-full border px-3 py-1">Botânica & Herbologia</span>
-            <span class="rounded-full border px-3 py-1">Astrofísica e Cosmologia (UFSC — Prof. A. M. Zabot)</span>
-            <span class="rounded-full border px-3 py-1">Solloagro — USP</span>
-          </div>
-        </div>
+        <a href="/curriculo.html" target="_blank"
+           class="inline-flex items-center gap-2 rounded-full border bg-brand-700 text-white px-4 py-2 text-sm hover:opacity-90">Abrir currículo completo →</a>
       </div>
     </section>
 
@@ -424,15 +305,15 @@
     </section>
 
     <footer class="mx-auto max-w-6xl px-6 py-10 text-xs opacity-60">
-      © <span id="year"></span> Samantha Patrício. Feito com amor.
+      © <span id="year"></span> Samantha Patrício.
     </footer>
 
-    <!-- Scripts pequenos -->
+    <!-- Scripts -->
     <script>
       // ano
       document.getElementById("year").textContent = new Date().getFullYear();
 
-      // toggle de tema
+      // tema
       const btn = document.getElementById("themeBtn");
       function setIcon(){
         btn.textContent = document.documentElement.classList.contains("dark") ? "☀️" : "🌙";

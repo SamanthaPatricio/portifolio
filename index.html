@@ -1,672 +1,279 @@
 <!doctype html>
-<html lang="pt-br" class="scroll-smooth">
-  <head>
-    <meta charset="utf-8" />
-    <meta
-      name="viewport"
-      content="width=device-width, initial-scale=1, viewport-fit=cover"
-    />
-    <title>Samantha Patrício — Portfólio</title>
-    <meta
-      name="description"
-      content="Samantha Patrício — RH • Estratégia • Cultura • Design de Experiências"
-    />
+<html lang="pt-br">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<title>Samantha Patrício — Portfólio</title>
+<meta name="description" content="Samantha Patrício — RH • Estratégia • Cultura • Design de Experiências" />
 
-    <!-- Tema escuro automático (sem botão) -->
-    <script>
-      (function () {
-        try {
-          var saved = localStorage.getItem("theme");
-          if (saved === "dark") {
-            document.documentElement.classList.add("dark");
-          } else if (saved === "light") {
-            document.documentElement.classList.remove("dark");
-          } else if (window.matchMedia("(prefers-color-scheme: dark)").matches) {
-            document.documentElement.classList.add("dark");
-          }
-        } catch (e) {}
-      })();
-    </script>
+<style>
+  :root{
+    --brand:#9d7c2b;
+    --text:#0f0f10;
+    --muted:#60666c;
+    --bg:#ffffff;
+    --chip-border:rgba(0,0,0,.15);
+    --card-border:rgba(0,0,0,.12);
+  }
+  @media (prefers-color-scheme: dark){
+    :root{
+      --text:#e7e9ee;
+      --muted:#b5bbc5;
+      --bg:#0c0c0c;
+      --chip-border:rgba(255,255,255,.22);
+      --card-border:rgba(255,255,255,.16);
+    }
+  }
 
-    <!-- Tailwind via CDN -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script>
-      tailwind.config = {
-        darkMode: "class",
-        theme: {
-          extend: {
-            colors: {
-              brand: { 50: "#FFF8E6", 700: "#9d7c2b" },
-            },
-            boxShadow: {
-              soft: "0 8px 22px rgba(0,0,0,.08)",
-              card: "0 10px 30px rgba(0,0,0,.10)",
-            },
-          },
-        },
-      };
-    </script>
+  /* Base */
+  html,body{margin:0;padding:0}
+  body{
+    font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, "Helvetica Neue", Arial, "Noto Sans", "Liberation Sans", "Apple Color Emoji","Segoe UI Emoji";
+    color:var(--text);
+    background:
+      radial-gradient(900px 500px at 80% -10%, rgba(157,124,43,.06), transparent 60%),
+      var(--bg);
+  }
+  ::selection{background:rgba(157,124,43,.25)}
+  a{color:inherit;text-decoration:none}
 
-    <!-- Estilos (fundo, livros 3D, marquee etc.) -->
-    <style>
-      /* Fundo claro/escuro */
-      body {
-        background: radial-gradient(
-          900px 500px at 80% -10%,
-          rgba(157, 124, 43, 0.06),
-          transparent 60%
-        );
-      }
-      .dark body {
-        background: radial-gradient(
-            900px 500px at 20% -10%,
-            rgba(157, 124, 43, 0.1),
-            transparent 60%
-          )
-          #0c0c0c;
-        color: #e5e7eb;
-      }
-      ::selection {
-        background: rgba(157, 124, 43, 0.25);
-      }
+  .container{max-width:1100px;margin:0 auto;padding:0 24px}
+  .section{padding:64px 0}
+  .title{font-weight:700;letter-spacing:.2px;font-size:28px;margin:0 0 20px;color:var(--brand)}
+  .sub{color:var(--muted);font-size:14px}
 
-      /* Badge util */
-      .chip {
-        display: inline-flex;
-        align-items: center;
-        border-radius: 9999px;
-        border: 1px solid rgba(0,0,0,.12);
-        padding: 6px 12px;
-        font-size: 12px;
-        opacity: .95;
-      }
-      .dark .chip { border-color: rgba(255,255,255,.2); }
+  /* NAV */
+  .nav{
+    position:fixed;inset:16px auto auto 50%;transform:translateX(-50%);
+    z-index:50;background:rgba(255,255,255,.75);
+    border:1px solid var(--card-border);
+    backdrop-filter: blur(10px);
+    border-radius:9999px;padding:10px 14px;
+  }
+  @media (prefers-color-scheme: dark){
+    .nav{background:rgba(20,20,20,.55)}
+  }
+  .nav ul{display:flex;gap:14px;margin:0;padding:0;list-style:none;align-items:center}
+  .nav a{font-size:14px;opacity:.95}
+  .nav img{height:34px;width:auto;display:block}
 
-      /* Livros 3D */
-      .book {
-        position: relative;
-        width: 240px;
-        height: 320px;
-        perspective: 1000px;
-      }
-      .book .layer {
-        position: absolute;
-        inset: 0;
-        border-radius: 14px;
-        transform-style: preserve-3d;
-        backface-visibility: hidden;
-      }
-      /* capa (fora) */
-      .book .cover {
-        background: #fff;
-        transform: rotateY(0deg);
-        transition: transform 0.65s cubic-bezier(0.2, 0.7, 0.2, 1);
-        box-shadow: 0 10px 35px rgba(0, 0, 0, 0.14);
-        display: grid;
-        place-items: center;
-        padding: 14px;
-      }
-      .dark .book .cover { background: #0f172a; }
-      /* página direita (dentro) */
-      .book .page {
-        background: linear-gradient(to bottom right, #ffffff, #f3f4f6);
-        transform: rotateY(-180deg);
-        transition: transform 0.65s cubic-bezier(0.2, 0.7, 0.2, 1);
-        box-shadow: inset 0 0 0 1px rgba(0,0,0,.06);
-        display: grid;
-        place-items: center;
-        padding: 14px;
-      }
-      .dark .book .page {
-        background: linear-gradient(to bottom right, #111827, #0b1220);
-        box-shadow: inset 0 0 0 1px rgba(255,255,255,.08);
-      }
-      /* ação no hover */
-      .book:hover .cover { transform: rotateY(-160deg); }
-      .book:hover .page  { transform: rotateY(-12deg) translateX(2px); }
+  /* HERO */
+  .hero{min-height:100vh;display:flex;align-items:center;justify-content:center;text-align:center}
+  .hero .logo{height:120px;width:auto}
+  @media(min-width:768px){ .hero .logo{height:170px} }
+  .hero h1{font-size:40px;margin:12px 0 4px}
+  @media(min-width:768px){ .hero h1{font-size:56px} }
+  .chips{display:flex;gap:8px;flex-wrap:wrap;justify-content:center;margin-top:18px}
+  .chip{border:1px solid var(--chip-border);border-radius:9999px;padding:6px 12px;font-size:12px}
 
-      /* Capas dentro do livro (tamanho consistente) */
-      .book img.book-cover {
-        max-height: 82%;
-        max-width: 92%;
-        object-fit: contain;
-      }
+  .cta{display:flex;gap:10px;flex-wrap:wrap;justify-content:center;margin-top:20px}
+  .btn{border:1px solid var(--text);border-radius:9999px;padding:10px 14px;font-size:14px}
+  .btn.primary{background:var(--brand);border-color:var(--brand);color:#fff}
 
-      /* Marquee simples (skills) */
-      .marquee-track {
-        display: inline-flex;
-        white-space: nowrap;
-        animation: marquee 22s linear infinite;
-        gap: 16px;
-      }
-      @keyframes marquee {
-        0% { transform: translateX(0); }
-        100% { transform: translateX(-50%); }
-      }
-    </style>
-  </head>
+  /* Grid cards */
+  .grid{display:grid;gap:16px}
+  @media(min-width:640px){.grid-2{grid-template-columns:repeat(2,minmax(0,1fr))}}
+  @media(min-width:1024px){.grid-3{grid-template-columns:repeat(3,minmax(0,1fr))}}
+  .card{border:1px solid var(--card-border);border-radius:18px;padding:16px;background:rgba(255,255,255,.6)}
+  @media (prefers-color-scheme: dark){ .card{background:rgba(15,15,18,.5)} }
+  .card:hover{transform:translateY(-2px);transition:transform .25s ease}
 
-  <body class="antialiased text-gray-900 dark:text-gray-100">
-    <!-- NAV -->
-    <nav
-      class="fixed inset-x-0 top-4 z-50 mx-auto w-fit rounded-full border bg-white/70 dark:bg-neutral-900/60 dark:border-neutral-800 backdrop-blur px-3 md:px-4 py-2 shadow-soft"
-    >
-      <ul class="flex items-center gap-3 text-sm">
-        <li class="hidden md:block">
-          <a href="#sobre" class="flex items-center gap-2 pr-2">
-            <img src="/logo.png" alt="logo" class="h-8 w-auto object-contain" />
-          </a>
-        </li>
-        <li><a href="#sobre" class="hover:opacity-70">Sobre</a></li>
-        <li><a href="#projetos" class="hover:opacity-70">Projetos</a></li>
-        <li><a href="#livros" class="hover:opacity-70">Livros</a></li>
-        <li><a href="#produtos" class="hover:opacity-70">Produtos</a></li>
-        <li><a href="#solides" class="hover:opacity-70">Sólides</a></li>
-        <li><a href="#curriculo" class="hover:opacity-70">Currículo</a></li>
-        <li><a href="#contato" class="hover:opacity-70">Contato</a></li>
-      </ul>
-    </nav>
+  /* Livros 3D */
+  .books{display:flex;flex-wrap:wrap;gap:28px}
+  .book{position:relative;width:240px;height:320px;perspective:1000px}
+  .book .layer{position:absolute;inset:0;border-radius:14px;transform-style:preserve-3d;backface-visibility:hidden;display:grid;place-items:center;padding:14px}
+  .book .cover{
+    background:#fff;box-shadow:0 10px 35px rgba(0,0,0,.14);
+    transform:rotateY(0deg);transition:transform .65s cubic-bezier(.2,.7,.2,1);
+  }
+  @media (prefers-color-scheme: dark){ .book .cover{background:#0f172a} }
+  .book .page{
+    background:linear-gradient(to bottom right, #ffffff, #f3f4f6);
+    box-shadow:inset 0 0 0 1px rgba(0,0,0,.06);
+    transform:rotateY(-180deg);transition:transform .65s cubic-bezier(.2,.7,.2,1);
+  }
+  @media (prefers-color-scheme: dark){
+    .book .page{background:linear-gradient(to bottom right,#111827,#0b1220);box-shadow:inset 0 0 0 1px rgba(255,255,255,.08)}
+  }
+  .book:hover .cover{transform:rotateY(-160deg)}
+  .book:hover .page{transform:rotateY(-12deg) translateX(2px)}
+  .book img{max-height:82%;max-width:92%;object-fit:contain;display:block}
 
-    <!-- HERO -->
-    <section id="sobre" class="relative flex min-h-screen items-center justify-center px-6">
-      <div class="relative z-10 max-w-4xl text-center">
-        <img
-          src="/logo.png"
-          alt="Samantha Patrício"
-          class="mx-auto mb-4 h-36 md:h-48 w-auto object-contain"
-        />
-        <h1 class="text-4xl md:text-6xl font-bold tracking-tight">Samantha Patrício</h1>
-        <p class="mt-2 text-lg md:text-xl opacity-80">
-          RH • Estratégia • Cultura • Design de Experiências
-        </p>
-        <p class="mt-4 text-sm md:text-base opacity-70 max-w-3xl mx-auto">
-          Sou Samantha Patrício, 26. RH Generalista há 7 anos; implementei RH do zero,
-          estruturando subsistemas, rotinas e indicadores. Atuação estratégica, alinhando
-          cultura e objetivos do negócio com foco em experiência do colaborador, eficiência e dados.
-          Aberta a novos desafios (generalista/estratégico, BP, cultura, desenvolvimento,
-          people analytics e organização de processos).
-        </p>
-        <div class="mt-6 flex flex-wrap items-center justify-center gap-2">
-          <span class="chip">Curitiba • Santa Catarina • Brasil</span>
-          <span class="chip">Disponível para projetos</span>
-          <span class="chip"><strong>Associada ABRH – Itajaí/SC</strong></span>
+  /* Marquee */
+  .marquee-wrap{overflow:hidden}
+  .marquee{display:inline-flex;gap:16px;white-space:nowrap;animation:marquee 22s linear infinite}
+  @keyframes marquee{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+
+  /* Tabs */
+  .tabs{display:flex;flex-wrap:wrap;gap:8px}
+  .tab-btn{border:1px solid var(--chip-border);border-radius:9999px;padding:6px 12px;font-size:12px;background:transparent;cursor:pointer}
+  .tab-btn.active{background:var(--brand);color:#fff;border-color:var(--brand)}
+  .tab-panel{display:none}
+  .tab-panel.active{display:block}
+
+  /* Footer */
+  footer{font-size:12px;opacity:.65;padding:40px 24px}
+</style>
+</head>
+
+<body>
+
+<!-- NAV -->
+<nav class="nav">
+  <ul>
+    <li><a href="#sobre"><img src="/logo.png" alt="logo" /></a></li>
+    <li><a href="#sobre">Sobre</a></li>
+    <li><a href="#projetos">Projetos</a></li>
+    <li><a href="#livros">Livros</a></li>
+    <li><a href="#produtos">Produtos</a></li>
+    <li><a href="#solides">Sólides</a></li>
+    <li><a href="#curriculo">Currículo</a></li>
+    <li><a href="#contato">Contato</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section id="sobre" class="hero section">
+  <div class="container" style="text-align:center">
+    <img src="/logo.png" alt="Samantha Patrício" class="logo" />
+    <h1>Samantha Patrício</h1>
+    <p style="margin:8px 0 0;font-size:18px;color:var(--muted)">RH • Estratégia • Cultura • Design de Experiências</p>
+    <p style="margin:14px auto 0;max-width:820px;color:var(--muted);font-size:14px;line-height:1.6">
+      Sou Samantha Patrício, 26. RH Generalista há 7 anos; implementei RH do zero, estruturando subsistemas, rotinas e indicadores.
+      Atuação estratégica, alinhando cultura e objetivos do negócio com foco em experiência do colaborador, eficiência e dados.
+      Aberta a novos desafios (generalista/estratégico, BP, cultura, desenvolvimento, people analytics e organização de processos).
+    </p>
+    <div class="chips">
+      <span class="chip">Curitiba • Santa Catarina • Brasil</span>
+      <span class="chip">Disponível para projetos</span>
+      <span class="chip"><b>Associada ABRH – Itajaí/SC</b></span>
+    </div>
+    <div class="cta">
+      <a class="btn primary" href="#projetos">Ver projetos →</a>
+      <a class="btn" href="mailto:samanthapatricio39@gmail.com">Fale comigo</a>
+      <a class="btn" href="https://www.linkedin.com/in/samanthapatricio/" target="_blank">LinkedIn</a>
+      <a class="btn" href="https://github.com/SamanthaPatricio" target="_blank">GitHub</a>
+    </div>
+  </div>
+</section>
+
+<!-- PROJETOS -->
+<section id="projetos" class="section">
+  <div class="container">
+    <div style="display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:16px;gap:12px;flex-wrap:wrap">
+      <h2 class="title" style="margin:0">Projetos em Destaque</h2>
+      <div class="sub">clique para saber mais</div>
+    </div>
+
+    <div class="grid grid-2 grid-3">
+      <a class="card" href="#">
+        <div style="font-weight:600">🚀 Playbook de Onboarding com Cultura Viva</div>
+        <p class="sub" style="margin-top:6px">Onboarding interativo (microlearning, rituais e métricas de adaptação).</p>
+        <div class="chips" style="justify-content:flex-start;margin-top:10px">
+          <span class="chip">RH Estratégico</span><span class="chip">Onboarding</span><span class="chip">Métricas</span>
         </div>
-        <div class="mt-8 flex flex-wrap justify-center gap-3">
-          <a
-            href="#projetos"
-            class="inline-flex items-center gap-2 rounded-full border bg-brand-700 text-white px-4 py-2 text-sm hover:opacity-90"
-            >Ver projetos →</a
-          >
-          <a
-            href="mailto:samanthapatricio39@gmail.com"
-            class="inline-flex items-center gap-2 rounded-full border px-4 py-2 text-sm hover:bg-black hover:text-white"
-            >Fale comigo</a
-          >
-          <a
-            href="https://www.linkedin.com/in/samanthapatricio/"
-            target="_blank"
-            class="inline-flex items-center gap-2 rounded-full border px-4 py-2 text-sm hover:bg-black hover:text-white"
-            >LinkedIn</a
-          >
-          <a
-            href="https://github.com/SamanthaPatricio"
-            target="_blank"
-            class="inline-flex items-center gap-2 rounded-full border px-4 py-2 text-sm hover:bg-black hover:text-white"
-            >GitHub</a
-          >
+      </a>
+
+      <a class="card" href="#">
+        <div style="font-weight:600">🚀 Arquitetura de Cultura & Espaço</div>
+        <p class="sub" style="margin-top:6px">Diretrizes para layout, ergonomia, psicologia das cores e rituais de equipe.</p>
+        <div class="chips" style="justify-content:flex-start;margin-top:10px">
+          <span class="chip">Arquitetura</span><span class="chip">Ergonomia</span><span class="chip">Branding</span>
         </div>
+      </a>
+
+      <a class="card" href="#">
+        <div style="font-weight:600">🚀 Livro: Por que os RHs adoecem</div>
+        <p class="sub" style="margin-top:6px">Obra autoral com análise antropológica, psicológica e socioeconômica.</p>
+        <div class="chips" style="justify-content:flex-start;margin-top:10px">
+          <span class="chip">Livro</span><span class="chip">Pesquisa</span><span class="chip">Ensaios</span>
+        </div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- LIVROS -->
+<section id="livros" class="section">
+  <div class="container">
+    <h2 class="title">Livros</h2>
+    <div class="books">
+      <!-- Livro 1 -->
+      <a class="book" href="https://www.amazon.com.br/Como-Implementar-Setor-RH-Estrat%C3%A9gico-ebook/dp/B0FBY5S5YW" target="_blank" title="Ver na Amazon">
+        <div class="layer page">
+          <span class="sub" style="text-align:center;padding:0 10px">Como Implementar um Setor de RH Estratégico</span>
+        </div>
+        <div class="layer cover">
+          <img
+            src="https://m.media-amazon.com/images/I/61f8jkvibKL._SY466_.jpg"
+            alt="Como Implementar um Setor de RH Estratégico"
+            onerror="this.onerror=null; this.src='data:image/svg+xml;utf8,<svg xmlns=&#39;http://www.w3.org/2000/svg&#39; width=&#39;480&#39; height=&#39;640&#39;><rect width=&#39;100%&#39; height=&#39;100%&#39; fill=&#39;#f3f4f6&#39;/><text x=&#39;50%25&#39; y=&#39;50%25&#39; font-size=&#39;18&#39; fill=&#39;%23999&#39; text-anchor=&#39;middle&#39;>Capa indisponível</text></svg>';"
+          />
+          <p class="sub" style="font-size:11px;margin-top:8px;text-align:center">Como Implementar um Setor de RH Estratégico</p>
+        </div>
+      </a>
+
+      <!-- Livro 2 -->
+      <a class="book" href="https://www.amazon.com.br/METODOLOGIA-C-I-R-C-U-L-SAMANTHA-PATR%C3%8DCIO-ebook/dp/B0FDJN7TSQ" target="_blank" title="Ver na Amazon">
+        <div class="layer page">
+          <span class="sub" style="text-align:center;padding:0 10px">METODOLOGIA C.I.R.C.U.L.O</span>
+        </div>
+        <div class="layer cover">
+          <img
+            src="https://m.media-amazon.com/images/I/31X7RaCqo9L._SY445_SX342_ControlCacheEqualizer_.jpg"
+            alt="METODOLOGIA C.I.R.C.U.L.O"
+            onerror="this.onerror=null; this.src='data:image/svg+xml;utf8,<svg xmlns=&#39;http://www.w3.org/2000/svg&#39; width=&#39;480&#39; height=&#39;640&#39;><rect width=&#39;100%&#39; height=&#39;100%&#39; fill=&#39;#f3f4f6&#39;/><text x=&#39;50%25&#39; y=&#39;50%25&#39; font-size=&#39;18&#39; fill=&#39;%23999&#39; text-anchor=&#39;middle&#39;>Capa indisponível</text></svg>';"
+          />
+          <p class="sub" style="font-size:11px;margin-top:8px;text-align:center">METODOLOGIA C.I.R.C.U.L.O</p>
+        </div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- PRODUTOS -->
+<section id="produtos" class="section">
+  <div class="container">
+    <h2 class="title">Produtos & Planilhas</h2>
+    <div class="grid grid-2 grid-3">
+      <a class="card" href="https://lnkd.in/e6fGsFac" target="_blank">
+        <div style="font-weight:600">Planilha — Análise SWOT</div>
+        <div class="sub" style="margin-top:4px">Ferramenta prática para diagnóstico estratégico</div>
+      </a>
+      <a class="card" href="https://go.hotmart.com/P98376571U" target="_blank">
+        <div style="font-weight:600">Planilha — Cargos & Salários</div>
+        <div class="sub" style="margin-top:4px">Estruture trilhas e faixas salariais</div>
+      </a>
+      <a class="card" href="https://go.hotmart.com/I98391084X" target="_blank">
+        <div style="font-weight:600">Kit — Planilhas de Marketing</div>
+        <div class="sub" style="margin-top:4px">Conjunto de planilhas para gestão e growth</div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- SKILLS (marquee) -->
+<section class="section" style="background:rgba(0,0,0,.03)">
+  <div class="container">
+    <h3 class="title" style="color:var(--text)">Stack & Competências</h3>
+    <div class="marquee-wrap">
+      <div class="marquee">
+        <span class="chip">People Analytics</span><span class="chip">Recrutamento & Seleção</span>
+        <span class="chip">Cultura & Clima</span><span class="chip">Arquitetura Corporativa</span>
+        <span class="chip">Comunicação Não-Violenta</span><span class="chip">Liderança (1ª posição)</span>
+        <span class="chip">Design de Aprendizagem</span><span class="chip">OKRs & KPIs</span>
+        <span class="chip">Power BI / Excel</span>
+        <!-- repete para loop -->
+        <span class="chip">People Analytics</span><span class="chip">Recrutamento & Seleção</span>
+        <span class="chip">Cultura & Clima</span><span class="chip">Arquitetura Corporativa</span>
+        <span class="chip">Comunicação Não-Violenta</span><span class="chip">Liderança (1ª posição)</span>
+        <span class="chip">Design de Aprendizagem</span><span class="chip">OKRs & KPIs</span>
+        <span class="chip">Power BI / Excel</span>
       </div>
-    </section>
+    </div>
+  </div>
+</section>
 
-    <!-- PROJETOS -->
-    <section id="projetos" class="mx-auto max-w-6xl px-6 py-16">
-      <div class="mb-8 flex items-end justify-between">
-        <h2 class="text-2xl md:text-3xl font-semibold text-brand-700 dark:text-white">
-          Projetos em Destaque
-        </h2>
-        <div class="text-sm opacity-70">clique para saber mais</div>
-      </div>
-
-      <div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-        <!-- Card 1 -->
-        <a
-          href="#"
-          class="group h-full rounded-2xl border transition-transform duration-300 hover:-translate-y-1 p-4"
-        >
-          <div class="flex items-center gap-2 text-base font-medium">
-            🚀 Playbook de Onboarding com Cultura Viva
-          </div>
-          <p class="mt-2 text-sm opacity-80">
-            Onboarding interativo (microlearning, rituais e métricas de adaptação).
-          </p>
-          <div class="mt-4 flex flex-wrap gap-2 text-xs">
-            <span class="chip">RH Estratégico</span>
-            <span class="chip">Onboarding</span>
-            <span class="chip">Métricas</span>
-          </div>
-        </a>
-
-        <!-- Card 2 -->
-        <a
-          href="#"
-          class="group h-full rounded-2xl border transition-transform duration-300 hover:-translate-y-1 p-4"
-        >
-          <div class="flex items-center gap-2 text-base font-medium">
-            🚀 Arquitetura de Cultura & Espaço
-          </div>
-          <p class="mt-2 text-sm opacity-80">
-            Diretrizes para layout, ergonomia, psicologia das cores e rituais de equipe.
-          </p>
-          <div class="mt-4 flex flex-wrap gap-2 text-xs">
-            <span class="chip">Arquitetura</span>
-            <span class="chip">Ergonomia</span>
-            <span class="chip">Branding</span>
-          </div>
-        </a>
-
-        <!-- Card 3 -->
-        <a
-          href="#"
-          class="group h-full rounded-2xl border transition-transform duration-300 hover:-translate-y-1 p-4"
-        >
-          <div class="flex items-center gap-2 text-base font-medium">
-            🚀 Livro: Por que os RHs adoecem
-          </div>
-          <p class="mt-2 text-sm opacity-80">
-            Obra autoral com análise antropológica, psicológica e socioeconômica.
-          </p>
-          <div class="mt-4 flex flex-wrap gap-2 text-xs">
-            <span class="chip">Livro</span>
-            <span class="chip">Pesquisa</span>
-            <span class="chip">Ensaios</span>
-          </div>
-        </a>
-      </div>
-    </section>
-
-    <!-- LIVROS (capas 3D) -->
-    <section id="livros" class="py-12 mx-auto max-w-6xl px-6">
-      <h2 class="text-2xl font-semibold mb-6 text-brand-700 dark:text-white">Livros</h2>
-
-      <div class="flex flex-wrap gap-10">
-        <!-- Livro 1 -->
-        <a
-          class="book"
-          href="https://www.amazon.com.br/Como-Implementar-Setor-RH-Estrat%C3%A9gico-ebook/dp/B0FBY5S5YW"
-          target="_blank"
-          rel="noreferrer"
-          title="Ver na Amazon"
-        >
-          <div class="layer page">
-            <span class="text-xs opacity-80 text-center px-2"
-              >Como Implementar um Setor de RH Estratégico</span
-            >
-          </div>
-          <div class="layer cover">
-            <img
-              class="book-cover"
-              src="https://m.media-amazon.com/images/I/61f8jkvibKL._SY466_.jpg"
-              alt="Como Implementar um Setor de RH Estratégico"
-              onerror="this.onerror=null; this.src='/capas/rh-estrategico.jpg';"
-            />
-            <p class="mt-2 text-[11px] text-center opacity-85 px-2">
-              Como Implementar um Setor de RH Estratégico
-            </p>
-          </div>
-        </a>
-
-        <!-- Livro 2 -->
-        <a
-          class="book"
-          href="https://www.amazon.com.br/METODOLOGIA-C-I-R-C-U-L-SAMANTHA-PATR%C3%8DCIO-ebook/dp/B0FDJN7TSQ"
-          target="_blank"
-          rel="noreferrer"
-          title="Ver na Amazon"
-        >
-          <div class="layer page">
-            <span class="text-xs opacity-80 text-center px-2">METODOLOGIA C.I.R.C.U.L.O</span>
-          </div>
-          <div class="layer cover">
-            <img
-              class="book-cover"
-              src="https://m.media-amazon.com/images/I/31X7RaCqo9L._SY445_SX342_ControlCacheEqualizer_.jpg"
-              alt="METODOLOGIA C.I.R.C.U.L.O"
-              onerror="this.onerror=null; this.src='/capas/metodologia-circulo.jpg';"
-            />
-            <p class="mt-2 text-[11px] text-center opacity-85 px-2">METODOLOGIA C.I.R.C.U.L.O</p>
-          </div>
-        </a>
-      </div>
-    </section>
-
-    <!-- PRODUTOS -->
-    <section id="produtos" class="py-12 mx-auto max-w-6xl px-6">
-      <h2 class="text-2xl font-semibold mb-6 text-brand-700 dark:text-white">Produtos & Planilhas</h2>
-      <ul class="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-        <li>
-          <a
-            href="https://lnkd.in/e6fGsFac"
-            target="_blank"
-            class="block rounded-2xl border p-4 hover:bg-gray-50 dark:hover:bg-neutral-800 transition"
-          >
-            <div class="font-medium">Planilha — Análise SWOT</div>
-            <div class="text-xs opacity-70">Ferramenta prática para diagnóstico estratégico</div>
-          </a>
-        </li>
-        <li>
-          <a
-            href="https://go.hotmart.com/P98376571U"
-            target="_blank"
-            class="block rounded-2xl border p-4 hover:bg-gray-50 dark:hover:bg-neutral-800 transition"
-          >
-            <div class="font-medium">Planilha — Cargos & Salários</div>
-            <div class="text-xs opacity-70">Estruture trilhas e faixas salariais</div>
-          </a>
-        </li>
-        <li>
-          <a
-            href="https://go.hotmart.com/I98391084X"
-            target="_blank"
-            class="block rounded-2xl border p-4 hover:bg-gray-50 dark:hover:bg-neutral-800 transition"
-          >
-            <div class="font-medium">Kit — Planilhas de Marketing</div>
-            <div class="text-xs opacity-70">Conjunto de planilhas para gestão e growth</div>
-          </a>
-        </li>
-      </ul>
-    </section>
-
-    <!-- SKILLS MARQUEE -->
-    <section class="bg-gray-100 dark:bg-neutral-900/40 py-12">
-      <div class="mx-auto max-w-6xl px-6">
-        <h3 class="mb-6 text-xl font-semibold">Stack & Competências</h3>
-        <div class="relative overflow-hidden">
-          <div class="marquee-track">
-            <span class="chip">People Analytics</span>
-            <span class="chip">Recrutamento & Seleção</span>
-            <span class="chip">Cultura & Clima</span>
-            <span class="chip">Arquitetura Corporativa</span>
-            <span class="chip">Comunicação Não-Violenta</span>
-            <span class="chip">Liderança (1ª posição)</span>
-            <span class="chip">Design de Aprendizagem</span>
-            <span class="chip">OKRs & KPIs</span>
-            <span class="chip">Power BI / Excel</span>
-
-            <!-- repete para loop suave -->
-            <span class="chip">People Analytics</span>
-            <span class="chip">Recrutamento & Seleção</span>
-            <span class="chip">Cultura & Clima</span>
-            <span class="chip">Arquitetura Corporativa</span>
-            <span class="chip">Comunicação Não-Violenta</span>
-            <span class="chip">Liderança (1ª posição)</span>
-            <span class="chip">Design de Aprendizagem</span>
-            <span class="chip">OKRs & KPIs</span>
-            <span class="chip">Power BI / Excel</span>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- SÓLIDES / PROFILER -->
-    <section id="solides" class="mx-auto max-w-6xl px-6 py-16">
-      <h3 class="mb-6 text-xl font-semibold">Sólides • Profiler (Analista Comportamental)</h3>
-      <p class="opacity-80 text-sm max-w-3xl">
-        Consultoria para mapeamento comportamental, cultura e performance. Aplicação do Profiler (Sólides),
-        leitura de times, desenho de trilhas de desenvolvimento, alinhamento com indicadores e rotinas de gestão.
-      </p>
-      <div class="mt-6 flex flex-wrap gap-2 text-xs">
-        <span class="chip">Consultora Sólides — Profiler</span>
-        <span class="chip">Analista DISC</span>
-        <span class="chip">Analista de RH</span>
-        <span class="chip">Cargos & Salários</span>
-        <span class="chip">Power BI</span>
-        <span class="chip">Gestão de Clima</span>
-        <span class="chip">Endomarketing</span>
-      </div>
-      <div class="mt-6 flex flex-wrap gap-3">
-        <a
-          href="mailto:samanthapatricio39@gmail.com?subject=Or%C3%A7amento%20S%C3%B3lides%20Profiler&body=Conte%20um%20pouco%20sobre%20o%20escopo,%20prazos%20e%20tamanho%20do%20time."
-          class="inline-flex items-center gap-2 rounded-full border bg-brand-700 text-white px-4 py-2 text-sm hover:opacity-90"
-          >Pedir orçamento →</a
-        >
-        <a
-          href="https://www.linkedin.com/in/samanthapatricio/"
-          target="_blank"
-          class="inline-flex items-center gap-2 rounded-full border px-4 py-2 text-sm hover:bg-black hover:text-white"
-          >Ver no LinkedIn</a
-        >
-      </div>
-    </section>
-
-    <!-- CURRÍCULO (com ABAS) -->
-    <section id="curriculo" class="mx-auto max-w-6xl px-6 py-16">
-      <h3 class="mb-6 text-xl font-semibold">Currículo — Formação & Experiência</h3>
-
-      <div class="rounded-2xl border p-5">
-        <!-- Abas -->
-        <div class="flex flex-wrap gap-2" role="tablist" aria-label="Currículo - Abas">
-          <button type="button" class="tab-btn chip" data-tab="tab-cursos" aria-controls="tab-cursos">
-            Cursos de RH
-          </button>
-          <button type="button" class="tab-btn chip" data-tab="tab-grad" aria-controls="tab-grad">
-            Graduações & Outras formações
-          </button>
-          <button type="button" class="tab-btn chip" data-tab="tab-tec" aria-controls="tab-tec">
-            Conhecimentos técnicos
-          </button>
-          <button type="button" class="tab-btn chip" data-tab="tab-rotinas" aria-controls="tab-rotinas">
-            Rotinas & entregas
-          </button>
-          <button type="button" class="tab-btn chip" data-tab="tab-eventos" aria-controls="tab-eventos">
-            Eventos
-          </button>
-          <button type="button" class="tab-btn chip" data-tab="tab-assoc" aria-controls="tab-assoc">
-            Associações
-          </button>
-          <button type="button" class="tab-btn chip" data-tab="tab-hobbies" aria-controls="tab-hobbies">
-            Hobbies
-          </button>
-          <button type="button" class="tab-btn chip" data-tab="tab-cert" aria-controls="tab-cert">
-            Certificados
-          </button>
-
-          <a class="ml-auto text-xs underline hover:opacity-80" href="/curriculo.html" target="_blank"
-            >Currículo completo →</a
-          >
-        </div>
-
-        <!-- Painel: Cursos RH (default) -->
-        <div id="tab-cursos" class="tab-panel mt-6">
-          <h4 class="font-medium mb-3">Cursos de RH (seleção)</h4>
-          <div class="flex flex-wrap gap-2 text-xs">
-            <span class="chip">Consultora Sólides – Profiler</span>
-            <span class="chip">Analista DISC e Empreendimento</span>
-            <span class="chip">Analista de RH</span>
-            <span class="chip">Analista de Departamento Pessoal</span>
-            <span class="chip">Cargos & Salários</span>
-            <span class="chip">Inovação de RH com IA</span>
-            <span class="chip">Microsoft Power BI</span>
-            <span class="chip">Reforma Trabalhista & Direito do Trabalho</span>
-            <span class="chip">NR1 • NR5 • NR18 • NR33 • NR35</span>
-            <span class="chip">Endomarketing & Marketing Digital</span>
-            <span class="chip">Gestão Financeira & Logística</span>
-            <span class="chip">DP em Ação 2024</span>
-            <span class="chip">Open Mind 2025</span>
-            <span class="chip">A Ciência da Felicidade (BerkeleyX)</span>
-            <span class="chip">Avaliação de Valores (UPValenciaX)</span>
-            <span class="chip">Gestão de Pessoas: RH (UNCordobaX)</span>
-            <span class="chip">Inteligência Emocional e Liderança (AnahuacX)</span>
-            <span class="chip">Strategic HR Management (StellenBoschX)</span>
-            <span class="chip">Liderança — D. Spinelli</span>
-            <span class="chip">Organizational Psychology (UCX)</span>
-            <span class="chip">ESG e Créditos de Carbono</span>
-            <span class="chip">Libras — Básico</span>
-          </div>
-        </div>
-
-        <!-- Painel: Graduações & Outras formações -->
-        <div id="tab-grad" class="tab-panel mt-6 hidden">
-          <div class="mb-6">
-            <h4 class="font-medium mb-3">Graduações</h4>
-            <ul class="space-y-2 text-sm">
-              <li><span class="opacity-60 mr-2">2024–2026</span> Tecnólogo em Recursos Humanos — em andamento</li>
-              <li><span class="opacity-60 mr-2">2024–2028</span> Arquitetura e Urbanismo — Unicesumar (PROUNI — Bolsa 100%)</li>
-            </ul>
-          </div>
-          <div>
-            <h4 class="font-medium mb-3">Outras formações — principais</h4>
-            <ul class="list-disc pl-5 text-sm space-y-1">
-              <li>Biomedicina (4 anos).</li>
-              <li>USP/ICB: Biotecnologia; Bioética; Bioterismo; Modelagem Molecular (GBI Hands On); Radiobiologia; Bioimpressão 3D; Orientação no Lab. de Controle Sanitário e Genético (ICB II).</li>
-              <li>UFV: Auxiliar de Biotecnologia.</li>
-              <li>Harvard (edX): Bioética para pesquisa em ciências da vida.</li>
-              <li>UFSC: Neuroanatomia e Neurofisiologia.</li>
-              <li>Univali: 1 ano de Fonoaudiologia; 1 ano de Publicidade e Propaganda; Simpósio “Revisão ética em pesquisas com seres humanos”.</li>
-            </ul>
-          </div>
-        </div>
-
-        <!-- Painel: Conhecimentos técnicos -->
-        <div id="tab-tec" class="tab-panel mt-6 hidden">
-          <h4 class="font-medium mb-3">Conhecimentos técnicos</h4>
-          <ul class="list-disc pl-5 text-sm space-y-1">
-            <li>Sistemas: TOTVS Protheus, SGP, Chronos, Secullum, SOC, Escalasoft, RSYS, Sólides.</li>
-            <li>Linguagens & dados: Python; noções de Java e HTML; Power BI (dashboards/relatórios).</li>
-            <li>Marketing aplicado a RH: comunicação interna, endomarketing e employer branding.</li>
-            <li>Office avançado (Excel, Word, PowerPoint).</li>
-            <li>Inglês Avançado (Fisk).</li>
-          </ul>
-        </div>
-
-        <!-- Painel: Rotinas & entregas -->
-        <div id="tab-rotinas" class="tab-panel mt-6 hidden">
-          <h4 class="font-medium mb-3">Rotinas e entregas (experiência prática consolidada)</h4>
-          <ul class="list-disc pl-5 text-sm space-y-1">
-            <li>Estruturação completa do RH do zero para matriz e 3 filiais (duas no PR e uma no RS).</li>
-            <li>Gestão de Benefícios; relação PJ/terceiros; KPIs/KPOs (dashboards); pesquisa de clima com planos de ação.</li>
-            <li>Cargos & Salários, trilhas e cenários de carreira.</li>
-            <li>Abertura de filial no RS (compra, contratação, sindicato, alvará, CNPJ).</li>
-            <li>Admissão, integração (manual, LGPD, uniformes, conta-salário), desligamento, folha, ponto, advertências, afastamentos, psicossocial.</li>
-            <li>T&amp;D: NRs, CIPA, DDS, LNT, PCMSO, LTCAT, PGR e planos de ação; brigada (treinamentos e atas).</li>
-            <li>Ponto (SGP, Chronos, Secullum) e cadastro no Escalasoft; folha, variáveis, benefícios, diárias, férias, ASO.</li>
-            <li>Vistorias (bombeiros), PPRA/ergonomia.</li>
-            <li>Lançamento de documentos/guias, IRRF, INSS.</li>
-            <li>Códigos de conduta e ética, pesquisa de clima, feedback de experiência.</li>
-            <li>E-Social; TOTVS/Protheus; SOC (exames). Atendimento a seis gestores.</li>
-          </ul>
-        </div>
-
-        <!-- Painel: Eventos -->
-        <div id="tab-eventos" class="tab-panel mt-6 hidden">
-          <h4 class="font-medium mb-3">Eventos & Participações</h4>
-          <ul class="list-disc pl-5 text-sm space-y-1">
-            <li>CONCARH — 2024 e 2025</li>
-            <li>RH Experience 2025 — Mentoria Renato Moreira</li>
-            <li>Open Mind 2025</li>
-            <li>Logistique 2025</li>
-            <li>Casacor — 2024 e 2025</li>
-            <li>Participação no Radiosimpósio II</li>
-            <li>Práticas de Aceleração de IA para RH — ABRH-SC (Vanessa Mosca)</li>
-            <li>Silvana (Sil Fiora) Fioravanti — Felicidade, Liderança e Atendimento Disney (participei em 2024)</li>
-          </ul>
-        </div>
-
-        <!-- Painel: Associações -->
-        <div id="tab-assoc" class="tab-panel mt-6 hidden">
-          <h4 class="font-medium mb-3">Associações profissionais</h4>
-          <ul class="list-disc pl-5 text-sm space-y-1">
-            <li><strong>Associada ABRH – Itajaí/SC</strong></li>
-          </ul>
-        </div>
-
-        <!-- Painel: Hobbies -->
-        <div id="tab-hobbies" class="tab-panel mt-6 hidden">
-          <h4 class="font-medium mb-3">Hobbies & conhecimentos paralelos</h4>
-          <div class="flex flex-wrap gap-2 text-xs">
-            <span class="chip">Arquitetura (feng shui e paisagismo)</span>
-            <span class="chip">Botânica & Herbologia</span>
-            <span class="chip">Astrofísica e Cosmologia (UFSC)</span>
-            <span class="chip">Solloagro — USP</span>
-          </div>
-        </div>
-
-        <!-- Painel: Certificados (ANC/NR etc.) -->
-        <div id="tab-cert" class="tab-panel mt-6 hidden">
-          <h4 class="font-medium mb-3">Certificados (seleção)</h4>
-          <ul class="list-disc pl-5 text-sm space-y-1">
-            <li>ANC — Engenharia Civil: Análise Estrutural</li>
-            <li>ANC — NR 18: Condições e Ambiente de Trabalho na Indústria da Construção</li>
-            <li>Reforma Trabalhista: Alterações Processuais</li>
-            <li>ANC — Ergonomia</li>
-            <li>ANC — NR 33: Espaço Confinado</li>
-            <li>ANC — Introdução à Reforma Trabalhista</li>
-            <li>ANC — NR 5: Segurança do Trabalho</li>
-            <li>ANC — Eng. Civil: Resistência dos Materiais</li>
-            <li>Curso de Psicofarmacologia</li>
-            <li>ANC — Introdução ao Direito do Trabalho</li>
-            <li>ANC — Direito Tributário</li>
-            <li>ANC — Introdução à Libras</li>
-            <li>ANC — Big Data na Programação</li>
-            <li>ANC — LGPD (Lei Geral de Proteção de Dados)</li>
-            <li>Primeiros Socorros</li>
-            <li>NR 5: CIPA</li>
-            <li>ANC — Direito Empresarial</li>
-            <li>ANC — NR 35: Trabalho em Altura</li>
-            <li>7 de Setembro — Psicologia das Cores (aprimoramento)</li>
-          </ul>
-        </div>
-      </div>
-    </section>
-
-    <!-- CONTATO -->
-    <section id="contato" class="mx-auto max-w-3xl px-6 py-16">
-      <h3 class="mb-4 text-xl font-semibold">Contato</h3>
-      <p class="opacity-80 text-sm">
-        Curtiu o portfólio? Me escreva com o assunto <strong>“Projeto”</strong>
-        e conte seu desafio em 4–6 linhas.
-      </p>
-      <div class="mt-6 flex flex-wrap gap-3">
-        <a
-          href="mailto:samanthapatricio39@gmail.com"
-          class="inline-flex items-center gap-2 rounded-full border bg-brand-700 text-white px-4 py-2 text-sm hover:opacity-90"
-          >Mandar e-mail</a
-        >
-        <a
-          href="https://www.linkedin.com/in/samanthapatricio/"
-          target="_blank"
-          class="inline-flex items-center gap-2 rounded-full border px-4 py-2 text-sm hover:bg-black hover:text-white"
-          >Conectar no LinkedIn</a
-        >
-      </div>
-    </section>
-
-    <footer class="mx-auto max-w-6xl px-6 py-10 text-xs opacity-60">
-      © <span id="year"></span> Samantha Patrício. Feito com carinho.
-    </footer>
-
-    <!-- Scripts: ano + tabs -->
-    <script>
-      // ano
-      document.getElementById("year").textContent = new Date().getFullYear();
-
-      // abas do currículo
-      (function () {
-        const buttons = document.querySelectorAll(".tab-btn");
-        const panels = document.querySelectorAll(".tab-panel");
-        function activate(id) {
-          panels.forEach((p) => p.classList.add("hidden"));
-          buttons.forEach((b) =>
-            b.classList.remove("bg-brand-700", "text-white")
-          );
-          const target = document.getElementById(id);
-          if (target) target.classList.remove("hidden");
-          const btn = document.querySelector('[data-tab="' + id + '"]');
-          if (btn) btn.classList.add("bg-brand-700", "text-white");
-        }
-        buttons.forEach((b) => b.addEventListener("click", () => activate(b.dataset.tab)));
-        // abre "Cursos de RH" por padrão
-        activate("tab-cursos");
-      })();
-    </script>
-  </body>
-</html>
+<!-- SÓLIDES / PROFILER -->
+<section id="solides" class="section">
+  <div class="container

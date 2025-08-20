@@ -1,154 +1,234 @@
 <!doctype html>
 <html lang="pt-br" class="scroll-smooth">
-<head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-  <title>Currículo — Samantha Patrício</title>
-  <meta name="color-scheme" content="light dark" />
-  <link rel="icon" href="/logo.png" />
-  <script>
-    try {
-      var prefersDark = matchMedia("(prefers-color-scheme: dark)").matches;
-      if (prefersDark) document.documentElement.classList.add("dark");
-      document.documentElement.style.colorScheme = prefersDark ? "dark" : "light";
-    } catch(e){}
-  </script>
-  <script src="https://cdn.tailwindcss.com"></script>
-  <script>
-    tailwind.config={darkMode:"class",theme:{extend:{colors:{brand:{700:"#9d7c2b"}}}}};
-  </script>
-</head>
-<body class="antialiased text-gray-900 dark:text-gray-100 bg-white dark:bg-[#0c0c0c]">
-  <main class="mx-auto max-w-4xl px-5 py-10">
-    <header class="flex items-center gap-4 mb-8">
-      <img src="/logo.png" alt="logo" class="h-14 w-14 object-contain" />
-      <div>
-        <h1 class="text-2xl font-semibold">Samantha Patrício</h1>
-        <p class="text-sm opacity-80">RH • Estratégia • Cultura • Design de Experiências</p>
-        <p class="text-sm opacity-70">E-mail: <a class="underline" href="mailto:samanthapatricio39@gmail.com">samanthapatricio39@gmail.com</a></p>
-        <p class="text-xs mt-1"><span class="inline-flex items-center rounded-full border px-2 py-0.5">Associada ABRH – Itajaí/SC</span></p>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <title>Currículo — Samantha Patrício</title>
+    <meta name="description" content="Currículo completo — Samantha Patrício" />
+
+    <!-- Tema salvo (sem flash) -->
+    <script>
+      (function () {
+        try {
+          const saved = localStorage.getItem("theme");
+          const prefers = window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+          document.documentElement.classList.toggle("dark", (saved || prefers) === "dark");
+        } catch (e) {}
+      })();
+    </script>
+
+    <!-- Tailwind CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: { brand: { 700: "#9D7C2B" } },
+            boxShadow: { soft: "0 10px 30px rgba(0,0,0,.10)" }
+          }
+        }
+      };
+    </script>
+    <style>
+      body {
+        background: radial-gradient(900px 500px at 80% -10%, rgba(157,124,43,.06), transparent 60%);
+      }
+      .dark body {
+        background: radial-gradient(900px 500px at 20% -10%, rgba(157,124,43,.10), transparent 60%) #0c0c0c;
+        color:#e5e7eb;
+      }
+      ::selection{ background: rgba(157,124,43,.25); }
+      a.badge{ border-radius:9999px; padding:.25rem .6rem; border:1px solid currentColor; font-size:.75rem }
+    </style>
+  </head>
+  <body class="antialiased text-gray-900 dark:text-gray-100">
+    <header class="mx-auto max-w-6xl px-6 py-8">
+      <div class="flex items-center justify-between gap-4">
+        <div class="flex items-center gap-3">
+          <img src="/logo.png" alt="logo" class="h-10 w-10 object-contain" />
+          <div>
+            <h1 class="text-xl font-semibold">Samantha Patrício</h1>
+            <div class="text-xs opacity-70">RH • Estratégia • Cultura • Design de Experiências</div>
+          </div>
+        </div>
+        <div class="flex items-center gap-2">
+          <a href="/" class="badge">← Voltar ao site</a>
+          <button id="themeBtn" class="badge" title="Alternar tema"></button>
+        </div>
       </div>
+
+      <nav class="mt-6 flex flex-wrap gap-3 text-sm">
+        <a href="#formacao" class="badge">Formação Acadêmica</a>
+        <a href="#outras" class="badge">Outras Formações</a>
+        <a href="#cursos" class="badge">Cursos Complementares</a>
+        <a href="#tecnicos" class="badge">Conhecimentos Técnicos</a>
+        <a href="#eventos" class="badge">Eventos & Participações</a>
+        <a href="#hobbies" class="badge">Hobbies & Interesses</a>
+        <a href="#idiomas" class="badge">Idiomas</a>
+        <a href="#contato" class="badge">Contato</a>
+      </nav>
     </header>
 
-    <section class="mb-8">
-      <h2 class="text-lg font-semibold mb-2">Resumo profissional</h2>
-      <p class="text-sm opacity-90">
-        Sou Samantha Patrício, 26 anos. RH Generalista há 7 anos; implementei RH do zero, estruturando subsistemas, rotinas e indicadores.
-        Atuação estratégica alinhando cultura e objetivos do negócio, com foco em experiência do colaborador, eficiência e leitura de dados.
-        Aberta a novos desafios em RH (generalista/estratégico, BP, cultura, desenvolvimento, people analytics e organização de processos).
-      </p>
-    </section>
+    <main class="mx-auto max-w-6xl px-6 pb-20">
+      <!-- Formação -->
+      <section id="formacao" class="mb-10">
+        <h2 class="text-lg font-semibold mb-4">Formação Acadêmica</h2>
+        <div class="grid md:grid-cols-2 gap-6 rounded-2xl border p-5">
+          <div>
+            <div class="font-medium">Tecnólogo em Recursos Humanos</div>
+            <div class="text-sm opacity-70">2024–2026 (em andamento)</div>
+          </div>
+          <div>
+            <div class="font-medium">Arquitetura e Urbanismo — <span class="font-semibold">UNICESUMAR</span></div>
+            <div class="text-sm opacity-70">2024–2028 • PROUNI — Bolsa 100%</div>
+          </div>
+        </div>
+      </section>
 
-    <section class="mb-8">
-      <h2 class="text-lg font-semibold mb-2">Graduações</h2>
-      <ul class="list-disc pl-5 text-sm space-y-1">
-        <li>2024–2026 — Tecnólogo em Recursos Humanos (em andamento)</li>
-        <li>2024–2028 — Arquitetura e Urbanismo — Unicesumar (PROUNI — Bolsa 100%)</li>
-      </ul>
-    </section>
+      <!-- Outras Formações (SEM astrofísica e sem Solloagro; REMOVIDO o minicurso de perícia) -->
+      <section id="outras" class="mb-10">
+        <h2 class="text-lg font-semibold mb-4">Outras Formações (seleção)</h2>
+        <div class="grid md:grid-cols-2 gap-6 rounded-2xl border p-5">
+          <ul class="list-disc pl-5 text-sm space-y-1">
+            <li>Biomedicina (4 anos) — Uniasselvi.</li>
+            <li>Auxiliar de Biotecnologia — UFV (Universidade Federal de Viçosa).</li>
+            <li>USP/ICB — Biotecnologia; Bioética; Bioterismo (Ciência de animais de laboratório).</li>
+            <li>USP — GBI Hands On: Modelagem Molecular.</li>
+            <li>USP — Oficina de Bioimpressão 3D.</li>
+            <li>USP — Radiobiologia (Prof. Scheylon Fialho e Guilherme Franco).</li>
+            <li>USP — Curso de Bioquímico-Farmacêutica.</li>
+            <li>USP — Orientação no Laboratório de Controle Sanitário e Genético (ICB II).</li>
+            <li>Harvard (edX) — Bioética para pesquisa em ciências da vida.</li>
+          </ul>
+          <ul class="list-disc pl-5 text-sm space-y-1">
+            <li>UFSC — Neuroanatomia e Neurofisiologia.</li>
+            <li>Univali — 1 ano de Fonoaudiologia.</li>
+            <li>Univali — 1 ano de Publicidade e Propaganda.</li>
+            <li>Univali — Simpósio: Revisão ética em pesquisas com seres humanos.</li>
+            <li>Radiosimpósio II — Participação.</li>
+          </ul>
+        </div>
+      </section>
 
-    <section class="mb-8">
-      <h2 class="text-lg font-semibold mb-2">Outras formações — principais</h2>
-      <ul class="list-disc pl-5 text-sm space-y-1">
-        <li>Biomedicina (4 anos).</li>
-        <li>USP/ICB: Biotecnologia; Bioética; Bioterismo; Modelagem Molecular (GBI Hands On); Radiobiologia; Bioimpressão 3D; Orientação no Lab. de Controle Sanitário e Genético (ICB II).</li>
-        <li>UFV: Auxiliar de Biotecnologia.</li>
-        <li>Harvard (edX): Bioética para pesquisa em ciências da vida.</li>
-        <li>UFSC: Neuroanatomia e Neurofisiologia.</li>
-        <li>Univali: 1 ano de Fonoaudiologia; 1 ano de Publicidade e Propaganda; Simpósio “Revisão ética em pesquisas com seres humanos”.</li>
-      </ul>
-    </section>
+      <!-- Cursos de RH (principais) -->
+      <section id="cursos" class="mb-10">
+        <h2 class="text-lg font-semibold mb-4">Cursos Complementares (principais em RH)</h2>
+        <div class="rounded-2xl border p-5">
+          <div class="flex flex-wrap gap-2 text-xs">
+            <span class="badge">Consultora Sólides – Profiler</span>
+            <span class="badge">Analista DISC e Empreendimento</span>
+            <span class="badge">Analista de RH</span>
+            <span class="badge">Analista de Departamento Pessoal</span>
+            <span class="badge">Cargos & Salários</span>
+            <span class="badge">Inovação de RH com IA (imersão)</span>
+            <span class="badge">Microsoft Power BI para RH</span>
+            <span class="badge">Diploma Course in HRM</span>
+            <span class="badge">Reforma Trabalhista & Direito do Trabalho</span>
+            <span class="badge">NR1 • NR5 • NR18 • NR33 • NR35 — SST</span>
+            <span class="badge">Endomarketing & Marketing Digital</span>
+            <span class="badge">Gestão Financeira & Logística</span>
+            <span class="badge">DP em Ação 2024</span>
+            <span class="badge">Open Mind 2025</span>
+            <span class="badge">A Ciência da Felicidade (BerkeleyX)</span>
+            <span class="badge">Avaliação de Valores (UPValenciaX)</span>
+            <span class="badge">Gestão de Pessoas: RH (UNCordobaX)</span>
+            <span class="badge">Inteligência Emocional e Liderança (AnahuacX)</span>
+            <span class="badge">Strategic HR Management (StellenBoschX)</span>
+            <span class="badge">Liderança — Daniel Spinelli</span>
+            <span class="badge">Organizational Psychology (UCX)</span>
+            <span class="badge">ESG e Créditos de Carbono</span>
+            <span class="badge">Libras — Básico</span>
+          </div>
+        </div>
+      </section>
 
-    <section class="mb-8">
-      <h2 class="text-lg font-semibold mb-2">Cursos (seleção)</h2>
-      <div class="flex flex-wrap gap-2 text-xs">
-        <span class="rounded-full border px-3 py-1">Consultora Sólides – Profiler</span>
-        <span class="rounded-full border px-3 py-1">Analista DISC e Empreendimento</span>
-        <span class="rounded-full border px-3 py-1">Analista de RH</span>
-        <span class="rounded-full border px-3 py-1">Analista de Departamento Pessoal</span>
-        <span class="rounded-full border px-3 py-1">Cargos & Salários</span>
-        <span class="rounded-full border px-3 py-1">Inovação de RH com IA</span>
-        <span class="rounded-full border px-3 py-1">Microsoft Power BI</span>
-        <span class="rounded-full border px-3 py-1">Reforma Trabalhista & Direito do Trabalho</span>
-        <span class="rounded-full border px-3 py-1">NR1 • NR5 • NR18 • NR33 • NR35</span>
-        <span class="rounded-full border px-3 py-1">Endomarketing & Marketing Digital</span>
-        <span class="rounded-full border px-3 py-1">Gestão Financeira & Logística</span>
-        <span class="rounded-full border px-3 py-1">DP em Ação 2024</span>
-        <span class="rounded-full border px-3 py-1">Open Mind 2025</span>
-        <span class="rounded-full border px-3 py-1">A Ciência da Felicidade (BerkeleyX)</span>
-        <span class="rounded-full border px-3 py-1">Avaliação de Valores (UPValenciaX)</span>
-        <span class="rounded-full border px-3 py-1">Gestão de Pessoas: RH (UNCordobaX)</span>
-        <span class="rounded-full border px-3 py-1">Inteligência Emocional e Liderança (AnahuacX)</span>
-        <span class="rounded-full border px-3 py-1">Strategic HR Management (StellenBoschX)</span>
-        <span class="rounded-full border px-3 py-1">Liderança — D. Spinelli</span>
-        <span class="rounded-full border px-3 py-1">Organizational Psychology (UCX)</span>
-        <span class="rounded-full border px-3 py-1">ESG e Créditos de Carbono</span>
-        <span class="rounded-full border px-3 py-1">Libras — Básico</span>
-      </div>
-    </section>
+      <!-- Conhecimentos Técnicos -->
+      <section id="tecnicos" class="mb-10">
+        <h2 class="text-lg font-semibold mb-4">Conhecimentos Técnicos</h2>
+        <div class="rounded-2xl border p-5">
+          <ul class="list-disc pl-5 text-sm space-y-1">
+            <li>Sistemas: TOTVS Protheus, SGP, Chronos, Secullum, SOC, Escalasoft, RSYS, Sólides.</li>
+            <li>Linguagens & dados: Python; noções de Java e HTML; Power BI (dashboards/relatórios).</li>
+            <li>Marketing aplicado a RH: comunicação interna, endomarketing e employer branding.</li>
+            <li>Office avançado (Excel, Word, PowerPoint).</li>
+          </ul>
+        </div>
+      </section>
 
-    <section class="mb-8">
-      <h2 class="text-lg font-semibold mb-2">Conhecimentos técnicos</h2>
-      <ul class="list-disc pl-5 text-sm space-y-1">
-        <li>Sistemas: TOTVS Protheus, SGP, Chronos, Secullum, SOC, Escalasoft, RSYS, Sólides.</li>
-        <li>Linguagens & dados: Python; noções de Java e HTML; Power BI (dashboards/relatórios).</li>
-        <li>Marketing aplicado a RH: comunicação interna, endomarketing e employer branding.</li>
-        <li>Office avançado (Excel, Word, PowerPoint).</li>
-        <li>Inglês Avançado (Fisk).</li>
-      </ul>
-    </section>
+      <!-- Eventos & Associações -->
+      <section id="eventos" class="mb-10">
+        <h2 class="text-lg font-semibold mb-4">Eventos & Participações</h2>
+        <div class="grid md:grid-cols-2 gap-6 rounded-2xl border p-5">
+          <ul class="list-disc pl-5 text-sm space-y-1">
+            <li>CONCARH — 2024 e 2025</li>
+            <li>RH Experience 2025 — Mentoria Renato Moreira</li>
+            <li>Open Mind 2025 • Logistique 2025</li>
+            <li>Casacor — 2024 e 2025</li>
+            <li>Práticas de Aceleração de IA para RH — ABRH-SC (Vanessa Mosca)</li>
+            <li>Silvana (Sil Fiora) Fioravanti — Felicidade, Liderança e Atendimento Disney (2024)</li>
+          </ul>
+          <div>
+            <h3 class="font-medium mb-2">Associações</h3>
+            <ul class="list-disc pl-5 text-sm space-y-1">
+              <li><strong>Associada ABRH – Itajaí/SC</strong></li>
+            </ul>
+          </div>
+        </div>
+      </section>
 
-    <section class="mb-8">
-      <h2 class="text-lg font-semibold mb-2">Rotinas e entregas (experiência prática consolidada)</h2>
-      <ul class="list-disc pl-5 text-sm space-y-1">
-        <li>Estruturação completa do RH do zero para matriz e 3 filiais (duas no PR e uma no RS).</li>
-        <li>Gestão de Benefícios; relação PJ/terceiros; KPIs/KPOs (dashboards); pesquisa de clima com planos de ação.</li>
-        <li>Cargos & Salários, trilhas e cenários de carreira.</li>
-        <li>Abertura de filial no RS (compra, contratação, sindicato, alvará, CNPJ).</li>
-        <li>Admissão, integração (manual, LGPD, uniformes, conta-salário), desligamento, folha, ponto, advertências, afastamentos, psicossocial.</li>
-        <li>T&D: NRs, CIPA, DDS, LNT, PCMSO, LTCAT, PGR e planos de ação; brigada (treinamentos e atas).</li>
-        <li>Ponto (SGP, Chronos, Secullum) e cadastro no Escalasoft; folha, variáveis, benefícios, diárias, férias, ASO.</li>
-        <li>Vistorias (bombeiros), PPRA/ergonomia.</li>
-        <li>Lançamento de documentos/guias, IRRF, INSS.</li>
-        <li>Códigos de conduta e ética, pesquisa de clima, feedback de experiência.</li>
-        <li>E-Social; TOTVS/Protheus; SOC (exames). Atendimento a seis gestores.</li>
-      </ul>
-    </section>
+      <!-- Hobbies & Interesses (AQUI entram Astrofísica e Solloagro) -->
+      <section id="hobbies" class="mb-10">
+        <h2 class="text-lg font-semibold mb-4">Hobbies & Interesses</h2>
+        <div class="rounded-2xl border p-5">
+          <div class="flex flex-wrap gap-2 text-xs">
+            <span class="badge">Arquitetura (feng shui & paisagismo)</span>
+            <span class="badge">Botânica & Herbologia</span>
+            <span class="badge">Astrofísica e Cosmologia (UFSC — Prof. Alexandre Miers Zabot)</span>
+            <span class="badge">Solloagro — USP</span>
+          </div>
+        </div>
+      </section>
 
-    <section class="mb-8">
-      <h2 class="text-lg font-semibold mb-2">Eventos & Participações</h2>
-      <ul class="list-disc pl-5 text-sm space-y-1">
-        <li>CONCARH — 2024 e 2025</li>
-        <li>RH Experience 2025 — Mentoria Renato Moreira</li>
-        <li>Open Mind 2025</li>
-        <li>Logistique 2025</li>
-        <li>Casacor — 2024 e 2025</li>
-        <li>Participação no Radiosimpósio II</li>
-        <li>Práticas de Aceleração de IA para RH — ABRH-SC (Vanessa Mosca)</li>
-        <li>Silvana (Sil Fiora) Fioravanti — Felicidade, Liderança e Atendimento Disney (participei em 2024)</li>
-      </ul>
-    </section>
+      <!-- Idiomas -->
+      <section id="idiomas" class="mb-10">
+        <h2 class="text-lg font-semibold mb-4">Idiomas</h2>
+        <div class="rounded-2xl border p-5">
+          <ul class="list-disc pl-5 text-sm space-y-1">
+            <li>Português — Nativo</li>
+            <li><strong>Inglês — Avançado (Fisk)</strong></li>
+            <li><strong>Libras — Básico</strong></li>
+          </ul>
+        </div>
+      </section>
 
-    <section class="mb-8">
-      <h2 class="text-lg font-semibold mb-2">Associações profissionais</h2>
-      <ul class="list-disc pl-5 text-sm space-y-1">
-        <li><strong>Associada ABRH – Itajaí/SC</strong></li>
-      </ul>
-    </section>
+      <!-- Contato -->
+      <section id="contato" class="mb-4">
+        <h2 class="text-lg font-semibold mb-4">Contato</h2>
+        <div class="flex flex-wrap gap-3">
+          <a href="mailto:samanthapatricio39@gmail.com" class="badge bg-brand-700 text-white border-none">Mandar e-mail</a>
+          <a href="https://www.linkedin.com/in/samanthapatricio/" target="_blank" class="badge">LinkedIn</a>
+        </div>
+      </section>
+    </main>
 
-    <section>
-      <h2 class="text-lg font-semibold mb-2">Hobbies & conhecimentos paralelos</h2>
-      <div class="flex flex-wrap gap-2 text-xs">
-        <span class="rounded-full border px-3 py-1">Arquitetura (feng shui e paisagismo)</span>
-        <span class="rounded-full border px-3 py-1">Botânica & Herbologia</span>
-        <span class="rounded-full border px-3 py-1">Astrofísica e Cosmologia (UFSC)</span>
-        <span class="rounded-full border px-3 py-1">Solloagro — USP</span>
-      </div>
-    </section>
+    <footer class="mx-auto max-w-6xl px-6 pb-10 text-xs opacity-60">
+      © <span id="year"></span> Samantha Patrício.
+    </footer>
 
-    <footer class="mt-10 text-xs opacity-60">© <span id="year"></span> Samantha Patrício.</footer>
-  </main>
-
-  <script>document.getElementById("year").textContent = new Date().getFullYear();</script>
-</body>
+    <script>
+      document.getElementById("year").textContent = new Date().getFullYear();
+      const btn = document.getElementById("themeBtn");
+      function setIcon(){
+        btn.textContent = document.documentElement.classList.contains("dark") ? "☀️" : "🌙";
+      }
+      setIcon();
+      btn.addEventListener("click", () => {
+        const html = document.documentElement;
+        const isDark = html.classList.toggle("dark");
+        try { localStorage.setItem("theme", isDark ? "dark" : "light"); } catch(e){}
+        setIcon();
+      });
+    </script>
+  </body>
 </html>

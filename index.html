@@ -5,41 +5,55 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
     <title>Samantha Patrício — Portfólio</title>
     <meta name="description" content="Samantha Patrício — RH • Estratégia • Cultura • Design de Experiências" />
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+    <meta http-equiv="Pragma" content="no-cache" />
+    <meta http-equiv="Expires" content="0" />
 
-    <!-- Tailwind via CDN -->
-    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- TAILWIND: tenta CDN; se falhar, usa fallback CSS pronto -->
     <script>
-      tailwind.config = {
-        theme: {
-          extend: {
-            colors: {
-              brand: {
-                50: "#FFF8E6",
-                700: "#9d7c2b"
-              }
-            },
-            boxShadow: {
-              soft: "0 8px 22px rgba(0,0,0,.08)"
-            },
-            keyframes: {
-              marquee: { "0%": { transform: "translateX(0)" }, "100%": { transform: "translateX(-50%)" } }
-            },
-            animation: {
-              marquee: "marquee 22s linear infinite"
-            }
-          }
+      (function () {
+        function addFallbackCss() {
+          var link = document.createElement("link");
+          link.rel = "stylesheet";
+          /* fallback pronto e estável */
+          link.href = "https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css";
+          document.head.appendChild(link);
         }
-      }
+
+        var s = document.createElement("script");
+        s.src = "https://cdn.tailwindcss.com";
+        s.onload = function () {
+          /* opcionalmente customizar paleta */
+          try {
+            tailwind.config = {
+              theme: {
+                extend: {
+                  colors: {
+                    brand: { 50: "#FFF8E6", 700: "#9d7c2b" }
+                  },
+                  boxShadow: { soft: "0 8px 22px rgba(0,0,0,.08)" },
+                  keyframes: {
+                    marquee: { "0%": { transform: "translateX(0)" }, "100%": { transform: "translateX(-50%)" } }
+                  },
+                  animation: { marquee: "marquee 22s linear infinite" }
+                }
+              }
+            };
+          } catch(e){}
+        };
+        s.onerror = addFallbackCss;
+        document.head.appendChild(s);
+      })();
     </script>
 
+    <!-- estilos adicionais (independem do tailwind) -->
     <style>
-      /* fundo claro com um toque brand */
       body{
         background: radial-gradient(900px 500px at 80% -10%, rgba(157,124,43,.06), transparent 60%);
       }
       ::selection{ background: rgba(157,124,43,.25); }
 
-      /* Livro 3D (tamanho menor) */
+      /* Livros 3D (menores) */
       .book{ position:relative; width:200px; height:280px; perspective:1000px; }
       .book .layer{ position:absolute; inset:0; border-radius:14px; transform-style:preserve-3d; backface-visibility:hidden; }
       .book .cover{ background:#fff; transition:transform .6s cubic-bezier(.2,.7,.2,1); transform:rotateY(0deg); box-shadow:0 10px 35px rgba(0,0,0,.12); }
@@ -47,7 +61,6 @@
       .book:hover .cover{ transform:rotateY(-160deg); }
       .book:hover .page{ transform:rotateY(-18deg) translateX(2px); }
 
-      /* chips corridos (skills) */
       .marquee-track{ display:inline-flex; white-space:nowrap; animation:marquee 22s linear infinite; }
       @keyframes marquee{ 0%{transform:translateX(0)} 100%{transform:translateX(-50%)} }
     </style>
@@ -55,7 +68,7 @@
 
   <body class="antialiased text-gray-900">
     <!-- NAV -->
-    <nav class="fixed inset-x-0 top-4 z-50 mx-auto w-fit rounded-full border bg-white/70 backdrop-blur px-4 py-2 shadow-soft">
+    <nav class="fixed inset-x-0 top-4 z-50 mx-auto w-fit rounded-full border bg-white/70 backdrop-blur px-4 py-2" style="box-shadow:0 8px 22px rgba(0,0,0,.08)">
       <ul class="flex items-center gap-3 text-sm">
         <li class="hidden md:block">
           <a href="#sobre" class="flex items-center gap-2 pr-2">
@@ -78,23 +91,19 @@
         <img src="/logo.png" alt="Samantha Patrício" class="mx-auto mb-4 h-28 md:h-36 w-auto object-contain" />
         <h1 class="text-4xl md:text-6xl font-bold tracking-tight">Samantha Patrício</h1>
 
-        <!-- HEADLINE nova (3 alternativas, use a 1 por padrão) -->
         <p class="mt-2 text-lg md:text-xl opacity-85">
           Integro <b>Pessoas, Processos e Espaços</b> para elevar a experiência do colaborador, ganhar eficiência e decidir com dados.
         </p>
-        <!-- alternativas:
-        <p class="mt-2 text-lg md:text-xl opacity-85">Transformo cultura em prática: rituais, fluxos e indicadores que sustentam desempenho e bem-estar.</p>
-        <p class="mt-2 text-lg md:text-xl opacity-85">RH que conecta propósito e resultado — com método, métricas e cuidado com gente.</p>
-        -->
 
         <div class="mt-4 flex flex-wrap items-center justify-center gap-2">
           <span class="inline-flex items-center rounded-full border px-3 py-1 text-xs">Curitiba • Santa Catarina • Brasil</span>
           <span class="inline-flex items-center rounded-full border px-3 py-1 text-xs">Disponível para projetos</span>
-          <span class="inline-flex items-center rounded-full border px-3 py-1 text-xs bg-brand-50">Associada ABRH — Itajaí/SC</span>
+          <span class="inline-flex items-center rounded-full border px-3 py-1 text-xs" style="background:#FFF8E6;">Associada ABRH — Itajaí/SC</span>
         </div>
 
         <div class="mt-8 flex flex-wrap justify-center gap-3">
-          <a href="#projetos" class="inline-flex items-center gap-2 rounded-full border bg-brand-700 text-white px-4 py-2 text-sm hover:opacity-90">Ver projetos →</a>
+          <a href="#projetos" class="inline-flex items-center gap-2 rounded-full border"
+             style="background:#9d7c2b;color:#fff;padding:.5rem 1rem;font-size:.875rem">Ver projetos →</a>
           <a href="mailto:samanthapatricio39@gmail.com" class="inline-flex items-center gap-2 rounded-full border px-4 py-2 text-sm hover:bg-black hover:text-white">Fale comigo</a>
           <a href="https://www.linkedin.com/in/samanthapatricio/" target="_blank" class="inline-flex items-center gap-2 rounded-full border px-4 py-2 text-sm hover:bg-black hover:text-white">LinkedIn</a>
           <a href="https://github.com/SamanthaPatricio" target="_blank" class="inline-flex items-center gap-2 rounded-full border px-4 py-2 text-sm hover:bg-black hover:text-white">GitHub</a>
@@ -105,7 +114,7 @@
     <!-- PROJETOS -->
     <section id="projetos" class="mx-auto max-w-6xl px-6 py-16">
       <div class="mb-8 flex items-end justify-between">
-        <h2 class="text-2xl md:text-3xl font-semibold text-brand-700">Projetos em Destaque</h2>
+        <h2 class="text-2xl md:text-3xl font-semibold" style="color:#9d7c2b">Projetos em Destaque</h2>
         <div class="text-sm opacity-70">clique para saber mais</div>
       </div>
 
@@ -142,12 +151,11 @@
       </div>
     </section>
 
-    <!-- LIVROS (capas 3D) -->
+    <!-- LIVROS -->
     <section id="livros" class="py-12 mx-auto max-w-6xl px-6">
-      <h2 class="text-2xl font-semibold mb-6 text-brand-700">Livros</h2>
+      <h2 class="text-2xl font-semibold mb-6" style="color:#9d7c2b">Livros</h2>
 
       <div class="flex flex-wrap gap-10">
-        <!-- Livro 1 -->
         <a class="book" href="https://www.amazon.com.br/Como-Implementar-Setor-RH-Estrat%C3%A9gico-ebook/dp/B0FBY5S5YW" target="_blank" rel="noreferrer" title="Ver na Amazon">
           <div class="layer page grid place-items-center p-3">
             <span class="text-xs opacity-80 text-center px-2">Como Implementar um Setor de RH Estratégico</span>
@@ -158,7 +166,6 @@
           </div>
         </a>
 
-        <!-- Livro 2 -->
         <a class="book" href="https://www.amazon.com.br/METODOLOGIA-C-I-R-C-U-L-SAMANTHA-PATR%C3%8DCIO-ebook/dp/B0FDJN7TSQ" target="_blank" rel="noreferrer" title="Ver na Amazon">
           <div class="layer page grid place-items-center p-3">
             <span class="text-xs opacity-80 text-center px-2">METODOLOGIA C.I.R.C.U.L.O</span>
@@ -173,7 +180,7 @@
 
     <!-- PRODUTOS -->
     <section id="produtos" class="py-12 mx-auto max-w-6xl px-6">
-      <h2 class="text-2xl font-semibold mb-6 text-brand-700">Produtos & Planilhas</h2>
+      <h2 class="text-2xl font-semibold mb-6" style="color:#9d7c2b">Produtos & Planilhas</h2>
       <ul class="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
         <li>
           <a href="https://lnkd.in/e6fGsFac" target="_blank" class="block rounded-2xl border p-4 hover:bg-gray-50 transition">
@@ -212,7 +219,7 @@
             <span class="rounded-full border px-4 py-2 text-sm opacity-80">OKRs & KPIs</span>
             <span class="rounded-full border px-4 py-2 text-sm opacity-80">Power BI / Excel</span>
 
-            <!-- repete para loop suave -->
+            <!-- repetição para loop suave -->
             <span class="rounded-full border px-4 py-2 text-sm opacity-80">People Analytics</span>
             <span class="rounded-full border px-4 py-2 text-sm opacity-80">Recrutamento & Seleção</span>
             <span class="rounded-full border px-4 py-2 text-sm opacity-80">Cultura & Clima</span>
@@ -227,14 +234,13 @@
       </div>
     </section>
 
-    <!-- Sólides / Profiler -->
+    <!-- SÓLIDES / PROFILER -->
     <section id="solides" class="mx-auto max-w-6xl px-6 py-16">
       <h3 class="mb-6 text-xl font-semibold">Sólides • Profiler (Analista Comportamental)</h3>
       <p class="opacity-80 text-sm">
         Consultoria para mapeamento comportamental, cultura e performance. Aplicação do Profiler (Sólides),
         leitura de times, desenho de trilhas de desenvolvimento e alinhamento com indicadores/rituais de gestão.
       </p>
-
       <div class="mt-6 grid md:grid-cols-2 gap-4 text-sm">
         <ul class="list-disc pl-5 space-y-1">
           <li>Mapeamento comportamental (Profiler / DISC) individual e por equipe</li>
@@ -246,16 +252,15 @@
           <li>Dashboards de acompanhamento (People Analytics)</li>
         </ul>
       </div>
-
       <div class="mt-6 flex flex-wrap gap-3">
         <a href="mailto:samanthapatricio39@gmail.com?subject=Or%C3%A7amento%20S%C3%B3lides%20Profiler&body=Conte%20um%20pouco%20sobre%20o%20escopo,%20prazos%20e%20tamanho%20do%20time."
-           class="inline-flex items-center gap-2 rounded-full border bg-brand-700 text-white px-4 py-2 text-sm hover:opacity-90">Pedir orçamento →</a>
+           class="inline-flex items-center gap-2 rounded-full border" style="background:#9d7c2b;color:#fff;padding:.5rem 1rem;font-size:.875rem">Pedir orçamento →</a>
         <a href="https://www.linkedin.com/in/samanthapatricio/" target="_blank"
            class="inline-flex items-center gap-2 rounded-full border px-4 py-2 text-sm hover:bg-black hover:text-white">Ver no LinkedIn</a>
       </div>
     </section>
 
-    <!-- Formação & Currículo -->
+    <!-- FORMAÇÃO & CURRÍCULO -->
     <section id="formacao" class="mx-auto max-w-6xl px-6 py-16">
       <h3 class="mb-6 text-xl font-semibold">Formação & Currículo</h3>
 
@@ -299,7 +304,7 @@
         </div>
       </div>
 
-      <!-- Outras Formações (principais) -->
+      <!-- Outras Formações -->
       <div class="rounded-2xl border p-5 mb-6">
         <h4 class="font-medium mb-3">Outras Formações (seleção)</h4>
         <div class="grid md:grid-cols-2 gap-4 text-sm">
@@ -373,7 +378,7 @@
       <div class="rounded-2xl border p-5 mb-6">
         <h4 class="font-medium mb-3">Associações profissionais</h4>
         <div class="flex flex-wrap gap-2 text-xs">
-          <span class="rounded-full border px-3 py-1 bg-brand-50">Associada ABRH — Itajaí/SC</span>
+          <span class="rounded-full border px-3 py-1" style="background:#FFF8E6">Associada ABRH — Itajaí/SC</span>
         </div>
       </div>
 
@@ -395,7 +400,8 @@
         Curtiu o portfólio? Me escreva com o assunto <strong>“Projeto”</strong> e conte seu desafio em 4–6 linhas.
       </p>
       <div class="mt-6 flex flex-wrap gap-3">
-        <a href="mailto:samanthapatricio39@gmail.com" class="inline-flex items-center gap-2 rounded-full border bg-brand-700 text-white px-4 py-2 text-sm hover:opacity-90">Mandar e-mail</a>
+        <a href="mailto:samanthapatricio39@gmail.com" class="inline-flex items-center gap-2 rounded-full border"
+           style="background:#9d7c2b;color:#fff;padding:.5rem 1rem;font-size:.875rem">Mandar e-mail</a>
         <a href="https://www.linkedin.com/in/samanthapatricio/" target="_blank" class="inline-flex items-center gap-2 rounded-full border px-4 py-2 text-sm hover:bg-black hover:text-white">Conectar no LinkedIn</a>
       </div>
     </section>
@@ -404,8 +410,6 @@
       © <span id="year"></span> Samantha Patrício. Feito com amor.
     </footer>
 
-    <script>
-      document.getElementById("year").textContent = new Date().getFullYear();
-    </script>
+    <script>document.getElementById("year").textContent = new Date().getFullYear();</script>
   </body>
 </html>

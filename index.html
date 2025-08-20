@@ -8,7 +8,7 @@
     <meta name="color-scheme" content="light dark" />
     <link rel="icon" href="/logo.png" />
 
-    <!-- Tema: automático pelo sistema (sem botão, sem localStorage) -->
+    <!-- Dark mode automático pelo sistema -->
     <script>
       (function () {
         try {
@@ -19,7 +19,7 @@
       })();
     </script>
 
-    <!-- Tailwind CDN (layout / tipografia) -->
+    <!-- Tailwind CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
       tailwind.config = {
@@ -27,16 +27,14 @@
         theme: {
           extend: {
             colors: { brand: { 50: "#FFF8E6", 700: "#9d7c2b" } },
-            boxShadow: { soft: "0 8px 22px rgba(0,0,0,.08)" },
-            keyframes: { marquee: { "0%":{transform:"translateX(0)"}, "100%":{transform:"translateX(-50%)"} } },
-            animation: { marquee: "marquee 22s linear infinite" }
+            boxShadow: { soft: "0 8px 22px rgba(0,0,0,.08)" }
           }
         }
       };
     </script>
 
-    <!-- CSS reforçado (fundo, livros 3D, marquee) -->
     <style>
+      /* Fundo claro/escuro */
       body{
         background: radial-gradient(900px 500px at 80% -10%, rgba(157,124,43,.06), transparent 60%);
       }
@@ -46,9 +44,9 @@
       }
       ::selection{ background: rgba(157,124,43,.25); }
 
-      /* Livros 3D – tamanho controlado e animação */
+      /* LIVROS 3D — tamanho consistente + animação */
       .book{ position:relative; width:220px; height:300px; perspective:1000px; display:inline-block; }
-      .book .layer{ position:absolute; inset:0; border-radius:14px; transform-style:preserve-3d; backface-visibility:hidden; will-change:transform; }
+      .book .layer{ position:absolute; inset:0; border-radius:14px; transform-style:preserve-3d; backface-visibility:hidden; }
       .book .cover{
         background:#fff; transform:rotateY(0deg);
         transition:transform .6s cubic-bezier(.2,.7,.2,1);
@@ -72,7 +70,9 @@
       .book img{ max-width:90%; max-height:82%; height:auto; width:auto; object-fit:contain; }
       .book p{ margin-top:6px; font-size:11px; opacity:.85; text-align:center; padding:0 8px; }
 
-      .marquee-track{ display:inline-flex; white-space:nowrap; animation:marquee 22s linear infinite; gap:1.5rem }
+      /* Marquee (skills) */
+      .marquee{ overflow:hidden; }
+      .marquee-track{ display:inline-flex; gap:1.5rem; white-space:nowrap; animation:marquee 22s linear infinite; }
       @keyframes marquee{ 0%{transform:translateX(0)} 100%{transform:translateX(-50%)} }
     </style>
   </head>
@@ -83,7 +83,7 @@
       <ul class="flex items-center gap-3 text-sm">
         <li class="hidden md:block">
           <a href="#sobre" class="flex items-center gap-2 pr-2">
-            <img src="/logo.png" alt="logo" class="h-12 w-12 md:h-14 md:w-14 object-contain" />
+            <img src="/logo.png" alt="logo" class="h-14 w-14 md:h-16 md:w-16 object-contain" />
           </a>
         </li>
         <li><a href="#sobre" class="hover:opacity-70">Sobre</a></li>
@@ -99,7 +99,7 @@
     <!-- HERO -->
     <section id="sobre" class="relative flex min-h-screen items-center justify-center px-6">
       <div class="relative z-10 max-w-4xl text-center">
-        <img src="/logo.png" alt="Samantha Patrício" class="mx-auto mb-4 h-40 md:h-48 w-auto object-contain" />
+        <img src="/logo.png" alt="Samantha Patrício" class="mx-auto mb-4 h-48 md:h-56 w-auto object-contain" />
         <h1 class="text-4xl md:text-6xl font-bold tracking-tight">Samantha Patrício</h1>
         <p class="mt-2 text-lg md:text-xl opacity-80">RH • Estratégia • Cultura • Design de Experiências</p>
         <p class="mt-4 text-sm md:text-base opacity-70">
@@ -110,7 +110,6 @@
         <div class="mt-6 flex flex-wrap items-center justify-center gap-2">
           <span class="inline-flex items-center rounded-full border px-3 py-1 text-xs border-gray-300 dark:border-neutral-700 text-gray-700 dark:text-gray-300">Curitiba • Santa Catarina • Brasil</span>
           <span class="inline-flex items-center rounded-full border px-3 py-1 text-xs border-gray-300 dark:border-neutral-700 text-gray-700 dark:text-gray-300">Disponível para projetos</span>
-          <!-- DESTAQUE ABRH -->
           <span class="inline-flex items-center rounded-full border px-3 py-1 text-xs border-gray-300 dark:border-neutral-700 text-gray-700 dark:text-gray-300">Associada ABRH – Itajaí/SC</span>
         </div>
         <div class="mt-8 flex flex-wrap justify-center gap-3">
@@ -163,18 +162,23 @@
     <section id="livros" class="py-12 mx-auto max-w-6xl px-6">
       <h2 class="text-2xl font-semibold mb-6 text-brand-700 dark:text-white">Livros</h2>
       <div class="flex flex-wrap gap-8">
-        <a class="book" href="https://www.amazon.com.br/Como-Implementar-Setor-RH-Estrat%C3%A9gico-ebook/dp/B0FBY5S5YW" target="_blank" rel="noreferrer" title="Ver na Amazon">
-          <div class="layer page"><span class="text-xs opacity-80 text-center px-2">Como Implementar um Setor de RH Estratégico</span></div>
+        <!-- Livro 1 -->
+        <a class="book" href="https://www.amazon.com.br/Como-Implementar-Setor-RH-Estrat%C3%A9gico-ebook/dp/B0FBY5S5YW" target="_blank" rel="noreferrer noopener" title="Ver na Amazon">
+          <div class="layer page">
+            <span class="text-xs opacity-80 text-center px-2">Como Implementar um Setor de RH Estratégico</span>
+          </div>
           <div class="layer cover">
-            <img src="https://m.media-amazon.com/images/I/61f8jkvibKL._SY466_.jpg" alt="Como Implementar um Setor de RH Estratégico"/>
+            <img src="https://m.media-amazon.com/images/I/61f8jkvibKL._SY466_.jpg" alt="Como Implementar um Setor de RH Estratégico" onerror="this.src='/logo.png'"/>
             <p>Como Implementar um Setor de RH Estratégico</p>
           </div>
         </a>
-
-        <a class="book" href="https://www.amazon.com.br/METODOLOGIA-C-I-R-C-U-L-SAMANTHA-PATR%C3%8DCIO-ebook/dp/B0FDJN7TSQ" target="_blank" rel="noreferrer" title="Ver na Amazon">
-          <div class="layer page"><span class="text-xs opacity-80 text-center px-2">METODOLOGIA C.I.R.C.U.L.O</span></div>
+        <!-- Livro 2 -->
+        <a class="book" href="https://www.amazon.com.br/METODOLOGIA-C-I-R-C-U-L-SAMANTHA-PATR%C3%8DCIO-ebook/dp/B0FDJN7TSQ" target="_blank" rel="noreferrer noopener" title="Ver na Amazon">
+          <div class="layer page">
+            <span class="text-xs opacity-80 text-center px-2">METODOLOGIA C.I.R.C.U.L.O</span>
+          </div>
           <div class="layer cover">
-            <img src="https://m.media-amazon.com/images/I/31X7RaCqo9L._SY445_SX342_ControlCacheEqualizer_.jpg" alt="METODOLOGIA C.I.R.C.U.L.O"/>
+            <img src="https://m.media-amazon.com/images/I/31X7RaCqo9L._SY445_SX342_ControlCacheEqualizer_.jpg" alt="METODOLOGIA C.I.R.C.U.L.O" onerror="this.src='/logo.png'"/>
             <p>METODOLOGIA C.I.R.C.U.L.O</p>
           </div>
         </a>
@@ -210,7 +214,7 @@
     <section class="bg-gray-100 dark:bg-neutral-900/40 py-12">
       <div class="mx-auto max-w-6xl px-6">
         <h3 class="mb-6 text-xl font-semibold">Stack & Competências</h3>
-        <div class="relative overflow-hidden">
+        <div class="marquee">
           <div class="marquee-track">
             <span class="rounded-full border px-4 py-2 text-sm opacity-80">People Analytics</span>
             <span class="rounded-full border px-4 py-2 text-sm opacity-80">Recrutamento & Seleção</span>
@@ -221,7 +225,7 @@
             <span class="rounded-full border px-4 py-2 text-sm opacity-80">Design de Aprendizagem</span>
             <span class="rounded-full border px-4 py-2 text-sm opacity-80">OKRs & KPIs</span>
             <span class="rounded-full border px-4 py-2 text-sm opacity-80">Power BI / Excel</span>
-            <!-- repetição para loop contínuo -->
+            <!-- repetir para loop contínuo -->
             <span class="rounded-full border px-4 py-2 text-sm opacity-80">People Analytics</span>
             <span class="rounded-full border px-4 py-2 text-sm opacity-80">Recrutamento & Seleção</span>
             <span class="rounded-full border px-4 py-2 text-sm opacity-80">Cultura & Clima</span>
@@ -260,7 +264,7 @@
       </div>
     </section>
 
-    <!-- CURRÍCULO -->
+    <!-- CURRÍCULO (resumo + link pro completo) -->
     <section id="curriculo" class="mx-auto max-w-6xl px-6 py-16">
       <h3 class="mb-6 text-xl font-semibold">Currículo — Formação & Experiência</h3>
 

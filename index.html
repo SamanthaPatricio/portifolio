@@ -4,71 +4,60 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
     <title>Samantha Patrício — Portfólio</title>
-    <meta name="description" content="Samantha Patrício — RH • Estratégia • Cultura • Design de Experiências"/>
+    <meta name="description" content="Samantha Patrício — RH • Estratégia • Cultura • Design de Experiências" />
     <meta name="color-scheme" content="light dark" />
     <link rel="icon" href="/logo.png" />
 
-    <!-- Tema sem flash -->
+    <!-- Tema: automático pelo sistema (sem botão, sem localStorage) -->
     <script>
       (function () {
         try {
-          var root = document.documentElement;
-          var saved = localStorage.getItem("theme");
-          var system = matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
-          var theme = saved || system;
-          root.classList.add(theme);
-          root.style.colorScheme = theme;
-          window.__setTheme = function (t) {
-            try { localStorage.setItem("theme", t);}catch(e){}
-            root.classList.remove("light","dark"); root.classList.add(t); root.style.colorScheme = t;
-          }
-          window.__toggleTheme = function(){ __setTheme(root.classList.contains("dark")?"light":"dark"); }
-        } catch(e){}
+          var prefersDark = matchMedia("(prefers-color-scheme: dark)").matches;
+          if (prefersDark) document.documentElement.classList.add("dark");
+          document.documentElement.style.colorScheme = prefersDark ? "dark" : "light";
+        } catch (e) {}
       })();
     </script>
 
-    <!-- Tailwind (para grid, tipografia etc.) -->
+    <!-- Tailwind CDN (layout / tipografia) -->
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
       tailwind.config = {
         darkMode: "class",
         theme: {
           extend: {
-            colors: { brand: { 50:"#FFF8E6", 700:"#9d7c2b" }},
-            boxShadow: { soft:"0 8px 22px rgba(0,0,0,.08)" },
-            keyframes: { marquee:{ "0%":{transform:"translateX(0)"}, "100%":{transform:"translateX(-50%)"} } },
-            animation: { marquee:"marquee 22s linear infinite" },
+            colors: { brand: { 50: "#FFF8E6", 700: "#9d7c2b" } },
+            boxShadow: { soft: "0 8px 22px rgba(0,0,0,.08)" },
+            keyframes: { marquee: { "0%":{transform:"translateX(0)"}, "100%":{transform:"translateX(-50%)"} } },
+            animation: { marquee: "marquee 22s linear infinite" }
           }
         }
-      }
+      };
     </script>
 
-    <!-- CSS reforçado (livros 3D, fundo e marquee) -->
+    <!-- CSS reforçado (fundo, livros 3D, marquee) -->
     <style>
-      *,*::before,*::after{box-sizing:border-box}
       body{
         background: radial-gradient(900px 500px at 80% -10%, rgba(157,124,43,.06), transparent 60%);
       }
       html.dark body{
-        background:
-          radial-gradient(900px 500px at 20% -10%, rgba(157,124,43,.10), transparent 60%)
-          #0c0c0c;
+        background: radial-gradient(900px 500px at 20% -10%, rgba(157,124,43,.10), transparent 60%) #0c0c0c;
         color:#e5e7eb;
       }
       ::selection{ background: rgba(157,124,43,.25); }
 
-      /* ===== Livros 3D (SEM depender do Tailwind) ===== */
+      /* Livros 3D – tamanho controlado e animação */
       .book{ position:relative; width:220px; height:300px; perspective:1000px; display:inline-block; }
       .book .layer{ position:absolute; inset:0; border-radius:14px; transform-style:preserve-3d; backface-visibility:hidden; will-change:transform; }
       .book .cover{
-        background:#ffffff; transform:rotateY(0deg);
+        background:#fff; transform:rotateY(0deg);
         transition:transform .6s cubic-bezier(.2,.7,.2,1);
         box-shadow:0 10px 35px rgba(0,0,0,.12);
         display:grid; place-items:center; padding:12px;
       }
       html.dark .book .cover{ background:#111827; }
       .book .page{
-        background:linear-gradient(to bottom right,#ffffff,#f3f4f6);
+        background:linear-gradient(to bottom right,#fff,#f3f4f6);
         transform:rotateY(-180deg);
         transition:transform .6s cubic-bezier(.2,.7,.2,1);
         box-shadow:inset 0 0 0 1px rgba(0,0,0,.05);
@@ -83,7 +72,6 @@
       .book img{ max-width:90%; max-height:82%; height:auto; width:auto; object-fit:contain; }
       .book p{ margin-top:6px; font-size:11px; opacity:.85; text-align:center; padding:0 8px; }
 
-      /* marquee */
       .marquee-track{ display:inline-flex; white-space:nowrap; animation:marquee 22s linear infinite; gap:1.5rem }
       @keyframes marquee{ 0%{transform:translateX(0)} 100%{transform:translateX(-50%)} }
     </style>
@@ -95,7 +83,6 @@
       <ul class="flex items-center gap-3 text-sm">
         <li class="hidden md:block">
           <a href="#sobre" class="flex items-center gap-2 pr-2">
-            <!-- logo MAIOR -->
             <img src="/logo.png" alt="logo" class="h-12 w-12 md:h-14 md:w-14 object-contain" />
           </a>
         </li>
@@ -106,16 +93,12 @@
         <li><a href="#solides" class="hover:opacity-70">Sólides</a></li>
         <li><a href="#curriculo" class="hover:opacity-70">Currículo</a></li>
         <li><a href="#contato" class="hover:opacity-70">Contato</a></li>
-        <li class="pl-1">
-          <button id="themeBtn" onclick="__toggleTheme()" class="rounded-full border px-2 py-1 text-xs hover:opacity-80 dark:border-neutral-700" title="Alternar tema">🌙</button>
-        </li>
       </ul>
     </nav>
 
     <!-- HERO -->
     <section id="sobre" class="relative flex min-h-screen items-center justify-center px-6">
       <div class="relative z-10 max-w-4xl text-center">
-        <!-- logo MAIOR no hero -->
         <img src="/logo.png" alt="Samantha Patrício" class="mx-auto mb-4 h-40 md:h-48 w-auto object-contain" />
         <h1 class="text-4xl md:text-6xl font-bold tracking-tight">Samantha Patrício</h1>
         <p class="mt-2 text-lg md:text-xl opacity-80">RH • Estratégia • Cultura • Design de Experiências</p>
@@ -127,6 +110,8 @@
         <div class="mt-6 flex flex-wrap items-center justify-center gap-2">
           <span class="inline-flex items-center rounded-full border px-3 py-1 text-xs border-gray-300 dark:border-neutral-700 text-gray-700 dark:text-gray-300">Curitiba • Santa Catarina • Brasil</span>
           <span class="inline-flex items-center rounded-full border px-3 py-1 text-xs border-gray-300 dark:border-neutral-700 text-gray-700 dark:text-gray-300">Disponível para projetos</span>
+          <!-- DESTAQUE ABRH -->
+          <span class="inline-flex items-center rounded-full border px-3 py-1 text-xs border-gray-300 dark:border-neutral-700 text-gray-700 dark:text-gray-300">Associada ABRH – Itajaí/SC</span>
         </div>
         <div class="mt-8 flex flex-wrap justify-center gap-3">
           <a href="#projetos" class="inline-flex items-center gap-2 rounded-full border bg-brand-700 text-white px-4 py-2 text-sm hover:opacity-90">Ver projetos →</a>
@@ -174,14 +159,12 @@
       </div>
     </section>
 
-    <!-- LIVROS (3D corrigido) -->
+    <!-- LIVROS (3D) -->
     <section id="livros" class="py-12 mx-auto max-w-6xl px-6">
       <h2 class="text-2xl font-semibold mb-6 text-brand-700 dark:text-white">Livros</h2>
       <div class="flex flex-wrap gap-8">
         <a class="book" href="https://www.amazon.com.br/Como-Implementar-Setor-RH-Estrat%C3%A9gico-ebook/dp/B0FBY5S5YW" target="_blank" rel="noreferrer" title="Ver na Amazon">
-          <div class="layer page">
-            <span class="text-xs opacity-80 text-center px-2">Como Implementar um Setor de RH Estratégico</span>
-          </div>
+          <div class="layer page"><span class="text-xs opacity-80 text-center px-2">Como Implementar um Setor de RH Estratégico</span></div>
           <div class="layer cover">
             <img src="https://m.media-amazon.com/images/I/61f8jkvibKL._SY466_.jpg" alt="Como Implementar um Setor de RH Estratégico"/>
             <p>Como Implementar um Setor de RH Estratégico</p>
@@ -189,9 +172,7 @@
         </a>
 
         <a class="book" href="https://www.amazon.com.br/METODOLOGIA-C-I-R-C-U-L-SAMANTHA-PATR%C3%8DCIO-ebook/dp/B0FDJN7TSQ" target="_blank" rel="noreferrer" title="Ver na Amazon">
-          <div class="layer page">
-            <span class="text-xs opacity-80 text-center px-2">METODOLOGIA C.I.R.C.U.L.O</span>
-          </div>
+          <div class="layer page"><span class="text-xs opacity-80 text-center px-2">METODOLOGIA C.I.R.C.U.L.O</span></div>
           <div class="layer cover">
             <img src="https://m.media-amazon.com/images/I/31X7RaCqo9L._SY445_SX342_ControlCacheEqualizer_.jpg" alt="METODOLOGIA C.I.R.C.U.L.O"/>
             <p>METODOLOGIA C.I.R.C.U.L.O</p>
@@ -225,7 +206,7 @@
       </ul>
     </section>
 
-    <!-- SKILLS MARQUEE -->
+    <!-- SKILLS -->
     <section class="bg-gray-100 dark:bg-neutral-900/40 py-12">
       <div class="mx-auto max-w-6xl px-6">
         <h3 class="mb-6 text-xl font-semibold">Stack & Competências</h3>
@@ -240,8 +221,7 @@
             <span class="rounded-full border px-4 py-2 text-sm opacity-80">Design de Aprendizagem</span>
             <span class="rounded-full border px-4 py-2 text-sm opacity-80">OKRs & KPIs</span>
             <span class="rounded-full border px-4 py-2 text-sm opacity-80">Power BI / Excel</span>
-
-            <!-- Repetição para loop contínuo -->
+            <!-- repetição para loop contínuo -->
             <span class="rounded-full border px-4 py-2 text-sm opacity-80">People Analytics</span>
             <span class="rounded-full border px-4 py-2 text-sm opacity-80">Recrutamento & Seleção</span>
             <span class="rounded-full border px-4 py-2 text-sm opacity-80">Cultura & Clima</span>
@@ -380,7 +360,7 @@
       <div class="rounded-2xl border p-5 mb-6">
         <h4 class="font-medium mb-3">Associações profissionais</h4>
         <ul class="list-disc pl-5 text-sm space-y-1">
-          <li>Associada ABRH – Itajaí/SC</li>
+          <li><strong>Associada ABRH – Itajaí/SC</strong></li>
         </ul>
       </div>
 
@@ -412,16 +392,8 @@
     </footer>
 
     <script>
-      // ano no rodapé
       document.getElementById("year").textContent = new Date().getFullYear();
-
-      // sincroniza ícone do botão com o tema atual
-      (function syncIcon(){
-        var btn = document.getElementById("themeBtn");
-        var set = () => btn.textContent = document.documentElement.classList.contains("dark") ? "☀️" : "🌙";
-        set();
-        new MutationObserver(set).observe(document.documentElement,{attributes:true,attributeFilter:["class"]});
-      })();
     </script>
   </body>
 </html>
+

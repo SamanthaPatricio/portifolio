@@ -74,7 +74,16 @@
       @keyframes marquee{ 0%{transform:translateX(0)} 100%{transform:translateX(-50%)} }
     </style>
   </head>
-
+<style>
+  /* Tilt 3D suave nos livros */
+  .book-tilt{
+    transform-style: preserve-3d;
+    transition: transform .55s cubic-bezier(.2,.7,.2,1), box-shadow .35s;
+  }
+  .group:hover .book-tilt{
+    transform: perspective(1000px) rotateY(-10deg) rotateX(2deg) translateZ(0);
+  }
+</style>
   <body class="antialiased text-gray-900 dark:text-gray-100">
 
     <!-- NAV -->

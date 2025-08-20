@@ -730,19 +730,3 @@ export default function App() {
     </div>
   );
 }
-// Importe o Contador (adicione esta linha com as importações existentes)
-import Contador from './components/ui/Contador';
-
-function App() {
-  return (
-    // Seu JSX existente aqui...
-    // Adicione o componente <Contador /> onde desejar
-    <>
-      {/* ... outro conteúdo da sua página ... */}
-      <Contador />
-      {/* ... outro conteúdo da sua página ... */}
-    </>
-  )
-}
-
-export default App
